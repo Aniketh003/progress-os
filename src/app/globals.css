@@ -27,47 +27,49 @@
 }
 
 :root {
-  --background: #f8fafc;
-  --foreground: #090d16;
+  /* Warm refined off-white light mode */
+  --background: #f7f6f3;
+  --foreground: #1c1917;
   --card: #ffffff;
-  --card-foreground: #090d16;
+  --card-foreground: #1c1917;
   --popover: #ffffff;
-  --popover-foreground: #090d16;
-  --primary: #6366f1;
+  --popover-foreground: #1c1917;
+  --primary: #e11d48;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
+  --secondary: #edebe6;
+  --secondary-foreground: #1c1917;
+  --muted: #eeebe6;
+  --muted-foreground: #78716c;
+  --accent: #eae7e1;
+  --accent-foreground: #1c1917;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #6366f1;
+  --border: #e4e1db;
+  --input: #e4e1db;
+  --ring: #e11d48;
 }
 
 .dark {
-  --background: #090d16;
-  --foreground: #f8fafc;
-  --card: #0f172a;
-  --card-foreground: #f8fafc;
-  --popover: #0f172a;
-  --popover-foreground: #f8fafc;
-  --primary: #818cf8;
+  /* Deep obsidian black & slight grey with crimson red accents */
+  --background: #08080a;
+  --foreground: #f4f4f6;
+  --card: #111114;
+  --card-foreground: #f4f4f6;
+  --popover: #111114;
+  --popover-foreground: #f4f4f6;
+  --primary: #e11d48;
   --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #f87171;
+  --secondary: #17171b;
+  --secondary-foreground: #f4f4f6;
+  --muted: #18181d;
+  --muted-foreground: #8e8e98;
+  --accent: #1a1a20;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #818cf8;
+  --border: #202026;
+  --input: #202026;
+  --ring: #e11d48;
 }
 
 body {
@@ -89,9 +91,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(142, 142, 152, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.4);
+  background: rgba(142, 142, 152, 0.4);
 }

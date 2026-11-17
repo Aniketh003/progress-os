@@ -31,7 +31,7 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
   const [status, setStatus] = useState<MapStatus>('active');
   const [dailyCommitmentMinutes, setDailyCommitmentMinutes] = useState(180);
   const [repositoryUrl, setRepositoryUrl] = useState('');
-  const [accentColor, setAccentColor] = useState('#6366f1');
+  const [accentColor, setAccentColor] = useState('#e11d48');
   const [icon, setIcon] = useState('Compass');
   const [numWeeks, setNumWeeks] = useState(4);
   const [daysPerWeek, setDaysPerWeek] = useState(5);
@@ -46,7 +46,7 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
       setStatus(mapToEdit.status);
       setDailyCommitmentMinutes(mapToEdit.dailyCommitmentMinutes);
       setRepositoryUrl(mapToEdit.repositoryUrl || '');
-      setAccentColor(mapToEdit.accentColor || '#6366f1');
+      setAccentColor(mapToEdit.accentColor || '#e11d48');
       setIcon(mapToEdit.icon || 'Compass');
     } else {
       const generatedId = `map-${Date.now().toString(36)}`;
@@ -57,7 +57,7 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
       setStatus('active');
       setDailyCommitmentMinutes(180);
       setRepositoryUrl('');
-      setAccentColor('#6366f1');
+      setAccentColor('#e11d48');
       setIcon('Compass');
       setNumWeeks(4);
       setDaysPerWeek(5);
@@ -170,14 +170,14 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
   };
 
   const colors = [
+    '#e11d48', // Crimson Red
+    '#f43f5e', // Rose
+    '#ef4444', // Red
+    '#f59e0b', // Amber
+    '#10b981', // Emerald
+    '#06b6d4', // Cyan
     '#6366f1', // Indigo
     '#8b5cf6', // Violet
-    '#3b82f6', // Blue
-    '#06b6d4', // Cyan
-    '#10b981', // Emerald
-    '#f59e0b', // Amber
-    '#ec4899', // Pink
-    '#f43f5e', // Rose
   ];
 
   return (

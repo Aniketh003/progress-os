@@ -222,7 +222,7 @@ export function ActivityView() {
                   return null;
                 }}
               />
-              <Bar dataKey="hours" fill="#6366f1" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="hours" fill="#e11d48" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -79,9 +79,8 @@ export function Sidebar({
   const navItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
     { id: 'my-day', label: 'My Day', icon: Calendar },
-    { id: 'tasks', label: 'All Tasks', icon: CheckSquare },
-    { id: 'journal', label: 'Journal', icon: BookOpen },
     { id: 'activity', label: 'Activity', icon: Activity },
+    { id: 'journal', label: 'Journal', icon: BookOpen },
   ];
 
   return (
@@ -98,7 +97,7 @@ export function Sidebar({
             onClick={() => setCurrentView('overview')}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 font-bold text-sm tracking-tight transition-transform group-hover:scale-105">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white shadow-sm shadow-rose-600/30 font-bold text-sm tracking-tight transition-transform group-hover:scale-105">
               P
             </div>
             <div className="flex flex-col">
@@ -116,7 +115,7 @@ export function Sidebar({
         {isCollapsed && (
           <div
             onClick={() => setIsCollapsed(false)}
-            className="w-7 h-7 mx-auto rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold text-sm cursor-pointer"
+            className="w-7 h-7 mx-auto rounded-lg bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white font-bold text-sm cursor-pointer shadow-sm shadow-rose-600/30"
           >
             P
           </div>

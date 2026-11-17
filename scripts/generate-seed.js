@@ -1224,7 +1224,7 @@ const seedData = {
   dailyCommitmentMinutes: 180,
   repositoryUrl: "https://github.com/developer/forge-ai-coding-agent",
   icon: "Cpu",
-  accentColor: "#6366f1",
+  accentColor: "#e11d48",
   weeks: rawWeeks.map((w) => ({
     id: `week-${String(w.weekNumber).padStart(2, '0')}`,
     weekNumber: w.weekNumber,

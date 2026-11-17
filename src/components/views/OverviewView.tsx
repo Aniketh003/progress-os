@@ -134,7 +134,7 @@ export function OverviewView({
         <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
           <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
             Total Tasks
-            <CheckCircle2 className="w-3.5 h-3.5 text-blue-500" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
           </span>
           <div className="mt-2 flex items-baseline gap-1.5">
             <span className="text-xl font-bold tracking-tight text-foreground">
@@ -162,7 +162,7 @@ export function OverviewView({
         <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
           <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
             Progress
-            <TrendingUp className="w-3.5 h-3.5 text-violet-500" />
+            <TrendingUp className="w-3.5 h-3.5 text-rose-500" />
           </span>
           <div className="mt-2 flex items-baseline gap-1.5">
             <span className="text-xl font-bold tracking-tight text-foreground">
@@ -190,7 +190,7 @@ export function OverviewView({
         <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
           <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
             Active Days
-            <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+            <Calendar className="w-3.5 h-3.5 text-primary" />
           </span>
           <div className="mt-2 flex items-baseline gap-1.5">
             <span className="text-xl font-bold tracking-tight text-foreground">

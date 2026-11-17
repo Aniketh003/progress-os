@@ -10,7 +10,7 @@
   "dailyCommitmentMinutes": 180,
   "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
   "icon": "Cpu",
-  "accentColor": "#6366f1",
+  "accentColor": "#e11d48",
   "weeks": [
     {
       "id": "week-01",
@@ -3927,6 +3927,6 @@
       ]
     }
   ],
-  "createdAt": "2026-11-17T14:26:21.860Z",
-  "updatedAt": "2026-11-17T14:26:21.860Z"
+  "createdAt": "2026-11-17T15:05:48.104Z",
+  "updatedAt": "2026-11-17T15:05:48.104Z"
 }

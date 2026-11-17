@@ -51,7 +51,7 @@ export const LearningMapSchema = z.object({
   dailyCommitmentMinutes: z.number().int().default(180),
   repositoryUrl: z.string().optional().default(''),
   icon: z.string().optional().default('Compass'),
-  accentColor: z.string().optional().default('#6366f1'),
+  accentColor: z.string().optional().default('#e11d48'),
   weeks: z.array(WeekSchema).default([]),
   createdAt: z.string().default(() => new Date().toISOString()),
   updatedAt: z.string().default(() => new Date().toISOString()),

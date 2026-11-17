@@ -132,7 +132,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
         particleCount: 50,
         spread: 60,
         origin: { y: 0.8 },
-        colors: ['#6366f1', '#a855f7', '#3b82f6', '#10b981'],
+        colors: ['#e11d48', '#f43f5e', '#fb7185', '#10b981', '#f59e0b'],
       });
     } catch {
       // ignore
