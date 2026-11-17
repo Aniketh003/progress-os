@@ -1222,9 +1222,9 @@ const seedData = {
   startDate: new Date().toISOString().split('T')[0],
   targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
   dailyCommitmentMinutes: 180,
-  repositoryUrl: "https://github.com/developer/forge-ai-coding-agent",
   icon: "Cpu",
   accentColor: "#e11d48",
+  repositoryUrl: "",
   weeks: rawWeeks.map((w) => ({
     id: `week-${String(w.weekNumber).padStart(2, '0')}`,
     weekNumber: w.weekNumber,
@@ -1241,7 +1241,7 @@ const seedData = {
       description: d.description,
       objectives: d.objectives,
       topics: d.topics,
-      repositoryUrl: d.dayNumber >= 50 ? `https://github.com/developer/forge-ai-coding-agent/tree/main/day-${String(d.dayNumber).padStart(2, '0')}` : "https://github.com/developer/forge-ai-coding-agent",
+      repositoryUrl: "",
       estimatedMinutes: 180,
       status: "pending",
       tasks: d.tasks.map((t, idx) => ({

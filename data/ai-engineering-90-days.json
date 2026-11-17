@@ -8,9 +8,9 @@
   "startDate": "2026-11-17",
   "targetDate": "2027-02-15",
   "dailyCommitmentMinutes": 180,
-  "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
   "icon": "Cpu",
   "accentColor": "#e11d48",
+  "repositoryUrl": "",
   "weeks": [
     {
       "id": "week-01",
@@ -49,7 +49,7 @@
             "dotenv",
             "OpenAI/Anthropic SDK"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -97,7 +97,7 @@
             "BPE algorithm",
             "Context window management"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -145,7 +145,7 @@
             "Cosine similarity",
             "Vector geometry"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -193,7 +193,7 @@
             "QKV matrices",
             "Autoregressive generation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -241,7 +241,7 @@
             "ReadableStream",
             "CLI UX"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -289,7 +289,7 @@
             "Exponential backoff",
             "Error resilience"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -408,7 +408,7 @@
             "Few-shot",
             "Chain-of-thought"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -448,7 +448,7 @@
             "Structured Outputs",
             "JSON Schema"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -496,7 +496,7 @@
             "Function definitions",
             "Tool message protocol"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -536,7 +536,7 @@
             "Math expressions",
             "Safe evaluation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -576,7 +576,7 @@
             "Tool dispatch",
             "Iteration control"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -616,7 +616,7 @@
             "Error feedback loop",
             "Defensive programming"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -719,7 +719,7 @@
             "Cognitive architectures",
             "Agent loops"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -759,7 +759,7 @@
             "Task decomposition",
             "Plan adaptation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -799,7 +799,7 @@
             "Information density",
             "Context budgeting"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -839,7 +839,7 @@
             "Search integration",
             "Markdown synthesis"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -879,7 +879,7 @@
             "Budget limits",
             "Guardrails"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -919,7 +919,7 @@
             "Trace logging",
             "Graceful degradation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1021,7 +1021,7 @@
             "Episodic memory",
             "Context budgeting"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1060,7 +1060,7 @@
             "Schema migrations",
             "Relational indexing"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1099,7 +1099,7 @@
             "Message persistence",
             "Metadata tracking"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1139,7 +1139,7 @@
             "History formatting",
             "In-memory caching"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1179,7 +1179,7 @@
             "Context compaction",
             "Information density"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1219,7 +1219,7 @@
             "Key-value recall",
             "Memory consolidation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1320,7 +1320,7 @@
             "Document loaders",
             "Metadata tagging"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1359,7 +1359,7 @@
             "Overlap ratios",
             "Markdown splitter"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1398,7 +1398,7 @@
             "Batch processing",
             "Top-K search"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1438,7 +1438,7 @@
             "HNSW indexing",
             "SQL vector queries"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1477,7 +1477,7 @@
             "Score thresholding",
             "Query pipeline"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1517,7 +1517,7 @@
             "Citation extraction",
             "Hallucination prevention"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1619,7 +1619,7 @@
             "Graph theory",
             "Workflow architecture"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1658,7 +1658,7 @@
             "State transformation",
             "Sequential workflows"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1698,7 +1698,7 @@
             "Fan-out / Fan-in",
             "State merging"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1737,7 +1737,7 @@
             "State serialization",
             "Idempotency"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1776,7 +1776,7 @@
             "Fault tolerance",
             "Error boundaries"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1816,7 +1816,7 @@
             "Interrupts",
             "Approval workflows"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1918,7 +1918,7 @@
             "JSON-RPC",
             "Transport layers"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1957,7 +1957,7 @@
             "Server lifecycle",
             "Stdio transport"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1996,7 +1996,7 @@
             "Tool handlers",
             "Input schemas"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2035,7 +2035,7 @@
             "MCP Prompts",
             "URI schemes"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2074,7 +2074,7 @@
             "Dynamic discovery",
             "Process management"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2113,7 +2113,7 @@
             "Path traversal defense",
             "Access control"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2215,7 +2215,7 @@
             "System design",
             "Forge core"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-50",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2254,7 +2254,7 @@
             "Glob matching",
             "Code search"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-51",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2293,7 +2293,7 @@
             "Symbol outlines",
             "AST extraction"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-52",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2332,7 +2332,7 @@
             "Step-by-step editing plan",
             "Context assembly"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-53",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2371,7 +2371,7 @@
             "Search-and-replace",
             "Diff safety"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-54",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2410,7 +2410,7 @@
             "Process execution",
             "Test runner"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-55",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2511,7 +2511,7 @@
             "Communication topology",
             "Role specialization"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-57",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2550,7 +2550,7 @@
             "Routing",
             "Work scheduling"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-58",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2589,7 +2589,7 @@
             "Interface design",
             "Typed handoffs"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-59",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2628,7 +2628,7 @@
             "Root cause analysis",
             "Call graph tracing"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-60",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2667,7 +2667,7 @@
             "Test generation",
             "Regression prevention"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-61",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2706,7 +2706,7 @@
             "Conflict resolution",
             "State synchronization"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-62",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2807,7 +2807,7 @@
             "Pass@k",
             "Ground truth"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-64",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2846,7 +2846,7 @@
             "Test fixtures",
             "Reproducibility"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-65",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2885,7 +2885,7 @@
             "Exit codes",
             "Scoring logic"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-66",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2924,7 +2924,7 @@
             "Benchmark execution",
             "Pass@1"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-67",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2963,7 +2963,7 @@
             "Cost accounting",
             "Bottleneck analysis"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-68",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3002,7 +3002,7 @@
             "Smoke eval",
             "Performance budgets"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-69",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3103,7 +3103,7 @@
             "Indirect prompt injection",
             "Security taxonomy"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-71",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3142,7 +3142,7 @@
             "Delimiters",
             "Context separation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-72",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3181,7 +3181,7 @@
             "Path traversal",
             "Command whitelisting"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-73",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3220,7 +3220,7 @@
             "Container isolation",
             "Approval gates"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-74",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3259,7 +3259,7 @@
             "Entropy scanning",
             "Telemetry privacy"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-75",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3298,7 +3298,7 @@
             "Adversarial testing",
             "Security validation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-76",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3400,7 +3400,7 @@
             "Job queues",
             "Async processing"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-78",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3439,7 +3439,7 @@
             "Controller logic",
             "Job management"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-79",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3478,7 +3478,7 @@
             "Server-Sent Events",
             "Real-time telemetry"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-80",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3517,7 +3517,7 @@
             "Structured logging",
             "Observability"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-81",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3556,7 +3556,7 @@
             "Cost budgeting",
             "Quota enforcement"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-82",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3595,7 +3595,7 @@
             "Multi-stage builds",
             "Container deployment"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-83",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3696,7 +3696,7 @@
             "Autonomous workflows",
             "End-to-end verification"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-85",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3735,7 +3735,7 @@
             "Diff rendering",
             "Version rollback"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-86",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3774,7 +3774,7 @@
             "Performance comparison",
             "Evaluation"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-87",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3813,7 +3813,7 @@
             "Bug fixes",
             "Hardening"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-88",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3852,7 +3852,7 @@
             "Architecture diagrams",
             "Developer outreach"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-89",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3927,6 +3927,6 @@
       ]
     }
   ],
-  "createdAt": "2026-11-17T15:05:48.104Z",
-  "updatedAt": "2026-11-17T15:05:48.104Z"
+  "createdAt": "2026-11-17T19:32:55.763Z",
+  "updatedAt": "2026-11-17T19:32:55.763Z"
 }

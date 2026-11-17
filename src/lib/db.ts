@@ -59,6 +59,31 @@ export async function initializeDatabase() {
       } catch (err) {
         console.error('ProgressOS: Failed to fetch seed data', err);
       }
+    } else {
+      // Sanitize any legacy mock/relative repository URLs for default AI Engineering map
+      try {
+        const aiMap = await db.learningMaps.get('ai-engineering-90-days');
+        if (aiMap) {
+          let modified = false;
+          if (aiMap.repositoryUrl && (aiMap.repositoryUrl.includes('example') || aiMap.repositoryUrl.includes('ai-engineer'))) {
+            aiMap.repositoryUrl = '';
+            modified = true;
+          }
+          aiMap.weeks.forEach((w) => {
+            w.days.forEach((d) => {
+              if (d.repositoryUrl && (d.repositoryUrl.startsWith('/') || d.repositoryUrl.includes('example'))) {
+                d.repositoryUrl = '';
+                modified = true;
+              }
+            });
+          });
+          if (modified) {
+            await db.learningMaps.put(aiMap);
+          }
+        }
+      } catch (cleanErr) {
+        console.warn('ProgressOS: Could not clean legacy repo URLs', cleanErr);
+      }
     }
   } catch (error) {
     console.error('ProgressOS: Database initialization error', error);
