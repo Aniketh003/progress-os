@@ -2,12 +2,11 @@
 
 import React from 'react';
 import {
+  ArrowLeft,
   Search,
   Plus,
   ExternalLink,
   Calendar,
-  CheckCircle2,
-  Clock,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
@@ -15,38 +14,44 @@ import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   currentView: string;
+  onNavigateBack: () => void;
   onOpenQuickTask: () => void;
   onOpenSearch: () => void;
 }
 
-export function Header({ currentView, onOpenQuickTask, onOpenSearch }: HeaderProps) {
+export function Header({
+  currentView,
+  onNavigateBack,
+  onOpenQuickTask,
+  onOpenSearch,
+}: HeaderProps) {
   const { activeMap } = useProgressOS();
 
-  const getViewTitle = () => {
+  const isHome = currentView === 'overview';
+
+  const getViewDetails = () => {
     switch (currentView) {
       case 'overview':
-        return { title: 'Dashboard Overview', subtitle: 'Your learning journey at a glance' };
+        return { title: 'Workspace', subtitle: '' };
       case 'my-day':
-        return { title: 'My Day', subtitle: 'Focus on today’s todos and micro-goals' };
-      case 'tasks':
-        return { title: 'All Tasks', subtitle: 'Global backlog across all learning maps' };
+        return { title: 'My Day', subtitle: 'Daily Todos & Focus' };
       case 'journal':
-        return { title: 'Learning Journal', subtitle: 'Document insights, builds, and reflections' };
+        return { title: 'Learning Journal', subtitle: 'Reflections & Insights' };
       case 'activity':
-        return { title: 'Activity & Analytics', subtitle: 'Consistency metrics and progress velocity' };
+        return { title: 'Activity & Analytics', subtitle: 'Consistency & Velocity' };
       case 'settings':
-        return { title: 'Settings', subtitle: 'Preferences, backups, and local-first data' };
+        return { title: 'Settings', subtitle: 'Preferences & Backups' };
       case 'map':
         return {
           title: activeMap?.title || 'Learning Roadmap',
-          subtitle: activeMap?.category || 'Learning Map',
+          subtitle: activeMap?.category || 'Roadmap',
         };
       default:
-        return { title: 'ProgressOS', subtitle: 'Personal Learning Engine' };
+        return { title: 'ProgressOS', subtitle: '' };
     }
   };
 
-  const { title, subtitle } = getViewTitle();
+  const { title, subtitle } = getViewDetails();
   const todayFormatted = new Date().toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
@@ -54,43 +59,66 @@ export function Header({ currentView, onOpenQuickTask, onOpenSearch }: HeaderPro
   });
 
   return (
-    <header className="h-14 border-b border-border/40 bg-card/40 backdrop-blur-md px-6 flex items-center justify-between z-20">
-      {/* Left Title / Breadcrumb */}
+    <header className="h-14 border-b border-border/40 bg-card/40 backdrop-blur-md px-5 sm:px-6 flex items-center justify-between z-20 select-none">
+      {/* Left: Dedicated Back Button + Breadcrumb */}
       <div className="flex items-center gap-3 min-w-0">
-        <div className="flex flex-col min-w-0">
-          <div className="flex items-center gap-2">
-            <h1 className="text-sm font-semibold text-foreground truncate tracking-tight">
-              {title}
-            </h1>
-            {currentView === 'map' && activeMap && (
-              <span
-                className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
-                style={{
-                  backgroundColor: `${activeMap.accentColor || '#6366f1'}15`,
-                  borderColor: `${activeMap.accentColor || '#6366f1'}30`,
-                  color: activeMap.accentColor || '#6366f1',
-                }}
-              >
-                {activeMap.status}
-              </span>
-            )}
-          </div>
-          <span className="text-[11px] text-muted-foreground truncate hidden sm:block">
-            {subtitle}
-          </span>
+        {!isHome && (
+          <button
+            onClick={onNavigateBack}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/70 hover:border-border hover:bg-accent/60 text-xs font-medium text-muted-foreground hover:text-foreground transition-all group shrink-0"
+            title="Back to Overview"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span>Back</span>
+          </button>
+        )}
+
+        <div className="flex items-center gap-2 min-w-0 text-xs">
+          {isHome ? (
+            <div className="flex items-center gap-2 font-mono text-muted-foreground">
+              <span className="text-foreground font-semibold tracking-tight">ProgressOS</span>
+              <span className="text-border">/</span>
+              <span className="text-muted-foreground">Overview</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-muted-foreground hidden sm:inline">ProgressOS</span>
+              <span className="text-border hidden sm:inline">/</span>
+              <h1 className="text-xs font-semibold text-foreground truncate tracking-tight">
+                {title}
+              </h1>
+              {subtitle && (
+                <span className="text-[11px] text-muted-foreground hidden md:inline font-mono">
+                  · {subtitle}
+                </span>
+              )}
+              {currentView === 'map' && activeMap && (
+                <span
+                  className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border shrink-0"
+                  style={{
+                    backgroundColor: `${activeMap.accentColor || '#e11d48'}15`,
+                    borderColor: `${activeMap.accentColor || '#e11d48'}30`,
+                    color: activeMap.accentColor || '#e11d48',
+                  }}
+                >
+                  {activeMap.status}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Right Actions */}
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2 sm:gap-2.5">
         {/* Repo Link if active map */}
         {currentView === 'map' && activeMap?.repositoryUrl && (
           <a
             href={activeMap.repositoryUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-border/60 hover:bg-accent text-xs text-foreground font-medium transition-colors"
-            title="Open Learning Map GitHub Repository"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/60 hover:bg-accent/60 text-xs text-foreground font-medium transition-colors"
+            title="Open GitHub Repository"
           >
             <Github className="w-3.5 h-3.5" />
             <span className="hidden md:inline">Repository</span>
@@ -107,7 +135,7 @@ export function Header({ currentView, onOpenQuickTask, onOpenSearch }: HeaderPro
         {/* Global Search Button */}
         <button
           onClick={onOpenSearch}
-          className="p-1.5 rounded-md border border-border/60 hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
+          className="p-1.5 rounded-md border border-border/60 hover:bg-accent/60 text-muted-foreground hover:text-foreground transition-colors"
           title="Search (⌘K)"
         >
           <Search className="w-4 h-4" />
@@ -116,7 +144,7 @@ export function Header({ currentView, onOpenQuickTask, onOpenSearch }: HeaderPro
         {/* Quick Add Task Button */}
         <button
           onClick={onOpenQuickTask}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>New Task</span>

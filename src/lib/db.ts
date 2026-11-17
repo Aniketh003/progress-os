@@ -26,7 +26,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   id: 'current',
   theme: 'dark',
   dailyCommitmentMinutes: 180,
-  userName: 'Engineer',
+  userName: 'Aniketh',
 };
 
 // Seed checker & runner

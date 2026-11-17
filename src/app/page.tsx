@@ -123,6 +123,7 @@ export default function ProgressOSApp() {
         {/* Top Header */}
         <Header
           currentView={currentView}
+          onNavigateBack={() => setCurrentView('overview')}
           onOpenQuickTask={() => setIsQuickTaskOpen(true)}
           onOpenSearch={() => setIsSearchOpen(true)}
         />
@@ -149,6 +150,7 @@ export default function ProgressOSApp() {
               learningMap={activeMap}
               onOpenDay={handleOpenDay}
               onOpenEditMap={handleOpenEditMap}
+              onNavigateBack={() => setCurrentView('overview')}
             />
           )}
 

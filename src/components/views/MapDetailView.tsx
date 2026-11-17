@@ -16,6 +16,7 @@ import {
   Search,
   BookOpen,
   ArrowRight,
+  ArrowLeft,
   Download,
   Share2,
   Layers,
@@ -30,12 +31,14 @@ interface MapDetailViewProps {
   learningMap: LearningMap;
   onOpenDay: (map: LearningMap, day: Day) => void;
   onOpenEditMap: (map: LearningMap) => void;
+  onNavigateBack?: () => void;
 }
 
 export function MapDetailView({
   learningMap,
   onOpenDay,
   onOpenEditMap,
+  onNavigateBack,
 }: MapDetailViewProps) {
   const { handleToggleDayStatus, handleExportMap } = useProgressOS();
 
@@ -98,7 +101,20 @@ export function MapDetailView({
   }, [learningMap, listSearch, listStatusFilter, listWeekFilter]);
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
+    <div className="p-8 max-w-6xl mx-auto space-y-6 animate-in fade-in duration-200">
+      {/* Back button */}
+      {onNavigateBack && (
+        <div className="flex items-center">
+          <button
+            onClick={onNavigateBack}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 hover:border-border hover:bg-card text-xs font-medium text-muted-foreground hover:text-foreground transition-all group shadow-2xs"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span>Back to Overview</span>
+          </button>
+        </div>
+      )}
+
       {/* 1. Overview Header */}
       <div className="p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md shadow-xs space-y-5">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">

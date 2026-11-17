@@ -30,7 +30,7 @@ export function SettingsView() {
     handleClearAll,
   } = useProgressOS();
 
-  const [userName, setUserName] = useState(settings.userName || 'Engineer');
+  const [userName, setUserName] = useState(settings.userName || 'Aniketh');
   const [dailyMinutes, setDailyMinutes] = useState(settings.dailyCommitmentMinutes || 180);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [restoreMessage, setRestoreMessage] = useState<string | null>(null);

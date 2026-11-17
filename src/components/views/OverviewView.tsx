@@ -89,26 +89,28 @@ export function OverviewView({
 
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
-      {/* 1. Welcome Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-border/40">
-        <div>
+      {/* 1. Refined Welcome & Motivation */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-border/40">
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              {greeting}, {settings.userName || 'Engineer'}
-            </h1>
-            <span className="text-xl">✨</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-primary font-semibold">
+              Daily Focus
+            </span>
           </div>
-          <p className="text-xs text-muted-foreground mt-1 max-w-lg leading-relaxed">
-            {quote}
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
+            {greeting}, {settings.userName || 'Aniketh'}
+          </h1>
+          <p className="text-xs text-muted-foreground/90 font-normal italic tracking-wide">
+            &ldquo;{quote}&rdquo;
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={onOpenQuickTask}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span>Add Focus Task</span>
           </button>
         </div>
