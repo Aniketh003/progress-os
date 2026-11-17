@@ -337,7 +337,7 @@
             "Documentation",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -656,7 +656,7 @@
             "Documentation",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -959,7 +959,7 @@
             "Loop detection",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1258,7 +1258,7 @@
             "Regression tests",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1557,7 +1557,7 @@
             "Retrieval precision",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -1856,7 +1856,7 @@
             "Documentation",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2153,7 +2153,7 @@
             "Documentation",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2449,7 +2449,7 @@
             "Interactive approvals",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-56",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -2745,7 +2745,7 @@
             "Cost analysis",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-63",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3041,7 +3041,7 @@
             "Evaluation reporting",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-70",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3338,7 +3338,7 @@
             "Documentation",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-77",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3634,7 +3634,7 @@
             "End-to-end testing",
             "Retrospective"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-84",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -3891,7 +3891,7 @@
             "Retrospective",
             "Lifelong learning"
           ],
-          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-90",
+          "repositoryUrl": "",
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [

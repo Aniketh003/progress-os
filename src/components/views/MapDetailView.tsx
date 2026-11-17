@@ -426,6 +426,19 @@ export function MapDetailView({
                                     {day.title}
                                   </h4>
                                 </div>
+
+                                {day.repositoryUrl?.trim() ? (
+                                  <a
+                                    href={day.repositoryUrl.trim()}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors shrink-0"
+                                    title="Open day code repository"
+                                  >
+                                    <Github className="w-3.5 h-3.5" />
+                                  </a>
+                                ) : null}
                               </div>
 
                               <p className="text-[11px] text-muted-foreground line-clamp-2">
@@ -520,8 +533,22 @@ export function MapDetailView({
                         Day {day.dayNumber}
                       </td>
                       <td className="py-3 px-4 min-w-[240px]">
-                        <div className="font-medium text-foreground group-hover:text-primary transition-colors">
-                          {day.title}
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                            {day.title}
+                          </span>
+                          {day.repositoryUrl?.trim() ? (
+                            <a
+                              href={day.repositoryUrl.trim()}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="p-0.5 rounded text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors shrink-0"
+                              title="Open day code repository"
+                            >
+                              <Github className="w-3.5 h-3.5" />
+                            </a>
+                          ) : null}
                         </div>
                         <div className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">
                           {day.description}

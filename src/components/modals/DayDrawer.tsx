@@ -32,6 +32,7 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
 
   const [notes, setNotes] = useState('');
   const [timeSpent, setTimeSpent] = useState(0);
+  const [repoUrl, setRepoUrl] = useState('');
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskPriority, setNewTaskPriority] = useState<TaskPriority>('medium');
 
@@ -39,6 +40,7 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
     if (day) {
       setNotes(day.notes || '');
       setTimeSpent(day.timeSpentMinutes || 0);
+      setRepoUrl(day.repositoryUrl || '');
       setNewTaskTitle('');
     }
   }, [day]);
@@ -48,6 +50,14 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
   const totalTasks = day.tasks.length;
   const completedTasks = day.tasks.filter((t) => t.status === 'done').length;
   const isCompleted = day.status === 'completed';
+
+  const handleSaveRepoUrl = async (newUrl: string) => {
+    setRepoUrl(newUrl);
+    await handleUpdateDay(learningMap.id, day.id, (d) => {
+      d.repositoryUrl = newUrl.trim();
+      return d;
+    });
+  };
 
   const handleSaveNotes = async () => {
     await handleUpdateDay(learningMap.id, day.id, (d) => {
@@ -151,9 +161,9 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
               </span>
             </div>
 
-            {day.repositoryUrl && (
+            {day.repositoryUrl?.trim() ? (
               <a
-                href={day.repositoryUrl}
+                href={day.repositoryUrl.trim()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-primary hover:underline ml-auto font-medium"
@@ -162,7 +172,7 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                 <span>Day Code</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
-            )}
+            ) : null}
           </div>
 
           {/* Description */}
@@ -330,6 +340,58 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                 ({formatMinutes(timeSpent)})
               </span>
             </div>
+          </div>
+
+          {/* Repository Link Section */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <Github className="w-3.5 h-3.5 text-foreground" /> Day Repository URL
+              </h4>
+              {repoUrl.trim() ? (
+                <div className="flex items-center gap-2">
+                  <a
+                    href={repoUrl.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] text-primary hover:underline flex items-center gap-1 font-medium"
+                  >
+                    <span>Visit</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleSaveRepoUrl('')}
+                    className="text-[10px] text-muted-foreground hover:text-destructive transition-colors"
+                  >
+                    Clear Link
+                  </button>
+                </div>
+              ) : (
+                <span className="text-[10px] text-muted-foreground italic">No link</span>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="url"
+                value={repoUrl}
+                onChange={(e) => setRepoUrl(e.target.value)}
+                onBlur={() => handleSaveRepoUrl(repoUrl)}
+                placeholder="https://github.com/user/project/tree/main/day-01"
+                className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-lg outline-none focus:border-primary text-foreground placeholder:text-muted-foreground/60"
+              />
+              <button
+                type="button"
+                onClick={() => handleSaveRepoUrl(repoUrl)}
+                className="px-3 py-2 rounded-lg bg-card border border-border/80 hover:bg-accent text-xs font-medium text-foreground transition-colors shrink-0"
+              >
+                Save
+              </button>
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-1">
+              Leave blank if this day has no code repository (reading, theory, or review).
+            </p>
           </div>
 
           {/* Notes */}
