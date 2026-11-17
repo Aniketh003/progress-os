@@ -31,6 +31,7 @@ export default function ProgressOSApp() {
   } = useProgressOS();
 
   const [currentView, setCurrentView] = useState('overview');
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   // Modal States
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -108,7 +109,7 @@ export default function ProgressOSApp() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary">
-      {/* Fixed Left Sidebar */}
+      {/* Sidebar (Responsive drawer on mobile, collapsible on desktop) */}
       <Sidebar
         currentView={currentView}
         setCurrentView={setCurrentView}
@@ -116,6 +117,8 @@ export default function ProgressOSApp() {
         onOpenNewMap={() => setIsNewMapOpen(true)}
         onOpenEditMap={handleOpenEditMap}
         onOpenSearch={() => setIsSearchOpen(true)}
+        isMobileOpen={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
 
       {/* Main Content Area */}
@@ -126,6 +129,7 @@ export default function ProgressOSApp() {
           onNavigateBack={() => setCurrentView('overview')}
           onOpenQuickTask={() => setIsQuickTaskOpen(true)}
           onOpenSearch={() => setIsSearchOpen(true)}
+          onToggleMobileSidebar={() => setIsMobileSidebarOpen((prev) => !prev)}
         />
 
         {/* Scrollable View Viewport */}

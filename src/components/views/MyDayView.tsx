@@ -85,7 +85,7 @@ export function MyDayView({ onOpenQuickTask }: MyDayViewProps) {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
+    <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/40">
         <div>

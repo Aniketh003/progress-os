@@ -88,9 +88,9 @@ export function OverviewView({
   );
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
-      {/* 1. Refined Welcome & Motivation */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-border/40">
+    <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-200">
+      {/* 1. Refined Welcome & Motivation (single clean heading, no duplicate task button) */}
+      <div className="pb-4 border-b border-border/40">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono uppercase tracking-widest text-primary font-semibold">
@@ -104,20 +104,10 @@ export function OverviewView({
             &ldquo;{quote}&rdquo;
           </p>
         </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onOpenQuickTask}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Focus Task</span>
-          </button>
-        </div>
       </div>
 
       {/* 2. Key Metrics Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
         {/* Total Maps */}
         <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
           <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
@@ -307,17 +297,19 @@ export function OverviewView({
       {/* 4. Split Section: Today's Focus & 30-Day Activity Heatmap */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Today's Focus */}
-        <div className="p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
+        <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary" />
               <h2 className="text-sm font-semibold text-foreground">Today’s Focus</h2>
             </div>
             <button
-              onClick={() => onNavigateView('my-day')}
-              className="text-xs text-primary hover:underline font-medium"
+              onClick={onOpenQuickTask}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium transition-all shadow-xs"
+              title="Add task for today"
             >
-              Open My Day →
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Task</span>
             </button>
           </div>
 
@@ -347,7 +339,7 @@ export function OverviewView({
 
             {todayTodos.length === 0 && overdueTodos.length === 0 ? (
               <div className="py-8 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
-                No pending tasks for today. Click below to add one!
+                No pending tasks for today. Click &quot;Add Task&quot; above to create one.
               </div>
             ) : (
               todayTodos.map((todo) => {
@@ -388,14 +380,6 @@ export function OverviewView({
               })
             )}
           </div>
-
-          <button
-            onClick={onOpenQuickTask}
-            className="w-full py-2 rounded-lg border border-dashed border-border hover:border-primary/60 hover:bg-muted/40 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1.5"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Focus Task</span>
-          </button>
         </div>
 
         {/* 30-Day Activity & Consistency Heatmap */}

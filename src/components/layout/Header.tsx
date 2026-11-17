@@ -7,6 +7,7 @@ import {
   Plus,
   ExternalLink,
   Calendar,
+  Menu,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
@@ -17,6 +18,7 @@ interface HeaderProps {
   onNavigateBack: () => void;
   onOpenQuickTask: () => void;
   onOpenSearch: () => void;
+  onToggleMobileSidebar?: () => void;
 }
 
 export function Header({
@@ -24,6 +26,7 @@ export function Header({
   onNavigateBack,
   onOpenQuickTask,
   onOpenSearch,
+  onToggleMobileSidebar,
 }: HeaderProps) {
   const { activeMap } = useProgressOS();
 
@@ -59,9 +62,20 @@ export function Header({
   });
 
   return (
-    <header className="h-14 border-b border-border/40 bg-card/40 backdrop-blur-md px-5 sm:px-6 flex items-center justify-between z-20 select-none">
-      {/* Left: Dedicated Back Button + Breadcrumb */}
-      <div className="flex items-center gap-3 min-w-0">
+    <header className="h-14 border-b border-border/40 bg-card/40 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20 select-none">
+      {/* Left: Mobile hamburger + Dedicated Back Button + Breadcrumb */}
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        {/* Mobile menu toggle button */}
+        {onToggleMobileSidebar && (
+          <button
+            onClick={onToggleMobileSidebar}
+            className="p-1.5 rounded-lg border border-border/70 hover:bg-accent/60 text-muted-foreground hover:text-foreground md:hidden shrink-0 transition-colors"
+            title="Open Menu"
+          >
+            <Menu className="w-4 h-4" />
+          </button>
+        )}
+
         {!isHome && (
           <button
             onClick={onNavigateBack}
@@ -110,7 +124,7 @@ export function Header({
       </div>
 
       {/* Right Actions */}
-      <div className="flex items-center gap-2 sm:gap-2.5">
+      <div className="flex items-center gap-1.5 sm:gap-2.5">
         {/* Repo Link if active map */}
         {currentView === 'map' && activeMap?.repositoryUrl && (
           <a
@@ -147,7 +161,7 @@ export function Header({
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span>New Task</span>
+          <span className="hidden xs:inline sm:inline">New Task</span>
           <kbd className="hidden sm:inline text-[9px] bg-primary-foreground/20 px-1 py-0.2 rounded font-mono">
             C
           </kbd>
