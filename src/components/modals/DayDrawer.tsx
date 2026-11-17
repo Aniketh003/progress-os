@@ -1,0 +1,380 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import {
+  X,
+  CheckCircle2,
+  Circle,
+  Clock,
+  ExternalLink,
+  BookOpen,
+  Plus,
+  Trash2,
+  CheckSquare,
+  FileText,
+  Sparkles,
+  Tag,
+} from 'lucide-react';
+import { Github } from '@/components/icons/GithubIcon';
+import { useProgressOS } from '@/context/ProgressOSContext';
+import { LearningMap, Day, TaskStatus, TaskPriority } from '@/types';
+import { formatMinutes, cn } from '@/lib/utils';
+
+interface DayDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  learningMap: LearningMap;
+  day: Day | null;
+}
+
+export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps) {
+  const { handleUpdateDay, handleToggleTaskStatus, handleToggleDayStatus } = useProgressOS();
+
+  const [notes, setNotes] = useState('');
+  const [timeSpent, setTimeSpent] = useState(0);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskPriority, setNewTaskPriority] = useState<TaskPriority>('medium');
+
+  useEffect(() => {
+    if (day) {
+      setNotes(day.notes || '');
+      setTimeSpent(day.timeSpentMinutes || 0);
+      setNewTaskTitle('');
+    }
+  }, [day]);
+
+  if (!isOpen || !day) return null;
+
+  const totalTasks = day.tasks.length;
+  const completedTasks = day.tasks.filter((t) => t.status === 'done').length;
+  const isCompleted = day.status === 'completed';
+
+  const handleSaveNotes = async () => {
+    await handleUpdateDay(learningMap.id, day.id, (d) => {
+      d.notes = notes;
+      return d;
+    });
+  };
+
+  const handleSaveTimeSpent = async (mins: number) => {
+    setTimeSpent(mins);
+    await handleUpdateDay(learningMap.id, day.id, (d) => {
+      d.timeSpentMinutes = mins;
+      return d;
+    });
+  };
+
+  const handleAddTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTaskTitle.trim()) return;
+
+    await handleUpdateDay(learningMap.id, day.id, (d) => {
+      d.tasks.push({
+        id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        title: newTaskTitle.trim(),
+        priority: newTaskPriority,
+        status: 'todo',
+        completedAt: null,
+      });
+      return d;
+    });
+    setNewTaskTitle('');
+  };
+
+  const handleDeleteTask = async (taskId: string) => {
+    await handleUpdateDay(learningMap.id, day.id, (d) => {
+      d.tasks = d.tasks.filter((t) => t.id !== taskId);
+      return d;
+    });
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-end bg-background/60 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="w-full max-w-xl h-full bg-card border-l border-border shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
+        {/* Drawer Header */}
+        <div className="p-5 border-b border-border/60 flex items-start justify-between gap-4 bg-muted/10">
+          <div className="flex items-start gap-3 min-w-0">
+            <button
+              onClick={() => handleToggleDayStatus(learningMap.id, day.id, day.status)}
+              className="mt-0.5 shrink-0 transition-transform hover:scale-105 active:scale-95"
+              title={isCompleted ? 'Mark as In-Progress' : 'Mark Day Complete'}
+            >
+              {isCompleted ? (
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 fill-emerald-500/10" />
+              ) : (
+                <Circle className="w-5 h-5 text-muted-foreground hover:text-emerald-500" />
+              )}
+            </button>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  Day {day.dayNumber}
+                </span>
+                <span
+                  className={cn(
+                    'text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-full',
+                    isCompleted
+                      ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                      : 'bg-muted text-muted-foreground'
+                  )}
+                >
+                  {day.status}
+                </span>
+              </div>
+              <h2 className="text-base font-semibold text-foreground mt-1.5 leading-snug">
+                {day.title}
+              </h2>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Drawer Body */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-6 text-xs">
+          {/* Quick Info bar */}
+          <div className="flex flex-wrap items-center gap-4 p-3 rounded-lg bg-muted/30 border border-border/50 text-muted-foreground text-xs">
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-primary" />
+              <span>Est: {formatMinutes(day.estimatedMinutes)}</span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <CheckSquare className="w-3.5 h-3.5 text-emerald-500" />
+              <span>
+                {completedTasks}/{totalTasks} tasks done
+              </span>
+            </div>
+
+            {day.repositoryUrl && (
+              <a
+                href={day.repositoryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-primary hover:underline ml-auto font-medium"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>Day Code</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+          </div>
+
+          {/* Description */}
+          {day.description && (
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+                Overview
+              </h4>
+              <p className="text-foreground leading-relaxed bg-muted/20 p-3 rounded-lg border border-border/40">
+                {day.description}
+              </p>
+            </div>
+          )}
+
+          {/* Topics */}
+          {day.topics && day.topics.length > 0 && (
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5" /> Key Topics
+              </h4>
+              <div className="flex flex-wrap gap-1.5">
+                {day.topics.map((t, i) => (
+                  <span
+                    key={i}
+                    className="px-2 py-0.5 rounded-md bg-secondary text-secondary-foreground text-[11px] font-mono border border-border/60"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Learning Objectives */}
+          {day.objectives && day.objectives.length > 0 && (
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Objectives
+              </h4>
+              <ul className="space-y-1.5">
+                {day.objectives.map((obj, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 p-2 rounded-md bg-muted/20 border border-border/30"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                    <span className="text-foreground">{obj}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Todo Checklist */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <CheckSquare className="w-3.5 h-3.5 text-primary" /> Tasks Checklist
+              </h4>
+              <span className="text-[11px] text-muted-foreground font-mono">
+                {completedTasks}/{totalTasks}
+              </span>
+            </div>
+
+            <div className="space-y-1.5">
+              {day.tasks.map((task) => {
+                const isTaskDone = task.status === 'done';
+                return (
+                  <div
+                    key={task.id}
+                    className={cn(
+                      'flex items-center justify-between p-2.5 rounded-lg border transition-all group',
+                      isTaskDone
+                        ? 'bg-muted/20 border-border/40 text-muted-foreground'
+                        : 'bg-card border-border/80 text-foreground shadow-xs'
+                    )}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                      <button
+                        onClick={() =>
+                          handleToggleTaskStatus(learningMap.id, day.id, task.id, task.status)
+                        }
+                        className="transition-transform active:scale-90"
+                      >
+                        {isTaskDone ? (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/10" />
+                        ) : (
+                          <Circle className="w-4 h-4 text-muted-foreground hover:text-emerald-500" />
+                        )}
+                      </button>
+                      <span className={cn('text-xs leading-normal', isTaskDone && 'line-through opacity-70')}>
+                        {task.title}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span
+                        className={cn(
+                          'text-[9px] uppercase font-mono px-1.5 py-0.5 rounded font-medium',
+                          task.priority === 'high'
+                            ? 'bg-red-500/10 text-red-500 border border-red-500/20'
+                            : task.priority === 'medium'
+                            ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
+                            : 'bg-muted text-muted-foreground'
+                        )}
+                      >
+                        {task.priority}
+                      </span>
+                      <button
+                        onClick={() => handleDeleteTask(task.id)}
+                        className="opacity-0 group-hover:opacity-100 p-1 text-muted-foreground hover:text-destructive transition-opacity"
+                        title="Delete task"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Add task inline */}
+              <form onSubmit={handleAddTask} className="flex items-center gap-2 pt-2">
+                <input
+                  type="text"
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  placeholder="Add a task to this day..."
+                  className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none focus:border-primary text-foreground"
+                />
+                <select
+                  value={newTaskPriority}
+                  onChange={(e) => setNewTaskPriority(e.target.value as TaskPriority)}
+                  className="text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none text-foreground"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Med</option>
+                  <option value="high">High</option>
+                </select>
+                <button
+                  type="submit"
+                  disabled={!newTaskTitle.trim()}
+                  className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium disabled:opacity-50"
+                >
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Time Spent */}
+          <div>
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5" /> Actual Time Spent (Minutes)
+            </h4>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                min={0}
+                step={15}
+                value={timeSpent}
+                onChange={(e) => handleSaveTimeSpent(Number(e.target.value))}
+                className="w-28 text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none text-foreground font-mono"
+              />
+              <span className="text-xs text-muted-foreground">
+                ({formatMinutes(timeSpent)})
+              </span>
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div>
+            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5" /> Personal Notes & Key Learnings
+            </h4>
+            <textarea
+              rows={4}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              onBlur={handleSaveNotes}
+              placeholder="Record your breakthroughs, bugs fixed, or reference links for this day..."
+              className="w-full text-xs p-3 bg-muted/30 border border-border/80 rounded-lg outline-none focus:border-primary text-foreground resize-none"
+            />
+            <p className="text-[10px] text-muted-foreground mt-1">
+              Notes automatically save when you click away.
+            </p>
+          </div>
+        </div>
+
+        {/* Drawer Footer */}
+        <div className="p-4 border-t border-border/60 bg-muted/20 flex items-center justify-between">
+          <div className="text-[11px] text-muted-foreground">
+            {day.completedAt ? (
+              <span>Completed on {day.completedAt.split('T')[0]}</span>
+            ) : (
+              <span>Status: Incomplete</span>
+            )}
+          </div>
+
+          <button
+            onClick={() => handleToggleDayStatus(learningMap.id, day.id, day.status)}
+            className={cn(
+              'px-4 py-2 rounded-lg text-xs font-medium shadow-xs transition-all flex items-center gap-1.5',
+              isCompleted
+                ? 'bg-muted border border-border text-foreground hover:bg-muted/80'
+                : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+            )}
+          >
+            <CheckCircle2 className="w-4 h-4" />
+            <span>{isCompleted ? 'Mark Incomplete' : 'Mark Day Complete'}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

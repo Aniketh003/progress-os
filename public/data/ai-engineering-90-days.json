@@ -1,0 +1,3932 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ai-engineering-90-days",
+  "title": "AI Engineering — 90 Days",
+  "description": "A practical 90-day journey to learn LLM fundamentals, build AI agents, understand MCP, RAG, orchestration, evaluation and deploy an autonomous coding agent.",
+  "category": "Technology",
+  "status": "active",
+  "startDate": "2026-11-17",
+  "targetDate": "2027-02-15",
+  "dailyCommitmentMinutes": 180,
+  "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+  "icon": "Cpu",
+  "accentColor": "#6366f1",
+  "weeks": [
+    {
+      "id": "week-01",
+      "weekNumber": 1,
+      "title": "LLM Fundamentals",
+      "description": "Master the core mechanics of LLMs, tokenization, embeddings, and attention.",
+      "deliverable": "A working TypeScript chatbot with conversation history and error handling.",
+      "objective": "Understand model architecture, token economics, and direct API communication.",
+      "topics": [
+        "Tokenization",
+        "Vector Embeddings",
+        "Attention Mechanism",
+        "Context Windows",
+        "API Integrations"
+      ],
+      "reviewChecklist": [
+        "Can calculate token counts and costs accurately",
+        "Explain embedding dimensionality and cosine similarity",
+        "Successfully run local TypeScript chatbot calling LLM API",
+        "Handle API rate limits and connection retries cleanly"
+      ],
+      "days": [
+        {
+          "id": "day-01",
+          "dayNumber": 1,
+          "title": "Environment setup, repo creation and first API call",
+          "description": "Initialize the monorepo, set up TypeScript, configure environment variables, and make the first streaming API call.",
+          "objectives": [
+            "Set up Node/TypeScript environment",
+            "Configure secure API key storage",
+            "Implement first API completion call"
+          ],
+          "topics": [
+            "Node.js",
+            "TypeScript",
+            "dotenv",
+            "OpenAI/Anthropic SDK"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d1-1",
+              "title": "Initialize project git repository and tsconfig",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d1-2",
+              "title": "Configure environment variables with validation",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d1-3",
+              "title": "Write script to make first LLM API call and print response",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-02",
+          "dayNumber": 2,
+          "title": "Tokens, tokenisation and context windows",
+          "description": "Deep dive into BPE tokenization, token counting, context length limits, and sliding window strategies.",
+          "objectives": [
+            "Understand Byte-Pair Encoding",
+            "Measure token consumption per prompt",
+            "Implement context truncation"
+          ],
+          "topics": [
+            "tiktoken",
+            "BPE algorithm",
+            "Context window management"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d2-1",
+              "title": "Install tiktoken and inspect token ids for sample texts",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d2-2",
+              "title": "Implement a token counter helper for chat messages",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d2-3",
+              "title": "Build a safe context window trimmer when approaching limits",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-03",
+          "dayNumber": 3,
+          "title": "Embeddings and vector representations",
+          "description": "Explore text embeddings, semantic similarity, cosine distance, and vector clustering.",
+          "objectives": [
+            "Generate embeddings using embedding models",
+            "Compute cosine similarity between text vectors",
+            "Build semantic search function"
+          ],
+          "topics": [
+            "Text embeddings",
+            "Cosine similarity",
+            "Vector geometry"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d3-1",
+              "title": "Generate embeddings for 10 diverse sentences",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d3-2",
+              "title": "Implement cosine similarity mathematical function",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d3-3",
+              "title": "Build interactive semantic search CLI over a local text list",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-04",
+          "dayNumber": 4,
+          "title": "Transformer architecture and attention",
+          "description": "Understand self-attention, query/key/value projections, multi-head attention, and feedforward networks.",
+          "objectives": [
+            "Demystify scaled dot-product attention",
+            "Understand autoregressive decoding",
+            "Analyze model parameter counts"
+          ],
+          "topics": [
+            "Self-attention",
+            "QKV matrices",
+            "Autoregressive generation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d4-1",
+              "title": "Study the Attention Is All You Need diagram and write summary notes",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d4-2",
+              "title": "Implement a simplified self-attention calculation in TypeScript",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d4-3",
+              "title": "Document temperature, top_p, and frequency penalty mechanics",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-05",
+          "dayNumber": 5,
+          "title": "Build a basic TypeScript chatbot",
+          "description": "Construct a command-line interactive chat application with streaming responses.",
+          "objectives": [
+            "Stream LLM tokens in real-time to stdout",
+            "Handle readline user input in an event loop",
+            "Manage system prompt injection"
+          ],
+          "topics": [
+            "Streaming API",
+            "ReadableStream",
+            "CLI UX"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d5-1",
+              "title": "Set up readline interface for continuous terminal chat",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d5-2",
+              "title": "Implement server-sent events / streaming token rendering",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d5-3",
+              "title": "Add system prompt personality configuration",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-06",
+          "dayNumber": 6,
+          "title": "Add conversation history and error handling",
+          "description": "Maintain multi-turn conversation state, exponential backoff on 429/500 errors, and graceful disconnects.",
+          "objectives": [
+            "Implement in-memory conversation buffer",
+            "Add retry logic with exponential backoff",
+            "Format role messages (system, user, assistant)"
+          ],
+          "topics": [
+            "Chat history state",
+            "Exponential backoff",
+            "Error resilience"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d6-1",
+              "title": "Create conversation history manager with sliding window",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d6-2",
+              "title": "Implement retry handler with jitter for rate limits",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d6-3",
+              "title": "Add /clear and /history CLI commands",
+              "priority": "low",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-07",
+          "dayNumber": 7,
+          "title": "Review, test, document and retrospective",
+          "description": "Write unit tests for token counting and history management, document the week 1 project, and record takeaways.",
+          "objectives": [
+            "Test chatbot edge cases",
+            "Publish week 1 repo README with architecture diagram",
+            "Conduct weekly retrospective"
+          ],
+          "topics": [
+            "Testing",
+            "Documentation",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d7-1",
+              "title": "Write tests for history truncation and retry backoff",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d7-2",
+              "title": "Draft project README and usage guide",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d7-3",
+              "title": "Complete Week 1 journal entry with lessons learned",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-02",
+      "weekNumber": 2,
+      "title": "Prompt Engineering and Tool Calling",
+      "description": "Master system prompts, structured JSON outputs, function calling, and schema validation.",
+      "deliverable": "A structured tool-calling agent with arithmetic and data lookup tools.",
+      "objective": "Implement reliable schema-driven tool execution with Zod validation and error retries.",
+      "topics": [
+        "System Prompts",
+        "Structured Outputs",
+        "Function Calling",
+        "Zod Schemas",
+        "Argument Validation"
+      ],
+      "reviewChecklist": [
+        "Model reliably emits valid JSON adhering to Zod schemas",
+        "Tool execution loop handles malformed tool arguments gracefully",
+        "Multi-step tool calling executes until stop condition",
+        "Thorough test coverage on tool parameter parsing"
+      ],
+      "days": [
+        {
+          "id": "day-08",
+          "dayNumber": 8,
+          "title": "System prompts and prompt design",
+          "description": "Explore few-shot prompting, chain-of-thought, delimiter tags, and system constraints.",
+          "objectives": [
+            "Formulate robust system instructions",
+            "Benchmark few-shot vs zero-shot",
+            "Implement XML/Markdown structured prompting"
+          ],
+          "topics": [
+            "System design",
+            "Few-shot",
+            "Chain-of-thought"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d8-1",
+              "title": "Create prompt template library with dynamic variable interpolation",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d8-2",
+              "title": "Test edge cases where models hallucinate guidelines and patch prompt",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-09",
+          "dayNumber": 9,
+          "title": "Structured outputs and Zod schemas",
+          "description": "Force model responses into strict JSON schemas using response_format and Zod.",
+          "objectives": [
+            "Enforce JSON schema outputs",
+            "Parse and validate LLM JSON output with Zod",
+            "Handle schema mismatch errors"
+          ],
+          "topics": [
+            "Zod",
+            "Structured Outputs",
+            "JSON Schema"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d9-1",
+              "title": "Define strict Zod schema for structured research summaries",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d9-2",
+              "title": "Configure LLM structured output mode with schema enforcement",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d9-3",
+              "title": "Write test suite validating 10 complex model responses",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-10",
+          "dayNumber": 10,
+          "title": "Tool definitions and tool-call lifecycle",
+          "description": "Understand the tool call protocol: definition, model tool choice, tool execution, and tool response message.",
+          "objectives": [
+            "Map TypeScript functions to OpenAI/Anthropic tool schemas",
+            "Understand tool_call_id correlation",
+            "Handle multiple tool calls"
+          ],
+          "topics": [
+            "Tool schema",
+            "Function definitions",
+            "Tool message protocol"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d10-1",
+              "title": "Build tool registry converting Zod schemas to JSON Schema format",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d10-2",
+              "title": "Verify tool definition serialization and documentation strings",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-11",
+          "dayNumber": 11,
+          "title": "Implement calculator tool",
+          "description": "Build safe arithmetic, algebraic expression evaluation, and unit conversion tools.",
+          "objectives": [
+            "Create sandboxed math evaluation tool",
+            "Prevent code injection in math parser",
+            "Format clear calculation trace for model"
+          ],
+          "topics": [
+            "Sandboxed execution",
+            "Math expressions",
+            "Safe evaluation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d11-1",
+              "title": "Implement safe calculator tool with validation",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d11-2",
+              "title": "Write unit tests for math operations and edge cases",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-12",
+          "dayNumber": 12,
+          "title": "Implement tool-calling loop",
+          "description": "Create an autonomous loop: send prompt -> parse tool calls -> execute functions -> return tool results -> repeat until final answer.",
+          "objectives": [
+            "Write iterative agent loop",
+            "Support sequential and parallel tool calls",
+            "Terminate when finish_reason is stop"
+          ],
+          "topics": [
+            "Agent loop",
+            "Tool dispatch",
+            "Iteration control"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d12-1",
+              "title": "Implement core tool-calling execution cycle",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d12-2",
+              "title": "Add maximum turn iteration guard to prevent infinite loops",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-13",
+          "dayNumber": 13,
+          "title": "Validation, retries and malformed arguments",
+          "description": "Handle cases where the LLM passes invalid arguments: catch Zod validation error, return error to LLM, and prompt for correction.",
+          "objectives": [
+            "Implement tool reflection on error",
+            "Send corrective feedback messages",
+            "Benchmark recovery success rate"
+          ],
+          "topics": [
+            "Self-correction",
+            "Error feedback loop",
+            "Defensive programming"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d13-1",
+              "title": "Build error feedback mechanism returning Zod errors to assistant",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d13-2",
+              "title": "Verify LLM recovers from intentional schema mismatches",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-14",
+          "dayNumber": 14,
+          "title": "Tests, README and retrospective",
+          "description": "Package the tool calling engine, write documentation, clean up code, and document week 2 learnings.",
+          "objectives": [
+            "Full test coverage for tool calling engine",
+            "Publish comprehensive README",
+            "Reflect on prompt engineering techniques"
+          ],
+          "topics": [
+            "Unit testing",
+            "Documentation",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d14-1",
+              "title": "Write integration tests with mocked LLM tool calls",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d14-2",
+              "title": "Write Week 2 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-03",
+      "weekNumber": 3,
+      "title": "Agent Loops",
+      "description": "Build autonomous agent loops with ReAct (Reason + Act), planning, bounded execution, and observation handling.",
+      "deliverable": "Autonomous research agent with step-by-step reasoning traces and stop conditions.",
+      "objective": "Implement robust ReAct agent architecture with explicit observation states and telemetry.",
+      "topics": [
+        "ReAct Pattern",
+        "Task Planning",
+        "Observation Loops",
+        "Bounded Execution",
+        "Execution Tracing"
+      ],
+      "reviewChecklist": [
+        "Agent decomposes complex multi-step queries into sub-tasks",
+        "Observations are formatted cleanly into context",
+        "Strict execution limits (max steps, timeout, cost) prevent runaway loops",
+        "Complete execution trace logging"
+      ],
+      "days": [
+        {
+          "id": "day-15",
+          "dayNumber": 15,
+          "title": "Agent loop fundamentals",
+          "description": "Understand the ReAct pattern: Thought -> Action -> Observation -> Thought -> Final Answer.",
+          "objectives": [
+            "Deconstruct the ReAct paradigm",
+            "Contrast single-turn vs multi-step agents",
+            "Implement thought parsing"
+          ],
+          "topics": [
+            "ReAct framework",
+            "Cognitive architectures",
+            "Agent loops"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d15-1",
+              "title": "Write state machine diagram for ReAct agent",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d15-2",
+              "title": "Implement core state machine data structures in TypeScript",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-16",
+          "dayNumber": 16,
+          "title": "Planning and task decomposition",
+          "description": "Teach the agent to generate an initial plan, break tasks down into checkpoints, and update plan dynamically.",
+          "objectives": [
+            "Implement planning phase before tool execution",
+            "Track plan step completion",
+            "Allow plan revision on unexpected observations"
+          ],
+          "topics": [
+            "Hierarchical planning",
+            "Task decomposition",
+            "Plan adaptation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d16-1",
+              "title": "Build plan generation prompt generating structured step lists",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d16-2",
+              "title": "Integrate active step cursor in agent state",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-17",
+          "dayNumber": 17,
+          "title": "Tool selection and observations",
+          "description": "Design informative observation messages that guide the model toward the next logical step.",
+          "objectives": [
+            "Format structured observations",
+            "Truncate verbose tool outputs",
+            "Provide contextual hints on partial progress"
+          ],
+          "topics": [
+            "Observation formatting",
+            "Information density",
+            "Context budgeting"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d17-1",
+              "title": "Create observation summarizer for large tool responses",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d17-2",
+              "title": "Test agent tool selection accuracy across 15 ambiguous scenarios",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-18",
+          "dayNumber": 18,
+          "title": "Build research-agent skeleton",
+          "description": "Implement a multi-tool research agent with search, page fetch, summarization, and synthesis.",
+          "objectives": [
+            "Assemble research agent pipeline",
+            "Connect search and web scraper tools",
+            "Produce synthesized research markdown report"
+          ],
+          "topics": [
+            "Web scraping",
+            "Search integration",
+            "Markdown synthesis"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d18-1",
+              "title": "Wire mock search and web fetch tools to agent",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d18-2",
+              "title": "Run multi-step query requiring 4 interconnected search steps",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-19",
+          "dayNumber": 19,
+          "title": "Bounded execution and stopping rules",
+          "description": "Set hard boundaries: maximum steps, token budgets, timeout limits, and explicit user-abort triggers.",
+          "objectives": [
+            "Implement timeout cancellation token",
+            "Track cumulative token expenditure",
+            "Define clear termination conditions"
+          ],
+          "topics": [
+            "AbortController",
+            "Budget limits",
+            "Guardrails"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d19-1",
+              "title": "Add AbortSignal support across all agent async operations",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d19-2",
+              "title": "Enforce maxStep limit with graceful partial-result fallback",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-20",
+          "dayNumber": 20,
+          "title": "Traces and tool failure handling",
+          "description": "Log every step of the agent run into an inspectable timeline; handle network timeouts and degraded tool states.",
+          "objectives": [
+            "Create structured execution trace schema",
+            "Visualize agent steps in terminal or JSON",
+            "Implement fallback tools on primary failure"
+          ],
+          "topics": [
+            "Telemetry",
+            "Trace logging",
+            "Graceful degradation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d20-1",
+              "title": "Build execution tracer emitting JSONL event log",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d20-2",
+              "title": "Test recovery when external search tool returns 503 error",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-21",
+          "dayNumber": 21,
+          "title": "Edge-case testing and retrospective",
+          "description": "Stress-test the research agent on circular reasoning traps, dead ends, and ambiguous goals.",
+          "objectives": [
+            "Evaluate agent on loop detection",
+            "Verify cost accounting",
+            "Document week 3 progress"
+          ],
+          "topics": [
+            "Stress testing",
+            "Loop detection",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d21-1",
+              "title": "Implement duplicate action loop detection heuristic",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d21-2",
+              "title": "Publish week 3 code and write journal reflection",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-04",
+      "weekNumber": 4,
+      "title": "State and Memory",
+      "description": "Design persistent conversation storage, session management, vector-backed recall, and context summarization.",
+      "deliverable": "Persistent memory layer with PostgreSQL/SQLite, conversation summarization, and key-value recall.",
+      "objective": "Implement short-term, working, and long-term memory systems for AI agents.",
+      "topics": [
+        "Session Management",
+        "Relational State",
+        "Conversation Summarization",
+        "Entity Memory",
+        "State Machines"
+      ],
+      "reviewChecklist": [
+        "Clean separation between ephemeral working state and persistent memory",
+        "Automated background summarization preserves essential context across long sessions",
+        "Entity facts extracted and recalled accurately",
+        "Database transaction safety across message batches"
+      ],
+      "days": [
+        {
+          "id": "day-22",
+          "dayNumber": 22,
+          "title": "State, session and memory concepts",
+          "description": "Analyze short-term context window vs long-term persistent memory; architecture of memory layers.",
+          "objectives": [
+            "Differentiate episodic, semantic, and procedural memory in agents",
+            "Design memory data contracts"
+          ],
+          "topics": [
+            "Memory taxonomy",
+            "Episodic memory",
+            "Context budgeting"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d22-1",
+              "title": "Design memory schema covering sessions, messages, and facts",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d22-2",
+              "title": "Benchmark latency of in-memory vs persisted memory lookup",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-23",
+          "dayNumber": 23,
+          "title": "PostgreSQL setup and schema design",
+          "description": "Create database tables for users, sessions, message history, tool events, and user preferences.",
+          "objectives": [
+            "Write SQL migration for conversation store",
+            "Create indexed query paths for session retrieval"
+          ],
+          "topics": [
+            "PostgreSQL / SQLite",
+            "Schema migrations",
+            "Relational indexing"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d23-1",
+              "title": "Define migrations for sessions and messages tables",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d23-2",
+              "title": "Implement database connection pool and seed test data",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-24",
+          "dayNumber": 24,
+          "title": "Persist conversations and messages",
+          "description": "Save every user and assistant interaction, metadata, and token usage into the database.",
+          "objectives": [
+            "Implement repository pattern for chat persistence",
+            "Maintain message ordering and timestamps"
+          ],
+          "topics": [
+            "Repository pattern",
+            "Message persistence",
+            "Metadata tracking"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d24-1",
+              "title": "Build MessageRepository with saveMessage and getSessionHistory",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d24-2",
+              "title": "Store token usage and cost metrics per message",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-25",
+          "dayNumber": 25,
+          "title": "Conversation history retrieval",
+          "description": "Build smart retrieval queries: fetch recent N messages, filter system prompts, and format for API calls.",
+          "objectives": [
+            "Efficient history pagination",
+            "Window-based message retrieval",
+            "Cache active session headers"
+          ],
+          "topics": [
+            "Pagination",
+            "History formatting",
+            "In-memory caching"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d25-1",
+              "title": "Implement sliding window history fetcher with token threshold",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d25-2",
+              "title": "Write tests for session isolation and concurrency",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-26",
+          "dayNumber": 26,
+          "title": "Conversation summarisation",
+          "description": "Automatically condense old messages into a running summary when token budget threshold is exceeded.",
+          "objectives": [
+            "Build progressive summarizer",
+            "Inject running summary into system prompt",
+            "Preserve key decisions and facts"
+          ],
+          "topics": [
+            "Progressive summarization",
+            "Context compaction",
+            "Information density"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d26-1",
+              "title": "Implement summarizeConversation function when history exceeds 4000 tokens",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d26-2",
+              "title": "Verify summary retains critical facts from early in dialogue",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-27",
+          "dayNumber": 27,
+          "title": "Persistent memory retrieval",
+          "description": "Extract explicit user facts (e.g., preferences, tech stack, project goals) and recall them during reasoning.",
+          "objectives": [
+            "Implement entity fact extractor",
+            "Build fact recall tool for agent",
+            "Update facts on conflicting information"
+          ],
+          "topics": [
+            "Entity extraction",
+            "Key-value recall",
+            "Memory consolidation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d27-1",
+              "title": "Build background fact extractor analyzing user statements",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d27-2",
+              "title": "Inject relevant user facts into agent system prompt",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-28",
+          "dayNumber": 28,
+          "title": "Isolation tests and retrospective",
+          "description": "Run multi-user session isolation tests, verify memory persistence across restarts, and conduct retrospective.",
+          "objectives": [
+            "Validate zero state leakage across sessions",
+            "Clean up code and write comprehensive docs"
+          ],
+          "topics": [
+            "Session isolation",
+            "Regression tests",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d28-1",
+              "title": "Run automated concurrent session isolation test suite",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d28-2",
+              "title": "Complete Week 4 journal and document memory architecture",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-05",
+      "weekNumber": 5,
+      "title": "RAG (Retrieval-Augmented Generation)",
+      "description": "Build production document ingestion, smart chunking, vector embeddings, pgvector retrieval, and grounded synthesis.",
+      "deliverable": "Complete RAG system answering technical queries with source citations and similarity scores.",
+      "objective": "Implement end-to-end vector retrieval pipeline with accurate citations and evaluation.",
+      "topics": [
+        "Document Ingestion",
+        "Semantic Chunking",
+        "Vector Databases",
+        "pgvector",
+        "Source Grounding"
+      ],
+      "reviewChecklist": [
+        "Document chunking preserves code blocks and semantic headers",
+        "pgvector HNSW index configured with cosine distance",
+        "Grounded prompt ensures model cites chunk IDs accurately",
+        "Retrieval MRR and recall evaluated across benchmark queries"
+      ],
+      "days": [
+        {
+          "id": "day-29",
+          "dayNumber": 29,
+          "title": "RAG architecture and document ingestion",
+          "description": "Understand naive vs advanced RAG; build multi-format document parser for markdown, PDF, and code files.",
+          "objectives": [
+            "Map the RAG lifecycle",
+            "Parse markdown and code files with metadata extraction"
+          ],
+          "topics": [
+            "RAG architecture",
+            "Document loaders",
+            "Metadata tagging"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d29-1",
+              "title": "Create document loader for markdown documentation files",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d29-2",
+              "title": "Extract title, headers, and relative path metadata",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-30",
+          "dayNumber": 30,
+          "title": "Chunking strategies",
+          "description": "Compare fixed-size, sentence-based, recursive character, and markdown header-aware chunking.",
+          "objectives": [
+            "Implement recursive chunker with overlap",
+            "Preserve semantic context in code blocks"
+          ],
+          "topics": [
+            "Recursive chunking",
+            "Overlap ratios",
+            "Markdown splitter"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d30-1",
+              "title": "Build header-aware markdown text splitter in TypeScript",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d30-2",
+              "title": "Benchmark chunk size impact on answer completeness",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-31",
+          "dayNumber": 31,
+          "title": "Embeddings and vector search",
+          "description": "Batch compute embeddings for document chunks and build in-memory vector index with cosine similarity.",
+          "objectives": [
+            "Implement batched embedding generation with rate limit handling",
+            "Compute top-K cosine matches"
+          ],
+          "topics": [
+            "Vector embeddings",
+            "Batch processing",
+            "Top-K search"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d31-1",
+              "title": "Create batch embedding processor with concurrency control",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d31-2",
+              "title": "Build fast in-memory vector store with cosine ranking",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-32",
+          "dayNumber": 32,
+          "title": "Set up pgvector",
+          "description": "Install and configure pgvector in PostgreSQL; create vector column and HNSW index.",
+          "objectives": [
+            "Create table with vector(1536) column",
+            "Configure HNSW index parameters (m, ef_construction)",
+            "Execute vector similarity queries"
+          ],
+          "topics": [
+            "pgvector",
+            "HNSW indexing",
+            "SQL vector queries"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d32-1",
+              "title": "Write SQL migration enabling pgvector extension and table",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d32-2",
+              "title": "Test HNSW index creation and query latency on 10,000 vectors",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-33",
+          "dayNumber": 33,
+          "title": "Build document retrieval pipeline",
+          "description": "Implement hybrid search query: combine vector similarity with keyword/metadata filtering.",
+          "objectives": [
+            "Implement metadata filtering on vector queries",
+            "Tune similarity score thresholds"
+          ],
+          "topics": [
+            "Hybrid search",
+            "Score thresholding",
+            "Query pipeline"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d33-1",
+              "title": "Build retriever class supporting category filtering and topK",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d33-2",
+              "title": "Implement deduplication of overlapping document chunks",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-34",
+          "dayNumber": 34,
+          "title": "Grounded answers and source references",
+          "description": "Synthesize LLM answers strictly from retrieved chunks with inline citations and reference links.",
+          "objectives": [
+            "Formulate grounded answer prompt",
+            "Format citations as clickable references",
+            "Add fallback response when context is insufficient"
+          ],
+          "topics": [
+            "Source grounding",
+            "Citation extraction",
+            "Hallucination prevention"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d34-1",
+              "title": "Create synthesis prompt enforcing citations like [Doc 1]",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d34-2",
+              "title": "Parse and validate citations in generated answers",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-35",
+          "dayNumber": 35,
+          "title": "Retrieval tests and retrospective",
+          "description": "Build test dataset of 20 Q&A pairs; evaluate retrieval accuracy, latency, and hallucination rate.",
+          "objectives": [
+            "Measure retrieval precision and recall",
+            "Document RAG pipeline",
+            "Reflect on chunking tradeoffs"
+          ],
+          "topics": [
+            "Evaluation metrics",
+            "Retrieval precision",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d35-1",
+              "title": "Run automated evaluation over 20 test questions",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d35-2",
+              "title": "Write Week 5 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-06",
+      "weekNumber": 6,
+      "title": "Agent Orchestration",
+      "description": "Design deterministic workflow state machines, sequential & parallel execution, checkpointing, and human-in-the-loop approvals.",
+      "deliverable": "A resilient workflow orchestration engine with graph state, checkpointing, and approval pauses.",
+      "objective": "Implement state machine orchestrators capable of complex branching and recovery.",
+      "topics": [
+        "State Machines",
+        "Graph Orchestration",
+        "Checkpointing",
+        "Parallel Branches",
+        "Human-in-the-Loop"
+      ],
+      "reviewChecklist": [
+        "State transitions are deterministic and typed",
+        "Workflow can be serialized to disk and resumed at any checkpoint",
+        "Parallel branch execution aggregates cleanly without race conditions",
+        "Human approval gates pause and resume reliably"
+      ],
+      "days": [
+        {
+          "id": "day-36",
+          "dayNumber": 36,
+          "title": "Workflow state machines",
+          "description": "Design directed workflow graphs with nodes (actions), edges (transitions), and shared state.",
+          "objectives": [
+            "Model agent execution as a state graph",
+            "Define strongly-typed state transitions"
+          ],
+          "topics": [
+            "Finite State Machines",
+            "Graph theory",
+            "Workflow architecture"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d36-1",
+              "title": "Define WorkflowGraph interface with Node, Edge, and State",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d36-2",
+              "title": "Implement simple linear 3-node execution graph",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-37",
+          "dayNumber": 37,
+          "title": "Sequential orchestration",
+          "description": "Build sequential pipelines where output of one specialist agent feeds into the input of the next.",
+          "objectives": [
+            "Implement sequential pipeline executor",
+            "Pass typed state across pipeline stages"
+          ],
+          "topics": [
+            "Pipelines",
+            "State transformation",
+            "Sequential workflows"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d37-1",
+              "title": "Build 3-stage pipeline: Outline -> Draft -> Review",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d37-2",
+              "title": "Add schema validation between pipeline stages",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-38",
+          "dayNumber": 38,
+          "title": "Parallel execution",
+          "description": "Execute independent sub-tasks concurrently using Promise.allSettled and merge results.",
+          "objectives": [
+            "Spawn concurrent worker tasks",
+            "Merge branch state cleanly",
+            "Handle partial failures in branches"
+          ],
+          "topics": [
+            "Concurrency",
+            "Fan-out / Fan-in",
+            "State merging"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d38-1",
+              "title": "Implement parallel fan-out node evaluating 3 search angles",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d38-2",
+              "title": "Build synthesizer node merging 3 concurrent outputs",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-39",
+          "dayNumber": 39,
+          "title": "Checkpointing and persistence",
+          "description": "Persist state snapshot at every node boundary to allow resuming interrupted workflows.",
+          "objectives": [
+            "Serialize workflow state graph to database",
+            "Implement resumeFromCheckpoint function"
+          ],
+          "topics": [
+            "Checkpointing",
+            "State serialization",
+            "Idempotency"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d39-1",
+              "title": "Build CheckpointManager saving graph state after each step",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d39-2",
+              "title": "Simulate process crash and resume execution from last checkpoint",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-40",
+          "dayNumber": 40,
+          "title": "Retries, timeouts and recovery",
+          "description": "Add circuit breaker patterns, configurable node retries, and fallback transition paths.",
+          "objectives": [
+            "Add per-node retry policy with exponential backoff",
+            "Define fallback dead-letter transition"
+          ],
+          "topics": [
+            "Circuit breakers",
+            "Fault tolerance",
+            "Error boundaries"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d40-1",
+              "title": "Implement retry handler with custom retry conditions",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d40-2",
+              "title": "Add timeout budget per graph node",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-41",
+          "dayNumber": 41,
+          "title": "Human approval workflow",
+          "description": "Create pause-for-approval gates: agent pauses execution, emits approval request, and waits for human input.",
+          "objectives": [
+            "Implement interruptible state node",
+            "Build approval submission API",
+            "Resume execution upon approval/rejection"
+          ],
+          "topics": [
+            "Human-in-the-loop",
+            "Interrupts",
+            "Approval workflows"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d41-1",
+              "title": "Build human approval node requiring CLI confirmation before proceeding",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d41-2",
+              "title": "Handle rejection with alternative revision flow",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-42",
+          "dayNumber": 42,
+          "title": "Compare orchestration approaches and retrospective",
+          "description": "Compare code-based graphs vs declarative configs; document architecture and record learnings.",
+          "objectives": [
+            "Benchmark graph execution overhead",
+            "Document orchestration design patterns",
+            "Weekly retrospective"
+          ],
+          "topics": [
+            "Architecture comparison",
+            "Documentation",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d42-1",
+              "title": "Write comparative review of LangGraph vs custom state machines",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d42-2",
+              "title": "Publish Week 6 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-07",
+      "weekNumber": 7,
+      "title": "Model Context Protocol (MCP)",
+      "description": "Learn Anthropic MCP protocol, build standard MCP servers in TypeScript, expose tools & resources, and connect MCP clients.",
+      "deliverable": "A custom Model Context Protocol server and client exposing development tools and file resources.",
+      "objective": "Implement standardized client-server tool and resource sharing using MCP specification.",
+      "topics": [
+        "MCP Specification",
+        "JSON-RPC 2.0",
+        "MCP Server SDK",
+        "Resources & Prompts",
+        "Security Boundaries"
+      ],
+      "reviewChecklist": [
+        "MCP server conforms to official protocol specification",
+        "Tools expose clean JSON schemas and descriptions",
+        "Resources provide read-only file content and context",
+        "Security boundaries prevent unauthorized system operations"
+      ],
+      "days": [
+        {
+          "id": "day-43",
+          "dayNumber": 43,
+          "title": "MCP architecture and concepts",
+          "description": "Understand Model Context Protocol: hosts, clients, servers, transports (stdio, SSE), and protocol messages.",
+          "objectives": [
+            "Study MCP specification overview",
+            "Understand stdio vs HTTP/SSE transport modes"
+          ],
+          "topics": [
+            "MCP protocol",
+            "JSON-RPC",
+            "Transport layers"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d43-1",
+              "title": "Read MCP architecture spec and write summary notes",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d43-2",
+              "title": "Inspect raw JSON-RPC messages between client and server",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-44",
+          "dayNumber": 44,
+          "title": "MCP TypeScript SDK setup",
+          "description": "Install @modelcontextprotocol/sdk, configure stdio transport, and initialize server instance.",
+          "objectives": [
+            "Initialize MCP server with name and version",
+            "Set up server lifecycle and error handlers"
+          ],
+          "topics": [
+            "MCP SDK",
+            "Server lifecycle",
+            "Stdio transport"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d44-1",
+              "title": "Create new project with @modelcontextprotocol/sdk",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d44-2",
+              "title": "Implement basic server ping/handshake handling",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-45",
+          "dayNumber": 45,
+          "title": "Build first MCP tool",
+          "description": "Expose filesystem exploration and code search tools via MCP ListTools and CallTool handlers.",
+          "objectives": [
+            "Define tools with inputSchema using Zod",
+            "Handle CallToolRequest and return CallToolResult"
+          ],
+          "topics": [
+            "MCP Tools",
+            "Tool handlers",
+            "Input schemas"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d45-1",
+              "title": "Implement directory listing tool conforming to MCP tool spec",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d45-2",
+              "title": "Implement file reading tool with line-range slicing",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-46",
+          "dayNumber": 46,
+          "title": "Add resources and prompts",
+          "description": "Implement MCP Resources (dynamic data URIs) and Prompts (reusable parameterized prompt templates).",
+          "objectives": [
+            "Implement ListResources and ReadResource handlers",
+            "Define dynamic prompt templates"
+          ],
+          "topics": [
+            "MCP Resources",
+            "MCP Prompts",
+            "URI schemes"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d46-1",
+              "title": "Expose project git status as an MCP resource URI",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d46-2",
+              "title": "Create reusable code-review prompt template via MCP",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-47",
+          "dayNumber": 47,
+          "title": "Connect MCP client",
+          "description": "Build an MCP client that launches the server child process, queries tools, and invokes them.",
+          "objectives": [
+            "Implement MCP Client with StdioClientTransport",
+            "Discover server tools dynamically and register in agent"
+          ],
+          "topics": [
+            "MCP Client",
+            "Dynamic discovery",
+            "Process management"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d47-1",
+              "title": "Build client connecting to local MCP server process",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d47-2",
+              "title": "Automatically inject discovered MCP tools into agent loop",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-48",
+          "dayNumber": 48,
+          "title": "Validation and permission boundaries",
+          "description": "Implement access control: prevent path traversal attacks, sandbox file reading, and validate commands.",
+          "objectives": [
+            "Restrict file access to designated workspace root",
+            "Reject disallowed shell patterns"
+          ],
+          "topics": [
+            "Sandbox security",
+            "Path traversal defense",
+            "Access control"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d48-1",
+              "title": "Implement path sanitization and boundary check guard",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d48-2",
+              "title": "Write security tests verifying prevention of ../ directory escapes",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-49",
+          "dayNumber": 49,
+          "title": "Demo, documentation and retrospective",
+          "description": "Connect the MCP server to an external LLM interface or CLI, verify end-to-end operation, and write retrospective.",
+          "objectives": [
+            "Test end-to-end agent query using MCP tools",
+            "Document MCP server API and usage",
+            "Weekly review"
+          ],
+          "topics": [
+            "Integration testing",
+            "Documentation",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d49-1",
+              "title": "Perform live demo of agent inspecting repo via MCP",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d49-2",
+              "title": "Publish Week 7 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-08",
+      "weekNumber": 8,
+      "title": "Coding Agent Foundations (Forge)",
+      "description": "Kick off Forge: the autonomous AI coding agent. Build repo mapping, file search, targeted edits, git diff, and test runner.",
+      "deliverable": "Core engine of Forge: can inspect a codebase, plan code edits, apply changes, and run tests.",
+      "objective": "Implement autonomous coding primitives with safe diff generation and test feedback.",
+      "topics": [
+        "Autonomous Coding",
+        "Codebase Mapping",
+        "AST / Regex Search",
+        "Diff Application",
+        "Test Execution"
+      ],
+      "reviewChecklist": [
+        "Forge maps directory trees and extracts file symbol outlines",
+        "Edits apply reliably using exact search-and-replace blocks",
+        "Git diffs generated and presented to user clearly",
+        "Test runner captures stdout/stderr and returns error context to agent"
+      ],
+      "days": [
+        {
+          "id": "day-50",
+          "dayNumber": 50,
+          "title": "Forge architecture and repository setup",
+          "description": "Architect the Forge coding agent CLI; project layout, configuration, and execution state.",
+          "objectives": [
+            "Define Forge core system architecture",
+            "Set up CLI entrypoint and config file parser"
+          ],
+          "topics": [
+            "CLI architecture",
+            "System design",
+            "Forge core"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-50",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d50-1",
+              "title": "Create Forge project structure with src/tools, src/agent, src/cli",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d50-2",
+              "title": "Define workspace configuration schema (forge.config.json)",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-51",
+          "dayNumber": 51,
+          "title": "Repository exploration tools",
+          "description": "Build fast file tree explorer, glob pattern matcher, and ripgrep/grep search tool.",
+          "objectives": [
+            "Implement list_files tool ignoring .git, node_modules",
+            "Build regex search_files tool"
+          ],
+          "topics": [
+            "File exploration",
+            "Glob matching",
+            "Code search"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-51",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d51-1",
+              "title": "Build fast workspace file tree crawler with ignore lists",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d51-2",
+              "title": "Build text/regex code search returning file paths and line matches",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-52",
+          "dayNumber": 52,
+          "title": "File reading and codebase mapping",
+          "description": "Implement chunked file reader with line numbers and skeleton generator (classes, methods, exports).",
+          "objectives": [
+            "Implement read_file with startLine and endLine",
+            "Create symbol outline extractor for TypeScript files"
+          ],
+          "topics": [
+            "Code reading",
+            "Symbol outlines",
+            "AST extraction"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-52",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d52-1",
+              "title": "Implement line-numbered read_file tool with pagination limits",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d52-2",
+              "title": "Build lightweight symbol outline generator for TypeScript files",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-53",
+          "dayNumber": 53,
+          "title": "Planning and task decomposition",
+          "description": "Teach Forge to examine an issue, explore relevant files, and construct a concrete file modification plan.",
+          "objectives": [
+            "Prompt model to produce structured coding plan",
+            "Separate exploration phase from editing phase"
+          ],
+          "topics": [
+            "Code reasoning",
+            "Step-by-step editing plan",
+            "Context assembly"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-53",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d53-1",
+              "title": "Implement two-phase agent: 1) Explore & Plan, 2) Execute Edits",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d53-2",
+              "title": "Benchmark plan quality on 3 sample bug fixes",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-54",
+          "dayNumber": 54,
+          "title": "Controlled file editing",
+          "description": "Implement targeted edit tool using exact search and replace blocks; handle whitespace and indentation.",
+          "objectives": [
+            "Build edit_file tool with target string and replacement",
+            "Ensure atomic file updates with rollbacks"
+          ],
+          "topics": [
+            "Atomic edits",
+            "Search-and-replace",
+            "Diff safety"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-54",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d54-1",
+              "title": "Implement search-and-replace edit_file engine with exact match check",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d54-2",
+              "title": "Write tests for multi-line indentation preservation during edits",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-55",
+          "dayNumber": 55,
+          "title": "Git diff and test runner",
+          "description": "Integrate git diff preview and automated test execution (npm test / jest / vitest).",
+          "objectives": [
+            "Execute git diff after edits and display unified diff",
+            "Run test runner command and capture failure traces"
+          ],
+          "topics": [
+            "Git diff",
+            "Process execution",
+            "Test runner"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-55",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d55-1",
+              "title": "Implement git diff generator highlighting modified hunks",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d55-2",
+              "title": "Build run_tests tool returning exit code, failed test names, and stack trace",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-56",
+          "dayNumber": 56,
+          "title": "Approval flow and retrospective",
+          "description": "Add interactive CLI approval before writing edits to disk; complete retrospective on week 8.",
+          "objectives": [
+            "Show colorized diff to user and prompt [Y/n/edit]",
+            "Reflect on coding agent strengths and failure modes"
+          ],
+          "topics": [
+            "CLI UX",
+            "Interactive approvals",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-56",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d56-1",
+              "title": "Implement interactive diff confirmation prompt before applying changes",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d56-2",
+              "title": "Complete Week 8 journal and commit Forge foundation",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-09",
+      "weekNumber": 9,
+      "title": "Multi-Agent Systems",
+      "description": "Implement multi-agent patterns: supervisor-worker, specialized agent contracts, codebase researcher, and test specialist.",
+      "deliverable": "A multi-agent team collaborating to solve complex programming tasks.",
+      "objective": "Orchestrate multiple specialized agents communicating through contracts and shared state.",
+      "topics": [
+        "Multi-Agent Systems",
+        "Supervisor Pattern",
+        "Specialist Contracts",
+        "Conflict Resolution",
+        "Agent Communication"
+      ],
+      "reviewChecklist": [
+        "Supervisor agent successfully delegates sub-tasks to specialists",
+        "Specialist agents adhere strictly to role boundaries",
+        "Shared state resolves concurrent branch updates without data loss",
+        "Demonstrated improvement in complex task success rate vs single agent"
+      ],
+      "days": [
+        {
+          "id": "day-57",
+          "dayNumber": 57,
+          "title": "Multi-agent patterns",
+          "description": "Study multi-agent paradigms: peer-to-peer swarms vs hierarchical supervisor vs sequential handover.",
+          "objectives": [
+            "Compare communication topologies",
+            "Identify scenarios where multi-agent outperforms single-agent"
+          ],
+          "topics": [
+            "Multi-agent architecture",
+            "Communication topology",
+            "Role specialization"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-57",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d57-1",
+              "title": "Diagram hierarchical supervisor vs peer swarm architectures",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d57-2",
+              "title": "Define message protocol between agents (sender, recipient, payload)",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-58",
+          "dayNumber": 58,
+          "title": "Supervisor implementation",
+          "description": "Build supervisor agent that receives user prompt, decomposes problem, and assigns work to workers.",
+          "objectives": [
+            "Implement Supervisor agent loop",
+            "Route tasks based on worker agent capabilities"
+          ],
+          "topics": [
+            "Supervisor agent",
+            "Routing",
+            "Work scheduling"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-58",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d58-1",
+              "title": "Build Supervisor prompt with available agent roster",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d58-2",
+              "title": "Implement task delegation and result aggregation logic",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-59",
+          "dayNumber": 59,
+          "title": "Specialist agent contracts",
+          "description": "Define input and output interfaces for specialist agents using strict Zod schemas.",
+          "objectives": [
+            "Define AgentContract interface",
+            "Validate agent handoffs with typed schemas"
+          ],
+          "topics": [
+            "Agent contracts",
+            "Interface design",
+            "Typed handoffs"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-59",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d59-1",
+              "title": "Define research agent contract: input question -> output file list & findings",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d59-2",
+              "title": "Define test specialist contract: input changes -> output test pass/fail report",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-60",
+          "dayNumber": 60,
+          "title": "Codebase-analysis specialist",
+          "description": "Create dedicated researcher agent specialized only in reading code, following call trees, and finding bug roots.",
+          "objectives": [
+            "Constrain specialist tools to read-only search and AST",
+            "Optimize prompt for root-cause diagnosis"
+          ],
+          "topics": [
+            "Read-only agent",
+            "Root cause analysis",
+            "Call graph tracing"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-60",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d60-1",
+              "title": "Assemble CodebaseAnalyzer specialist with read-only sandbox",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d60-2",
+              "title": "Test bug localization accuracy on 5 known repository issues",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-61",
+          "dayNumber": 61,
+          "title": "Test/debug specialist",
+          "description": "Build test specialist agent that writes reproduction tests, executes test suites, and verifies fixes.",
+          "objectives": [
+            "Equip specialist with test-generation prompt and test runner",
+            "Enforce test-driven bug reproduction"
+          ],
+          "topics": [
+            "TDD agent",
+            "Test generation",
+            "Regression prevention"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-61",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d61-1",
+              "title": "Implement TestSpecialist agent writing failing test before fix",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d61-2",
+              "title": "Verify test specialist confirms fix passes without side effects",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-62",
+          "dayNumber": 62,
+          "title": "Shared state and conflict handling",
+          "description": "Manage shared workspace state when multiple agents propose edits; handle merge conflicts and race conditions.",
+          "objectives": [
+            "Implement lock manager for file access",
+            "Detect conflicting diff proposals"
+          ],
+          "topics": [
+            "Concurrency control",
+            "Conflict resolution",
+            "State synchronization"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-62",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d62-1",
+              "title": "Build file locking mechanism preventing simultaneous edits to same file",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d62-2",
+              "title": "Implement conflict detector and retry request to worker",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-63",
+          "dayNumber": 63,
+          "title": "Compare single-agent vs multi-agent and retrospective",
+          "description": "Benchmark single-agent vs multi-agent on 5 real GitHub issues; analyze cost, latency, and success rate.",
+          "objectives": [
+            "Measure task completion rate, token cost, and execution duration",
+            "Weekly retrospective"
+          ],
+          "topics": [
+            "Benchmarking",
+            "Cost analysis",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-63",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d63-1",
+              "title": "Run comparative benchmark on 5 sample coding challenges",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d63-2",
+              "title": "Publish Week 9 retrospective journal entry with benchmark results",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-10",
+      "weekNumber": 10,
+      "title": "Evaluation and Benchmarking",
+      "description": "Build comprehensive evaluation pipelines, custom benchmarks, scoring criteria, latency/cost tracking, and regression suites.",
+      "deliverable": "Automated evaluation suite benchmarking coding agent success rate, tokens, and wall-clock time.",
+      "objective": "Implement rigorous eval methodology to track model improvements and prevent regressions.",
+      "topics": [
+        "LLM Evaluation",
+        "SWE-bench Methodology",
+        "Cost & Latency Tracking",
+        "Regression Suites",
+        "Assertion Evals"
+      ],
+      "reviewChecklist": [
+        "Benchmark suite runs deterministically in reproducible environment",
+        "Pass@1, latency, and token cost measured per run",
+        "Automated regression check catches capability drops",
+        "Detailed visual evaluation report generated"
+      ],
+      "days": [
+        {
+          "id": "day-64",
+          "dayNumber": 64,
+          "title": "Evaluation fundamentals",
+          "description": "Learn evaluation concepts: unit tests vs LLM-as-a-judge vs task completion benchmarks like SWE-bench.",
+          "objectives": [
+            "Understand pass@1 and pass@k metrics",
+            "Identify pitfalls of LLM-as-judge subjectivity"
+          ],
+          "topics": [
+            "Evaluation theory",
+            "Pass@k",
+            "Ground truth"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-64",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d64-1",
+              "title": "Study SWE-bench evaluation methodology and write summary",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d64-2",
+              "title": "Define evaluation metric schema (accuracy, cost, time, steps)",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-65",
+          "dayNumber": 65,
+          "title": "Design benchmark tasks",
+          "description": "Curate a dataset of 15 realistic coding problems with git repositories, problem statements, and test suites.",
+          "objectives": [
+            "Create reproducible git test repositories",
+            "Define clear problem specifications"
+          ],
+          "topics": [
+            "Benchmark curation",
+            "Test fixtures",
+            "Reproducibility"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-65",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d65-1",
+              "title": "Assemble 10 bug-fix scenarios and 5 feature-addition tasks",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d65-2",
+              "title": "Write automated harness to reset repositories to initial commit",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-66",
+          "dayNumber": 66,
+          "title": "Define scoring and success criteria",
+          "description": "Build automated verification: run test suite, verify exit code 0, check git diff sanity, and score solution.",
+          "objectives": [
+            "Implement programmatic success validator",
+            "Award binary pass/fail based on test runner output"
+          ],
+          "topics": [
+            "Programmatic validation",
+            "Exit codes",
+            "Scoring logic"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-66",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d66-1",
+              "title": "Implement automated task verifier running tests in clean subshell",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d66-2",
+              "title": "Add diff sanity check ensuring no unintended files were modified",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-67",
+          "dayNumber": 67,
+          "title": "Run first benchmark",
+          "description": "Execute the full 15-task benchmark against Forge; record pass rate, total token expenditure, and execution times.",
+          "objectives": [
+            "Run benchmark runner harness",
+            "Compute initial baseline pass@1 percentage"
+          ],
+          "topics": [
+            "Baseline measurement",
+            "Benchmark execution",
+            "Pass@1"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-67",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d67-1",
+              "title": "Build automated batch runner executing all benchmark tasks",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d67-2",
+              "title": "Log baseline results into JSON benchmark database",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-68",
+          "dayNumber": 68,
+          "title": "Track latency and cost",
+          "description": "Profile time spent in planning vs tool execution vs model generation; breakdown cost per sub-task.",
+          "objectives": [
+            "Profile latency bottlenecks in agent loop",
+            "Calculate dollar cost per benchmark task"
+          ],
+          "topics": [
+            "Profiling",
+            "Cost accounting",
+            "Bottleneck analysis"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-68",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d68-1",
+              "title": "Build latency profiler recording step durations",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d68-2",
+              "title": "Generate cost breakdown chart comparing prompt vs completion tokens",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-69",
+          "dayNumber": 69,
+          "title": "Add regression suite",
+          "description": "Integrate the benchmark into CI: alert if changes to prompts or tools reduce pass rate or increase cost by >15%.",
+          "objectives": [
+            "Build regression detection gate",
+            "Create quick 3-task smoke eval for PRs"
+          ],
+          "topics": [
+            "CI/CD regression",
+            "Smoke eval",
+            "Performance budgets"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-69",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d69-1",
+              "title": "Implement regression threshold check comparing against baseline.json",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d69-2",
+              "title": "Create fast 2-minute smoke eval script for everyday development",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-70",
+          "dayNumber": 70,
+          "title": "Evaluation report and retrospective",
+          "description": "Generate comprehensive markdown evaluation report with pass rates, charts, and analysis of failures.",
+          "objectives": [
+            "Analyze root causes of failed benchmark tasks",
+            "Document week 10 insights and retrospective"
+          ],
+          "topics": [
+            "Failure analysis",
+            "Evaluation reporting",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-70",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d70-1",
+              "title": "Generate visual markdown evaluation report with metrics table",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d70-2",
+              "title": "Complete Week 10 journal entry with failure mode categorization",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-11",
+      "weekNumber": 11,
+      "title": "Security and Sandboxing",
+      "description": "Implement threat modeling, prompt injection defense, untrusted input sanitation, Docker container sandboxing, and secret hygiene.",
+      "deliverable": "Sandboxed execution environment with strict system permissions and security defenses.",
+      "objective": "Harden autonomous agent against prompt injections, unauthorized file access, and arbitrary code execution.",
+      "topics": [
+        "Threat Modeling",
+        "Prompt Injection",
+        "Sandboxing",
+        "Command Whitelisting",
+        "Secret Hygiene"
+      ],
+      "reviewChecklist": [
+        "Agent rejects indirect prompt injections in untrusted files or search results",
+        "Shell commands execute in isolated container or restricted subshell",
+        "Sensitive files (.env, keys) cannot be read by agent",
+        "All security test scenarios pass"
+      ],
+      "days": [
+        {
+          "id": "day-71",
+          "dayNumber": 71,
+          "title": "Threat model and prompt injection",
+          "description": "Analyze security risks: direct injection, indirect injection via ingested files, data exfiltration, and resource exhaustion.",
+          "objectives": [
+            "Create comprehensive threat model for coding agents",
+            "Demonstrate indirect prompt injection attack in test file"
+          ],
+          "topics": [
+            "Threat modeling",
+            "Indirect prompt injection",
+            "Security taxonomy"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-71",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d71-1",
+              "title": "Write Threat Model document for Forge covering all attack vectors",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d71-2",
+              "title": "Create test file containing malicious injection instructions",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-72",
+          "dayNumber": 72,
+          "title": "Untrusted input handling",
+          "description": "Isolate untrusted data using data delimiters (e.g. <untrusted_content>), structural separation, and meta-prompts.",
+          "objectives": [
+            "Implement XML tag boundary encapsulation for external content",
+            "Instruct model to treat delimited content purely as passive data"
+          ],
+          "topics": [
+            "Input sanitization",
+            "Delimiters",
+            "Context separation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-72",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d72-1",
+              "title": "Build input wrapper wrapping file contents in strict XML tags",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d72-2",
+              "title": "Test injection resistance against 10 prompt injection payloads",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-73",
+          "dayNumber": 73,
+          "title": "Filesystem and command restrictions",
+          "description": "Block access to sensitive paths (.env, ~/.ssh, /etc/passwd); enforce command whitelisting for shell execution.",
+          "objectives": [
+            "Implement path denylist and canonical path resolver",
+            "Create strict command whitelist (git, npm test, tsc)"
+          ],
+          "topics": [
+            "Filesystem security",
+            "Path traversal",
+            "Command whitelisting"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-73",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d73-1",
+              "title": "Implement path guard blocking access outside workspace root",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d73-2",
+              "title": "Implement command parser allowing only approved binaries and flags",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-74",
+          "dayNumber": 74,
+          "title": "Sandbox and approval gates",
+          "description": "Run commands inside ephemeral Docker container or unprivileged sandbox; require explicit user approval for network calls.",
+          "objectives": [
+            "Configure Docker container sandbox for command execution",
+            "Mount workspace as non-root user with read/write boundaries"
+          ],
+          "topics": [
+            "Docker sandboxing",
+            "Container isolation",
+            "Approval gates"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-74",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d74-1",
+              "title": "Create lightweight Dockerfile sandbox for executing user code",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d74-2",
+              "title": "Implement bridge executing agent shell commands inside container",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-75",
+          "dayNumber": 75,
+          "title": "Secrets and logging hygiene",
+          "description": "Sanitize logs and tool outputs: detect API keys, tokens, and passwords using entropy analysis and regex, and mask them.",
+          "objectives": [
+            "Build secret scrubber filter",
+            "Ensure secrets never appear in model prompts, traces, or terminal output"
+          ],
+          "topics": [
+            "Secret masking",
+            "Entropy scanning",
+            "Telemetry privacy"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-75",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d75-1",
+              "title": "Implement regex secret detector for API keys, bearer tokens, and private keys",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d75-2",
+              "title": "Add scrubbing middleware to execution tracer and logger",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-76",
+          "dayNumber": 76,
+          "title": "Security test scenarios",
+          "description": "Run automated red-team test suite: attempt directory escape, command injection, secret leakage, and malicious prompt execution.",
+          "objectives": [
+            "Execute automated adversarial test suite",
+            "Verify zero successful privilege escalations"
+          ],
+          "topics": [
+            "Red-teaming",
+            "Adversarial testing",
+            "Security validation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-76",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d76-1",
+              "title": "Write 12 automated red-team security test cases",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d76-2",
+              "title": "Verify all 12 tests are safely intercepted by security guards",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-77",
+          "dayNumber": 77,
+          "title": "Fix findings and retrospective",
+          "description": "Patch all identified vulnerabilities, document security best practices for AI agents, and complete retrospective.",
+          "objectives": [
+            "Harden all security boundaries based on test results",
+            "Publish security advisory guide",
+            "Weekly review"
+          ],
+          "topics": [
+            "Vulnerability remediation",
+            "Documentation",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-77",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d77-1",
+              "title": "Patch edge cases identified during red-teaming",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d77-2",
+              "title": "Publish Week 11 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-12",
+      "weekNumber": 12,
+      "title": "Deployment and Productionisation",
+      "description": "Wrap Forge with a production API, websocket streaming progress, dockerization, rate limiting, and telemetry monitoring.",
+      "deliverable": "Dockerized Forge service exposed via REST/WebSocket API with live streaming progress updates.",
+      "objective": "Transform local CLI agent into scalable, deployable production service.",
+      "topics": [
+        "API Design",
+        "WebSocket Streaming",
+        "Dockerization",
+        "Rate Limiting",
+        "Production Tracing"
+      ],
+      "reviewChecklist": [
+        "REST API creates jobs and returns job IDs",
+        "WebSocket streams token output and step events in real-time",
+        "Docker container builds reliably with multi-stage optimization",
+        "Rate limiting and cost quotas enforced per client"
+      ],
+      "days": [
+        {
+          "id": "day-78",
+          "dayNumber": 78,
+          "title": "API and deployment architecture",
+          "description": "Design production architecture: Next.js/Fastify backend, job queue, worker pool, and client dashboards.",
+          "objectives": [
+            "Design REST and WebSocket API specification",
+            "Define asynchronous job lifecycle (queued, running, finished, failed)"
+          ],
+          "topics": [
+            "API architecture",
+            "Job queues",
+            "Async processing"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-78",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d78-1",
+              "title": "Write OpenAPI specification for Forge agent service",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d78-2",
+              "title": "Design database schema for agent jobs and event logs",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-79",
+          "dayNumber": 79,
+          "title": "Expose Forge through an API",
+          "description": "Build backend endpoints to submit task, query status, fetch execution diff, and approve/cancel actions.",
+          "objectives": [
+            "Implement POST /api/jobs and GET /api/jobs/:id",
+            "Manage worker process lifecycle"
+          ],
+          "topics": [
+            "REST API",
+            "Controller logic",
+            "Job management"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-79",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d79-1",
+              "title": "Build job submission and status REST endpoints",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d79-2",
+              "title": "Implement background job worker executing Forge engine",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-80",
+          "dayNumber": 80,
+          "title": "Job status and progress",
+          "description": "Stream live execution steps, terminal outputs, and file diffs over WebSocket / Server-Sent Events (SSE).",
+          "objectives": [
+            "Implement WebSocket / SSE streaming server",
+            "Broadcast step start, tool call, and tool result events"
+          ],
+          "topics": [
+            "WebSocket",
+            "Server-Sent Events",
+            "Real-time telemetry"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-80",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d80-1",
+              "title": "Build SSE endpoint streaming live agent event stream",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d80-2",
+              "title": "Build frontend consumer displaying live terminal log",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-81",
+          "dayNumber": 81,
+          "title": "Logging and tracing",
+          "description": "Integrate OpenTelemetry / structured JSON logging; export traces to monitoring dashboards.",
+          "objectives": [
+            "Instrument agent operations with OpenTelemetry spans",
+            "Track token usage and latency across distributed spans"
+          ],
+          "topics": [
+            "OpenTelemetry",
+            "Structured logging",
+            "Observability"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-81",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d81-1",
+              "title": "Add OpenTelemetry tracing to agent core execution loop",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d81-2",
+              "title": "Configure structured JSON log output with correlation IDs",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-82",
+          "dayNumber": 82,
+          "title": "Rate limits and cost budgets",
+          "description": "Implement token bucket rate limiter and budget caps: stop agent if job exceeds $2.00 or 100,000 tokens.",
+          "objectives": [
+            "Enforce per-user token and dollar budgets",
+            "Implement sliding window rate limiting"
+          ],
+          "topics": [
+            "Rate limiting",
+            "Cost budgeting",
+            "Quota enforcement"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-82",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d82-1",
+              "title": "Implement budget manager terminating job when dollar limit is reached",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d82-2",
+              "title": "Write unit tests verifying quota enforcement",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-83",
+          "dayNumber": 83,
+          "title": "Dockerise and deploy",
+          "description": "Build optimized multi-stage Docker container for Forge; deploy to cloud container service or local server.",
+          "objectives": [
+            "Write multi-stage Dockerfile minimizing image size",
+            "Configure docker-compose with Redis and Postgres"
+          ],
+          "topics": [
+            "Docker",
+            "Multi-stage builds",
+            "Container deployment"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-83",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d83-1",
+              "title": "Create production multi-stage Dockerfile for Forge service",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d83-2",
+              "title": "Test container startup and execute sample job inside container",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-84",
+          "dayNumber": 84,
+          "title": "Smoke tests and retrospective",
+          "description": "Perform end-to-end smoke testing of deployed API, verify webhooks, and complete retrospective.",
+          "objectives": [
+            "Execute automated smoke test script against deployed API",
+            "Weekly review"
+          ],
+          "topics": [
+            "Smoke testing",
+            "End-to-end testing",
+            "Retrospective"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-84",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d84-1",
+              "title": "Run automated end-to-end curl/HTTP test suite against container",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d84-2",
+              "title": "Publish Week 12 retrospective journal entry",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-13",
+      "weekNumber": 13,
+      "title": "Capstone: Autonomous Coding Agent Complete",
+      "description": "Finalize Forge capstone: end-to-end autonomous workflow, polishing diffs, running final benchmarks, writing case study, and roadmap.",
+      "deliverable": "Complete, production-ready Forge Autonomous Coding Agent with benchmarks, docs, and case study.",
+      "objective": "Ship polished autonomous AI coding agent with high benchmark reliability and published case study.",
+      "topics": [
+        "Capstone Project",
+        "End-to-End Reliability",
+        "Final Benchmarking",
+        "Case Study",
+        "Future Roadmap"
+      ],
+      "reviewChecklist": [
+        "Forge autonomously investigates, plans, edits, and tests bug fixes from start to finish",
+        "Final benchmark confirms substantial improvement over baseline",
+        "Comprehensive documentation, architecture diagram, and quickstart guide",
+        "Case study published summarizing the 90-day journey"
+      ],
+      "days": [
+        {
+          "id": "day-85",
+          "dayNumber": 85,
+          "title": "Complete end-to-end workflow",
+          "description": "Integrate all subsystems: exploration, planning, multi-agent specialists, diff generation, sandboxed test verification, and logging.",
+          "objectives": [
+            "Execute full task lifecycle autonomously from single user prompt",
+            "Verify seamless handoffs between all components"
+          ],
+          "topics": [
+            "System integration",
+            "Autonomous workflows",
+            "End-to-end verification"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-85",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d85-1",
+              "title": "Wire full end-to-end workflow from CLI input to verified pull request diff",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d85-2",
+              "title": "Test on complex multi-file refactoring challenge",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-86",
+          "dayNumber": 86,
+          "title": "Improve diffs, approvals and run history",
+          "description": "Refine interactive diff visualization, add syntax highlighting, rollback history, and interactive comments.",
+          "objectives": [
+            "Polish developer experience in terminal and web UI",
+            "Support partial hunk approvals and rollback"
+          ],
+          "topics": [
+            "Developer experience",
+            "Diff rendering",
+            "Version rollback"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-86",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d86-1",
+              "title": "Enhance terminal diff output with syntax colors and hunk statistics",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d86-2",
+              "title": "Implement one-click rollback of failed agent runs",
+              "priority": "medium",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-87",
+          "dayNumber": 87,
+          "title": "Run final benchmark",
+          "description": "Run the complete 15-task benchmark suite against Forge; compare results against day 67 baseline.",
+          "objectives": [
+            "Measure final pass@1 score, cost efficiency, and speedup",
+            "Record benchmark improvements"
+          ],
+          "topics": [
+            "Final benchmark",
+            "Performance comparison",
+            "Evaluation"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-87",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d87-1",
+              "title": "Execute full benchmark run and record final metrics",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d87-2",
+              "title": "Create comparison table highlighting day 67 vs day 87 gains",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-88",
+          "dayNumber": 88,
+          "title": "Fix reliability and security issues",
+          "description": "Address edge cases, flaky test interactions, and transient API failures identified in the final benchmark.",
+          "objectives": [
+            "Eliminate remaining failure modes",
+            "Ensure 100% clean test passes"
+          ],
+          "topics": [
+            "Reliability engineering",
+            "Bug fixes",
+            "Hardening"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-88",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d88-1",
+              "title": "Fix top 3 failure modes discovered during final benchmark",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d88-2",
+              "title": "Verify regression suite remains green across all benchmark tasks",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-89",
+          "dayNumber": 89,
+          "title": "README, architecture diagram and demo",
+          "description": "Create high-quality documentation: system architecture diagrams, installation guide, demo GIF, and quickstart tutorial.",
+          "objectives": [
+            "Publish comprehensive project documentation",
+            "Record terminal / video demo of Forge in action"
+          ],
+          "topics": [
+            "Documentation",
+            "Architecture diagrams",
+            "Developer outreach"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-89",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d89-1",
+              "title": "Create detailed Mermaid architecture diagram in README",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d89-2",
+              "title": "Write Quickstart guide enabling setup in under 5 minutes",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-90",
+          "dayNumber": 90,
+          "title": "Publish case study and plan the next 90 days",
+          "description": "Celebrate completing 90 days! Publish in-depth case study on building Forge, key insights, and roadmap for the next 90 days.",
+          "objectives": [
+            "Write technical retrospective blog post / case study",
+            "Define next phase of AI engineering learning"
+          ],
+          "topics": [
+            "Case study",
+            "Retrospective",
+            "Lifelong learning"
+          ],
+          "repositoryUrl": "https://github.com/developer/forge-ai-coding-agent/tree/main/day-90",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d90-1",
+              "title": "Write comprehensive 90-day retrospective and publish case study",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d90-2",
+              "title": "Define next 90-day roadmap (e.g. Distributed LLM Systems, Local Model Fine-tuning)",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            },
+            {
+              "id": "task-d90-3",
+              "title": "Mark Day 90 and complete the AI Engineering 90-Day Journey!",
+              "priority": "high",
+              "status": "todo",
+              "repositoryUrl": "",
+              "completedAt": null
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-11-17T14:26:21.860Z",
+  "updatedAt": "2026-11-17T14:26:21.860Z"
+}
