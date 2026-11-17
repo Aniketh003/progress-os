@@ -107,7 +107,7 @@ export function OverviewView({
       </div>
 
       {/* 2. Key Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5">
         {/* Total Maps */}
         <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
           <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
@@ -119,34 +119,6 @@ export function OverviewView({
               {learningMaps.length}
             </span>
             <span className="text-[10px] text-muted-foreground">active</span>
-          </div>
-        </div>
-
-        {/* Total Tasks */}
-        <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
-          <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
-            Total Tasks
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
-          </span>
-          <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              {globalTotalTasks}
-            </span>
-            <span className="text-[10px] text-muted-foreground">curated</span>
-          </div>
-        </div>
-
-        {/* Completed Tasks */}
-        <div className="p-3.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between">
-          <span className="text-[11px] font-medium text-muted-foreground flex items-center justify-between">
-            Completed
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-          </span>
-          <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              {globalCompletedTasks}
-            </span>
-            <span className="text-[10px] text-emerald-500 font-medium">done</span>
           </div>
         </div>
 
