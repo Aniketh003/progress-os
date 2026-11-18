@@ -16,11 +16,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
     }
 
-    const maps = await db
+    const rawMaps = await db
       .collection('learning_maps')
       .find({ userEmail: session.user.email })
       .sort({ updatedAt: -1 })
       .toArray();
+
+    const maps = rawMaps.map(({ _id, ...rest }) => rest);
 
     return NextResponse.json({ maps });
   } catch (error) {
@@ -49,12 +51,14 @@ export async function POST(req: NextRequest) {
 
     const mapsCol = db.collection('learning_maps');
     const now = new Date().toISOString();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    const { _id, ...cleanMapData } = mapData as any;
 
     await mapsCol.updateOne(
       { id: mapData.id, userEmail: session.user.email },
       {
         $set: {
-          ...mapData,
+          ...cleanMapData,
           userEmail: session.user.email,
           updatedAt: now,
         },

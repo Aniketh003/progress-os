@@ -1,0 +1,1538 @@
+{
+  "schemaVersion": "1.0",
+  "id": "mbbs-first-month-foundation-2026",
+  "title": "MBBS Clinical Year - First Month Foundation",
+  "description": "A 30-day, 3-hours-per-day introductory tracker across the requested MBBS subjects. This is a first-month foundation plan, not the complete university syllabus.",
+  "category": "Medical Education",
+  "status": "not-started",
+  "startDate": "2026-11-18",
+  "targetDate": "2026-12-17",
+  "dailyCommitmentMinutes": 180,
+  "repositoryUrl": "",
+  "accentColor": "#0D9488",
+  "icon": "BookOpen",
+  "weeks": [
+    {
+      "id": "week-1",
+      "weekNumber": 1,
+      "title": "Week 1 - Clinical foundations",
+      "description": "Build a repeatable patient-history and examination method; introduce medicine and surgery fundamentals.",
+      "deliverable": "A clinical history/examination checklist and concise medicine/surgery notes.",
+      "objective": "Build a repeatable patient-history and examination method; introduce medicine and surgery fundamentals.",
+      "topics": [
+        "General Medicine",
+        "General Surgery",
+        "Integrated"
+      ],
+      "reviewChecklist": [
+        "Daily 3-hour study block completed or honestly rescheduled",
+        "Short notes or flashcards created for the week's topics",
+        "Clinical examination or case-presentation practice completed where relevant",
+        "MCQs or a self-test attempted and mistakes reviewed",
+        "Doubts and syllabus-specific details checked against college teaching"
+      ],
+      "days": [
+        {
+          "id": "day-1",
+          "dayNumber": 1,
+          "title": "Day 1 - Clinical history taking",
+          "description": "Presenting complaint, chronology, relevant negatives, past/family/personal history, case-sheet structure",
+          "objectives": [
+            "Understand first-month foundations of general medicine for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Medicine",
+            "Clinical history taking"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d1-1",
+              "title": "Study the structure of a complete clinical history (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d1-2",
+              "title": "Write a sample history for fever or abdominal pain (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d1-3",
+              "title": "Revise vital signs and general examination sequence (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d1-4",
+              "title": "Create a one-page history-taking checklist (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-2",
+          "dayNumber": 2,
+          "title": "Day 2 - General physical examination",
+          "description": "Pulse, BP, respiratory rate, temperature, SpO2; pallor, icterus, cyanosis, clubbing, lymph nodes, oedema",
+          "objectives": [
+            "Understand first-month foundations of general medicine for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Medicine",
+            "General physical examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d2-1",
+              "title": "Study vital-sign measurement and normal adult ranges from college notes (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d2-2",
+              "title": "Learn the sequence of general physical examination (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d2-3",
+              "title": "Practise describing pallor, icterus, cyanosis, clubbing, nodes and oedema (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d2-4",
+              "title": "Make an examination checklist and self-test (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-3",
+          "dayNumber": 3,
+          "title": "Day 3 - Cardiovascular examination",
+          "description": "Chest pain, dyspnoea, palpitations, syncope; pulse, JVP, precordium, heart sounds and murmur introduction",
+          "objectives": [
+            "Understand first-month foundations of general medicine for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Medicine",
+            "Cardiovascular examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d3-1",
+              "title": "Learn focused history for chest pain, dyspnoea, palpitations and syncope (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d3-2",
+              "title": "Study cardiovascular examination steps and JVP basics (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d3-3",
+              "title": "Understand S1, S2, added sounds and basic murmur description (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d3-4",
+              "title": "Practise a short cardiovascular case presentation (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-4",
+          "dayNumber": 4,
+          "title": "Day 4 - Respiratory examination",
+          "description": "Cough, sputum, haemoptysis, breathlessness; inspection, palpation, percussion, auscultation; normal and added sounds",
+          "objectives": [
+            "Understand first-month foundations of general medicine for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Medicine",
+            "Respiratory examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d4-1",
+              "title": "Study respiratory symptom analysis (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d4-2",
+              "title": "Learn the respiratory examination sequence (IPPA) (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d4-3",
+              "title": "Differentiate normal breath sounds, wheeze and crackles (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d4-4",
+              "title": "Make a comparison table of common respiratory findings (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-5",
+          "dayNumber": 5,
+          "title": "Day 5 - Surgical history and examination",
+          "description": "Pain, swelling, ulcer, lump; surgical case history; examination sequence; consent and asepsis basics",
+          "objectives": [
+            "Understand first-month foundations of general surgery for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Surgery",
+            "Surgical history and examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d5-1",
+              "title": "Learn the approach to pain, swelling, lump and ulcer (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d5-2",
+              "title": "Study examination of a lump: site, size, shape, edge, consistency and mobility (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d5-3",
+              "title": "Understand consent, privacy, hand hygiene and aseptic principles (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d5-4",
+              "title": "Write a structured short case presentation for a lump (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-6",
+          "dayNumber": 6,
+          "title": "Day 6 - Wounds and wound healing",
+          "description": "Wound types, phases of healing, factors affecting healing, infection signs, basic instruments and sutures overview",
+          "objectives": [
+            "Understand first-month foundations of general surgery for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "General Surgery",
+            "Wounds and wound healing"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d6-1",
+              "title": "Study wound classification and phases of wound healing (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d6-2",
+              "title": "Learn local and systemic factors affecting healing (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d6-3",
+              "title": "Identify common basic surgical instruments and broad uses (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d6-4",
+              "title": "Revise wound infection warning signs and create flashcards (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-7",
+          "dayNumber": 7,
+          "title": "Day 7 - Weekly consolidation 1",
+          "description": "Review clinical history, general examination, CVS, respiratory and surgery basics",
+          "objectives": [
+            "Understand first-month foundations of integrated for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Integrated",
+            "Weekly consolidation 1"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d7-1",
+              "title": "Revise Days 1–6 using active recall (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d7-2",
+              "title": "Practise one medicine case outline and one surgery short case outline (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d7-3",
+              "title": "Solve 25–30 introductory MCQs from studied topics (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d7-4",
+              "title": "List weak areas and doubts for faculty (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-2",
+      "weekNumber": 2,
+      "title": "Week 2 - Core clinical subjects",
+      "description": "Develop first-pass foundations in obstetrics, gynaecology, paediatrics and orthopaedics.",
+      "deliverable": "Antenatal, menstrual, paediatric and musculoskeletal quick-reference notes.",
+      "objective": "Develop first-pass foundations in obstetrics, gynaecology, paediatrics and orthopaedics.",
+      "topics": [
+        "Obstetrics & Gynaecology",
+        "Paediatrics",
+        "Orthopaedics"
+      ],
+      "reviewChecklist": [
+        "Daily 3-hour study block completed or honestly rescheduled",
+        "Short notes or flashcards created for the week's topics",
+        "Clinical examination or case-presentation practice completed where relevant",
+        "MCQs or a self-test attempted and mistakes reviewed",
+        "Doubts and syllabus-specific details checked against college teaching"
+      ],
+      "days": [
+        {
+          "id": "day-8",
+          "dayNumber": 8,
+          "title": "Day 8 - Normal pregnancy foundations",
+          "description": "Maternal physiological changes, antenatal booking, gravida/para/abortions/living, EDD concept, antenatal visits",
+          "objectives": [
+            "Understand first-month foundations of obstetrics & gynaecology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Obstetrics & Gynaecology",
+            "Normal pregnancy foundations"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d8-1",
+              "title": "Study basic obstetric terminology used in class (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d8-2",
+              "title": "Learn components of an antenatal booking history (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d8-3",
+              "title": "Understand physiological changes in pregnancy by system (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d8-4",
+              "title": "Practise EDD calculation using the standard method (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-9",
+          "dayNumber": 9,
+          "title": "Day 9 - Antenatal care",
+          "description": "Antenatal assessment, routine investigations, nutrition, danger signs and high-risk pregnancy concept",
+          "objectives": [
+            "Understand first-month foundations of obstetrics & gynaecology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Obstetrics & Gynaecology",
+            "Antenatal care"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d9-1",
+              "title": "Study the structure of a routine antenatal visit (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d9-2",
+              "title": "Make a checklist of routine antenatal investigations from college notes (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d9-3",
+              "title": "Learn pregnancy danger signs and need for urgent assessment (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d9-4",
+              "title": "Create a one-page antenatal care summary (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-10",
+          "dayNumber": 10,
+          "title": "Day 10 - Menstrual history and common complaints",
+          "description": "Menstrual history, AUB terminology, amenorrhoea, dysmenorrhoea, vaginal discharge; focused history",
+          "objectives": [
+            "Understand first-month foundations of obstetrics & gynaecology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Obstetrics & Gynaecology",
+            "Menstrual history and common complaints"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d10-1",
+              "title": "Learn systematic menstrual and gynaecological history taking (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d10-2",
+              "title": "Study definitions and broad classification of AUB (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d10-3",
+              "title": "Review introductory approach to amenorrhoea and dysmenorrhoea (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d10-4",
+              "title": "Practise a structured history for abnormal uterine bleeding (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-11",
+          "dayNumber": 11,
+          "title": "Day 11 - Paediatric history and growth",
+          "description": "Age-specific history, birth history, immunisation, nutrition, growth charts and developmental milestones",
+          "objectives": [
+            "Understand first-month foundations of paediatrics for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Paediatrics",
+            "Paediatric history and growth"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d11-1",
+              "title": "Learn antenatal, natal and postnatal history components (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d11-2",
+              "title": "Study feeding, nutrition and immunisation history (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d11-3",
+              "title": "Understand growth charts and growth monitoring (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d11-4",
+              "title": "Review developmental domains and make a milestone overview (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-12",
+          "dayNumber": 12,
+          "title": "Day 12 - Newborn foundations",
+          "description": "Newborn history, immediate assessment, APGAR concept, danger signs, thermoregulation and feeding basics",
+          "objectives": [
+            "Understand first-month foundations of paediatrics for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Paediatrics",
+            "Newborn foundations"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d12-1",
+              "title": "Study normal newborn characteristics and immediate assessment (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d12-2",
+              "title": "Understand APGAR components and limitations (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d12-3",
+              "title": "Learn newborn danger signs and thermal care/feeding principles (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d12-4",
+              "title": "Practise a newborn case-history outline (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-13",
+          "dayNumber": 13,
+          "title": "Day 13 - Musculoskeletal history and examination",
+          "description": "Bone/joint pain, swelling, deformity, trauma history; inspection, palpation, ROM and neurovascular assessment",
+          "objectives": [
+            "Understand first-month foundations of orthopaedics for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Orthopaedics",
+            "Musculoskeletal history and examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d13-1",
+              "title": "Learn focused history for trauma, bone pain and joint pain (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d13-2",
+              "title": "Study musculoskeletal examination sequence (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d13-3",
+              "title": "Understand distal neurovascular assessment after limb injury (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d13-4",
+              "title": "Practise documenting a joint examination (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-14",
+          "dayNumber": 14,
+          "title": "Day 14 - Fracture and trauma basics",
+          "description": "Fracture terminology, open vs closed fractures, displacement, basic X-ray views and initial trauma assessment",
+          "objectives": [
+            "Understand first-month foundations of orthopaedics for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Orthopaedics",
+            "Fracture and trauma basics"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d14-1",
+              "title": "Study fracture terminology and common patterns (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d14-2",
+              "title": "Understand initial trauma assessment and limb-protection principles (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d14-3",
+              "title": "Learn a basic fracture X-ray checklist: view, alignment, bone, joint, soft tissue (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d14-4",
+              "title": "Review warning features of compartment syndrome (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-3",
+      "weekNumber": 3,
+      "title": "Week 3 - ENT, eye and allied clinical skills",
+      "description": "Learn symptom-led assessment and introductory examination across ENT, ophthalmology, skin and psychiatry.",
+      "deliverable": "ENT, eye, dermatology and psychiatry symptom/examination summaries.",
+      "objective": "Learn symptom-led assessment and introductory examination across ENT, ophthalmology, skin and psychiatry.",
+      "topics": [
+        "Integrated",
+        "ENT",
+        "Ophthalmology",
+        "Dermatology"
+      ],
+      "reviewChecklist": [
+        "Daily 3-hour study block completed or honestly rescheduled",
+        "Short notes or flashcards created for the week's topics",
+        "Clinical examination or case-presentation practice completed where relevant",
+        "MCQs or a self-test attempted and mistakes reviewed",
+        "Doubts and syllabus-specific details checked against college teaching"
+      ],
+      "days": [
+        {
+          "id": "day-15",
+          "dayNumber": 15,
+          "title": "Day 15 - Weekly consolidation 2",
+          "description": "Review OBGYN, paediatrics and orthopaedics foundations",
+          "objectives": [
+            "Understand first-month foundations of integrated for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Integrated",
+            "Weekly consolidation 2"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d15-1",
+              "title": "Revise Days 8–13 using recall questions and diagrams (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d15-2",
+              "title": "Practise antenatal, paediatric and musculoskeletal case outlines (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d15-3",
+              "title": "Solve 25–30 MCQs from this week's topics (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d15-4",
+              "title": "Update weak-topic list and spaced-revision plan (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-16",
+          "dayNumber": 16,
+          "title": "Day 16 - Ear: symptoms and examination",
+          "description": "Ear anatomy overview, otalgia, otorrhoea, hearing loss, tinnitus, vertigo, otoscopy, Rinne and Weber",
+          "objectives": [
+            "Understand first-month foundations of ent for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "ENT",
+            "Ear: symptoms and examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d16-1",
+              "title": "Revise external, middle and inner ear anatomy clinically (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d16-2",
+              "title": "Learn focused history for ear pain, discharge and hearing loss (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d16-3",
+              "title": "Understand otoscopy and purpose of Rinne and Weber tests (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d16-4",
+              "title": "Make a symptom-to-differential table for ear complaints (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-17",
+          "dayNumber": 17,
+          "title": "Day 17 - Nose and throat basics",
+          "description": "Nasal obstruction, epistaxis, rhinorrhoea, sore throat, dysphagia, hoarseness; basic examination",
+          "objectives": [
+            "Understand first-month foundations of ent for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "ENT",
+            "Nose and throat basics"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d17-1",
+              "title": "Learn focused history for nasal obstruction and epistaxis (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d17-2",
+              "title": "Study common causes and assessment of sore throat and hoarseness (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d17-3",
+              "title": "Understand basic nose, oral cavity and oropharynx examination (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d17-4",
+              "title": "Practise a short ENT case presentation (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-18",
+          "dayNumber": 18,
+          "title": "Day 18 - Basic eye examination",
+          "description": "Visual acuity, pupils, ocular movements, external eye examination, torchlight examination and red eye approach",
+          "objectives": [
+            "Understand first-month foundations of ophthalmology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Ophthalmology",
+            "Basic eye examination"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d18-1",
+              "title": "Learn visual acuity assessment and testing each eye separately (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d18-2",
+              "title": "Study pupil examination and extraocular movements (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d18-3",
+              "title": "Understand the introductory approach to red eye and painful eye (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d18-4",
+              "title": "Practise documenting a basic eye examination (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-19",
+          "dayNumber": 19,
+          "title": "Day 19 - Visual symptoms and fundus basics",
+          "description": "Visual loss, watering, discharge, floaters, flashes; direct ophthalmoscope, slit lamp and normal fundus landmarks",
+          "objectives": [
+            "Understand first-month foundations of ophthalmology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Ophthalmology",
+            "Visual symptoms and fundus basics"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d19-1",
+              "title": "Learn history taking for visual loss (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d19-2",
+              "title": "Understand purpose and basic use of direct ophthalmoscopy (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d19-3",
+              "title": "Study normal fundus landmarks at an introductory level (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d19-4",
+              "title": "Create a symptom-based ophthalmology revision sheet (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-20",
+          "dayNumber": 20,
+          "title": "Day 20 - Describing skin lesions",
+          "description": "Primary/secondary lesions, morphology, distribution, configuration, colour, scale and structured skin examination",
+          "objectives": [
+            "Understand first-month foundations of dermatology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Dermatology",
+            "Describing skin lesions"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d20-1",
+              "title": "Learn primary lesions: macule, papule, plaque, vesicle, bulla, pustule, nodule (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d20-2",
+              "title": "Study secondary lesions: scale, crust, erosion, ulcer, fissure, scar, lichenification (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d20-3",
+              "title": "Understand distribution, configuration and morphology (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d20-4",
+              "title": "Practise describing five example lesions using textbook images (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-21",
+          "dayNumber": 21,
+          "title": "Day 21 - Common dermatology patterns",
+          "description": "Eczema/dermatitis, psoriasis, fungal infection and acne overview; morphology and differential approach",
+          "objectives": [
+            "Understand first-month foundations of dermatology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Dermatology",
+            "Common dermatology patterns"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d21-1",
+              "title": "Study introductory features of eczema and psoriasis (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d21-2",
+              "title": "Review superficial fungal infections and distribution patterns (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d21-3",
+              "title": "Understand acne morphology and grading concept (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d21-4",
+              "title": "Build a comparison table using approved clinical images (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-4",
+      "weekNumber": 4,
+      "title": "Week 4 - Imaging and perioperative foundations",
+      "description": "Build introductory understanding of radiology and anaesthesia, then integrate clinical reasoning.",
+      "deliverable": "A modality comparison, chest X-ray checklist and anaesthesia monitoring summary.",
+      "objective": "Build introductory understanding of radiology and anaesthesia, then integrate clinical reasoning.",
+      "topics": [
+        "Psychiatry",
+        "Radiology",
+        "Anaesthesiology",
+        "Integrated"
+      ],
+      "reviewChecklist": [
+        "Daily 3-hour study block completed or honestly rescheduled",
+        "Short notes or flashcards created for the week's topics",
+        "Clinical examination or case-presentation practice completed where relevant",
+        "MCQs or a self-test attempted and mistakes reviewed",
+        "Doubts and syllabus-specific details checked against college teaching"
+      ],
+      "days": [
+        {
+          "id": "day-22",
+          "dayNumber": 22,
+          "title": "Day 22 - Psychiatric interview and MSE",
+          "description": "Rapport, psychiatric history, appearance, behaviour, speech, mood, thought, perception, cognition and insight",
+          "objectives": [
+            "Understand first-month foundations of psychiatry for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Psychiatry",
+            "Psychiatric interview and MSE"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d22-1",
+              "title": "Learn rapport building and psychiatric history taking (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d22-2",
+              "title": "Study components of mental status examination (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d22-3",
+              "title": "Understand mood vs affect, thought form vs content, insight vs judgement (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d22-4",
+              "title": "Write a sample MSE from a fictional case (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-23",
+          "dayNumber": 23,
+          "title": "Day 23 - Common psychiatric presentations",
+          "description": "Depression, anxiety, psychosis, substance-use history, suicide-risk enquiry principles and stigma-free communication",
+          "objectives": [
+            "Understand first-month foundations of psychiatry for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Psychiatry",
+            "Common psychiatric presentations"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d23-1",
+              "title": "Study introductory presentations of depression and anxiety (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d23-2",
+              "title": "Understand psychosis-related symptoms and neutral enquiry (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d23-3",
+              "title": "Learn substance-use history and non-judgemental communication (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d23-4",
+              "title": "Review safety-focused suicide-risk enquiry with faculty guidance (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-24",
+          "dayNumber": 24,
+          "title": "Day 24 - Imaging foundations",
+          "description": "X-ray, ultrasound, CT, MRI; indications, strengths, limitations, radiation safety and image orientation",
+          "objectives": [
+            "Understand first-month foundations of radiology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Radiology",
+            "Imaging foundations"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d24-1",
+              "title": "Compare X-ray, ultrasound, CT and MRI and their broad uses (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d24-2",
+              "title": "Learn X-ray orientation, projections and image-quality checks (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d24-3",
+              "title": "Understand ionising vs non-ionising radiation and safety principles (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d24-4",
+              "title": "Identify modality and orientation in ten teaching images (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-25",
+          "dayNumber": 25,
+          "title": "Day 25 - Systematic chest X-ray reading",
+          "description": "Chest X-ray approach, normal anatomy, image quality and introductory patterns: consolidation, effusion, pneumothorax",
+          "objectives": [
+            "Understand first-month foundations of radiology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Radiology",
+            "Systematic chest X-ray reading"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d25-1",
+              "title": "Learn a systematic chest X-ray reading sequence (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d25-2",
+              "title": "Practise checking rotation, inspiration, projection and exposure (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d25-3",
+              "title": "Review common patterns using teaching images (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d25-4",
+              "title": "Write three structured descriptions of normal or teaching chest X-rays (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-26",
+          "dayNumber": 26,
+          "title": "Day 26 - Pre-anaesthetic assessment",
+          "description": "Focused history, airway assessment overview, fasting principles, ASA physical status concept and consent",
+          "objectives": [
+            "Understand first-month foundations of anaesthesiology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Anaesthesiology",
+            "Pre-anaesthetic assessment"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d26-1",
+              "title": "Study goals and components of pre-anaesthetic evaluation (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d26-2",
+              "title": "Understand airway assessment and basic airway red flags (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d26-3",
+              "title": "Learn ASA physical status as a risk-description framework (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d26-4",
+              "title": "Review fasting guidance from current institutional teaching material (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-27",
+          "dayNumber": 27,
+          "title": "Day 27 - Monitoring and recovery basics",
+          "description": "Pulse oximetry, ECG, BP, capnography; general vs regional anaesthesia overview; post-anaesthesia recovery",
+          "objectives": [
+            "Understand first-month foundations of anaesthesiology for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Anaesthesiology",
+            "Monitoring and recovery basics"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d27-1",
+              "title": "Learn what pulse oximetry, ECG, NIBP and capnography measure (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d27-2",
+              "title": "Compare general, regional and local anaesthesia at a high level (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d27-3",
+              "title": "Study goals of post-anaesthesia monitoring and recovery assessment (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d27-4",
+              "title": "Create a monitoring-device summary and self-test (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-28",
+          "dayNumber": 28,
+          "title": "Day 28 - Integrated clinical reasoning",
+          "description": "Presenting complaint, problem representation, differential diagnosis, investigation rationale, documentation and communication",
+          "objectives": [
+            "Understand first-month foundations of integrated for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Integrated",
+            "Integrated clinical reasoning"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d28-1",
+              "title": "Summarise a fictional case in two or three lines (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d28-2",
+              "title": "Create a short differential diagnosis and justify each possibility (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d28-3",
+              "title": "Choose suitable introductory investigations and state the clinical question (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d28-4",
+              "title": "Practise explaining consent, uncertainty and follow-up in patient-friendly language (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    },
+    {
+      "id": "week-5",
+      "weekNumber": 5,
+      "title": "Week 5 - Consolidation and review",
+      "description": "Check retention, practise case presentation and MCQs, identify gaps and plan Month 2.",
+      "deliverable": "A first-month self-assessment, weak-topic list and Month 2 priorities.",
+      "objective": "Check retention, practise case presentation and MCQs, identify gaps and plan Month 2.",
+      "topics": [
+        "Integrated"
+      ],
+      "reviewChecklist": [
+        "Daily 3-hour study block completed or honestly rescheduled",
+        "Short notes or flashcards created for the week's topics",
+        "Clinical examination or case-presentation practice completed where relevant",
+        "MCQs or a self-test attempted and mistakes reviewed",
+        "Doubts and syllabus-specific details checked against college teaching"
+      ],
+      "days": [
+        {
+          "id": "day-29",
+          "dayNumber": 29,
+          "title": "Day 29 - Month-end revision: core subjects",
+          "description": "Consolidate medicine, surgery, obstetrics and gynaecology foundations",
+          "objectives": [
+            "Understand first-month foundations of integrated for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Integrated",
+            "Month-end revision: core subjects"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d29-1",
+              "title": "Revise medicine and surgery notes; practise one short case presentation (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d29-2",
+              "title": "Revise antenatal care, menstrual history and obstetric terminology (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d29-3",
+              "title": "Solve 30 MCQs from topics studied this month and review explanations (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d29-4",
+              "title": "Record topics needing faculty clarification (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        },
+        {
+          "id": "day-30",
+          "dayNumber": 30,
+          "title": "Day 30 - Month-end revision: allied subjects",
+          "description": "Consolidate paediatrics, orthopaedics, ENT, ophthalmology, dermatology, psychiatry, radiology and anaesthesia",
+          "objectives": [
+            "Understand first-month foundations of integrated for this topic",
+            "Connect theory with history taking, clinical examination or image interpretation where relevant",
+            "Create concise notes and record doubts to clarify with faculty"
+          ],
+          "topics": [
+            "Integrated",
+            "Month-end revision: allied subjects"
+          ],
+          "repositoryUrl": "",
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-d30-1",
+              "title": "Revise one-page summaries and image-based notes (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d30-2",
+              "title": "Practise MSE, skin-lesion description and basic eye/ENT examination outlines (45 min)",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-d30-3",
+              "title": "Review chest X-ray approach and anaesthesia monitoring concepts (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-d30-4",
+              "title": "Complete a 30-question mixed self-test and analyse mistakes (45 min)",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ],
+          "notes": "",
+          "completedAt": null,
+          "timeSpentMinutes": 0
+        }
+      ]
+    }
+  ],
+  "createdAt": "2026-11-18T00:00:00.000Z",
+  "updatedAt": "2026-11-18T00:00:00.000Z"
+}

@@ -113,16 +113,30 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       const currentJournals = await db.journalEntries.toArray();
       const currentSettings = (await db.settings.get('current')) || DEFAULT_SETTINGS;
 
-      await fetch('/api/sync', {
+      // Clean _id before sending
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cleanMaps = currentMaps.map(({ _id, ...rest }: any) => rest);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cleanTodos = currentTodos.map(({ _id, ...rest }: any) => rest);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cleanJournals = currentJournals.map(({ _id, ...rest }: any) => rest);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { _id, ...cleanSettings } = (currentSettings as any);
+
+      const res = await fetch('/api/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          maps: currentMaps,
-          todos: currentTodos,
-          journals: currentJournals,
-          settings: currentSettings,
+          maps: cleanMaps,
+          todos: cleanTodos,
+          journals: cleanJournals,
+          settings: cleanSettings,
         }),
       });
+
+      if (!res.ok) {
+        console.error('ProgressOS: Cloud sync failed with status', res.status);
+      }
     } catch (e) {
       console.warn('ProgressOS: Background cloud sync error:', e);
     }
@@ -153,9 +167,15 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
                 journals: data.journals,
                 settings: data.settings,
               });
-              if (data.maps[0]?.id) {
-                setActiveMapId(data.maps[0].id);
-              }
+              // Ensure any newly seeded local maps (e.g. default roadmaps) are synced to cloud
+              await syncToCloud();
+
+              setActiveMapId((current) => {
+                if (current && data.maps.some((m: LearningMap) => m.id === current)) {
+                  return current;
+                }
+                return data.maps[0]?.id || current;
+              });
               console.log('ProgressOS: Successfully hydrated cloud data for', userEmail);
             } else {
               // New cloud user: push initial local seed state to cloud
@@ -229,7 +249,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   // Map actions
   const handleSaveMap = useCallback(async (map: LearningMap) => {
     const res = await saveLearningMap(map);
-    syncToCloud();
+    await syncToCloud();
     return res;
   }, [syncToCloud]);
 
@@ -238,17 +258,17 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     if (activeMapId === id) {
       setActiveMapId(null);
     }
-    syncToCloud();
+    await syncToCloud();
   }, [activeMapId, syncToCloud]);
 
   const handleUpdateDay = useCallback(async (mapId: string, dayId: string, updater: (day: Day) => Day) => {
     await updateDayInMap(mapId, dayId, updater);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleUpdateTask = useCallback(async (mapId: string, dayId: string, taskId: string, updates: Partial<DayTask>) => {
     await updateTaskInDay(mapId, dayId, taskId, updates);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleToggleTaskStatus = useCallback(async (mapId: string, dayId: string, taskId: string, currentStatus: TaskStatus) => {
@@ -257,7 +277,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       triggerCompletionEffect();
     }
     await updateTaskInDay(mapId, dayId, taskId, { status: nextStatus });
-    syncToCloud();
+    await syncToCloud();
   }, [triggerCompletionEffect, syncToCloud]);
 
   const handleToggleDayStatus = useCallback(async (mapId: string, dayId: string, currentStatus: DayStatus) => {
@@ -277,7 +297,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       }
       return day;
     });
-    syncToCloud();
+    await syncToCloud();
   }, [triggerCompletionEffect, syncToCloud]);
 
   const handleImportMap = useCallback(async (data: unknown, mode: 'replace' | 'duplicate' = 'replace') => {
@@ -285,7 +305,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     if (result.success && result.id) {
       setActiveMapId(result.id);
     }
-    syncToCloud();
+    await syncToCloud();
     return result;
   }, [syncToCloud]);
 
@@ -315,18 +335,18 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       createdAt: new Date().toISOString(),
     };
     const res = await saveTodo(newTodo);
-    syncToCloud();
+    await syncToCloud();
     return res;
   }, [syncToCloud]);
 
   const handleUpdateTodo = useCallback(async (todo: StandaloneTodo) => {
     await saveTodo(todo);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleDeleteTodo = useCallback(async (id: string) => {
     await deleteTodo(id);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleToggleTodoStatus = useCallback(async (id: string, currentStatus: TaskStatus) => {
@@ -339,7 +359,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       target.status = nextStatus;
       target.completedAt = nextStatus === 'done' ? new Date().toISOString() : null;
       await db.todos.put(target);
-      syncToCloud();
+      await syncToCloud();
     }
   }, [triggerCompletionEffect, syncToCloud]);
 
@@ -352,18 +372,18 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       updatedAt: new Date().toISOString(),
     };
     const res = await saveJournalEntry(newEntry);
-    syncToCloud();
+    await syncToCloud();
     return res;
   }, [syncToCloud]);
 
   const handleUpdateJournal = useCallback(async (entry: JournalEntry) => {
     await saveJournalEntry(entry);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleDeleteJournal = useCallback(async (id: string) => {
     await deleteJournalEntry(id);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   // Settings & DB Actions
@@ -371,7 +391,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     const current = (await db.settings.get('current')) || DEFAULT_SETTINGS;
     const merged = { ...current, ...newSettings };
     await db.settings.put(merged);
-    syncToCloud();
+    await syncToCloud();
   }, [syncToCloud]);
 
   const handleExportAll = useCallback(async () => {

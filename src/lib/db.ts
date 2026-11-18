@@ -29,6 +29,11 @@ export const DEFAULT_SETTINGS: UserSettings = {
   userName: 'Aniketh',
 };
 
+export const DEFAULT_SEED_MAPS = [
+  { id: 'ai-engineering-90-days', path: '/data/ai-engineering-90-days.json' },
+  { id: 'mbbs-first-month-foundation-2026', path: '/data/mbbs-first-month-foundation-2026.json' },
+];
+
 // Seed checker & runner
 export async function initializeDatabase() {
   if (typeof window === 'undefined') return;
@@ -40,50 +45,51 @@ export async function initializeDatabase() {
       await db.settings.put(DEFAULT_SETTINGS);
     }
 
-    // Check if learning maps exist
-    const count = await db.learningMaps.count();
-    if (count === 0) {
-      // Load seed data from public or bundled json
-      try {
-        const res = await fetch('/data/ai-engineering-90-days.json');
-        if (res.ok) {
-          const seedData = await res.json();
-          const parsed = LearningMapSchema.safeParse(seedData);
-          if (parsed.success) {
-            await db.learningMaps.put(parsed.data as LearningMap);
-            console.log('ProgressOS: Seed data loaded successfully.');
-          } else {
-            console.warn('ProgressOS: Seed data schema validation error', parsed.error);
+    // Ensure all default learning maps exist
+    for (const seed of DEFAULT_SEED_MAPS) {
+      const existing = await db.learningMaps.get(seed.id);
+      if (!existing) {
+        try {
+          const res = await fetch(seed.path);
+          if (res.ok) {
+            const seedData = await res.json();
+            const parsed = LearningMapSchema.safeParse(seedData);
+            if (parsed.success) {
+              await db.learningMaps.put(parsed.data as LearningMap);
+              console.log(`ProgressOS: Seed map ${seed.id} loaded successfully.`);
+            } else {
+              console.warn(`ProgressOS: Seed map ${seed.id} validation error`, parsed.error);
+            }
           }
+        } catch (err) {
+          console.error(`ProgressOS: Failed to fetch seed map ${seed.id}`, err);
         }
-      } catch (err) {
-        console.error('ProgressOS: Failed to fetch seed data', err);
       }
-    } else {
-      // Sanitize any legacy mock/relative repository URLs for default AI Engineering map
-      try {
-        const aiMap = await db.learningMaps.get('ai-engineering-90-days');
-        if (aiMap) {
-          let modified = false;
-          if (aiMap.repositoryUrl && (aiMap.repositoryUrl.includes('example') || aiMap.repositoryUrl.includes('ai-engineer'))) {
-            aiMap.repositoryUrl = '';
-            modified = true;
-          }
-          aiMap.weeks.forEach((w) => {
-            w.days.forEach((d) => {
-              if (d.repositoryUrl && (d.repositoryUrl.startsWith('/') || d.repositoryUrl.includes('example'))) {
-                d.repositoryUrl = '';
-                modified = true;
-              }
-            });
+    }
+
+    // Sanitize any legacy mock/relative repository URLs for default AI Engineering map
+    try {
+      const aiMap = await db.learningMaps.get('ai-engineering-90-days');
+      if (aiMap) {
+        let modified = false;
+        if (aiMap.repositoryUrl && (aiMap.repositoryUrl.includes('example') || aiMap.repositoryUrl.includes('ai-engineer'))) {
+          aiMap.repositoryUrl = '';
+          modified = true;
+        }
+        aiMap.weeks.forEach((w) => {
+          w.days.forEach((d) => {
+            if (d.repositoryUrl && (d.repositoryUrl.startsWith('/') || d.repositoryUrl.includes('example'))) {
+              d.repositoryUrl = '';
+              modified = true;
+            }
           });
-          if (modified) {
-            await db.learningMaps.put(aiMap);
-          }
+        });
+        if (modified) {
+          await db.learningMaps.put(aiMap);
         }
-      } catch (cleanErr) {
-        console.warn('ProgressOS: Could not clean legacy repo URLs', cleanErr);
       }
+    } catch (cleanErr) {
+      console.warn('ProgressOS: Could not clean legacy repo URLs', cleanErr);
     }
   } catch (error) {
     console.error('ProgressOS: Database initialization error', error);
@@ -133,6 +139,17 @@ export async function updateDayInMap(
   }
 
   if (found) {
+    // Dynamically update map status based on day statuses
+    const allDays = map.weeks.flatMap((w) => w.days);
+    const hasProgress = allDays.some((d) => d.status === 'completed' || d.status === 'in-progress');
+    const allCompleted = allDays.length > 0 && allDays.every((d) => d.status === 'completed');
+
+    if (allCompleted) {
+      map.status = 'completed';
+    } else if (hasProgress && map.status === 'not-started') {
+      map.status = 'active';
+    }
+
     map.updatedAt = new Date().toISOString();
     await db.learningMaps.put(map);
     return map;
@@ -327,30 +344,58 @@ export async function hydrateUserCloudData(cloudData: {
 }) {
   await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, db.settings, async () => {
     if (cloudData.maps && cloudData.maps.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cleanMaps = cloudData.maps.map(({ _id, ...rest }: any) => rest as LearningMap);
       await db.learningMaps.clear();
-      await db.learningMaps.bulkPut(cloudData.maps);
+      await db.learningMaps.bulkPut(cleanMaps);
     }
     if (cloudData.todos) {
       await db.todos.clear();
       if (cloudData.todos.length > 0) {
-        await db.todos.bulkPut(cloudData.todos);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const cleanTodos = cloudData.todos.map(({ _id, ...rest }: any) => rest as StandaloneTodo);
+        await db.todos.bulkPut(cleanTodos);
       }
     }
     if (cloudData.journals) {
       await db.journalEntries.clear();
       if (cloudData.journals.length > 0) {
-        await db.journalEntries.bulkPut(cloudData.journals);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const cleanJournals = cloudData.journals.map(({ _id, ...rest }: any) => rest as JournalEntry);
+        await db.journalEntries.bulkPut(cleanJournals);
       }
     }
     if (cloudData.settings) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { _id, ...cleanSettings } = cloudData.settings as any;
       const current = (await db.settings.get('current')) || DEFAULT_SETTINGS;
       await db.settings.put({
         ...current,
-        ...cloudData.settings,
+        ...cleanSettings,
         id: 'current',
       });
     }
   });
+
+  // Ensure default seed maps are present if not in user's cloud data
+  for (const seed of DEFAULT_SEED_MAPS) {
+    const existing = await db.learningMaps.get(seed.id);
+    if (!existing) {
+      try {
+        const res = await fetch(seed.path);
+        if (res.ok) {
+          const seedData = await res.json();
+          const parsed = LearningMapSchema.safeParse(seedData);
+          if (parsed.success) {
+            await db.learningMaps.put(parsed.data as LearningMap);
+            console.log(`ProgressOS: Seeded missing default map ${seed.id} during hydration.`);
+          }
+        }
+      } catch (err) {
+        console.warn(`ProgressOS: Could not fetch default seed ${seed.id} during hydration`, err);
+      }
+    }
+  }
 }
 
 export async function clearAllData() {

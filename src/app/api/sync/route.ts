@@ -16,10 +16,15 @@ export async function GET() {
       return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
     }
 
-    const maps = await db.collection('learning_maps').find({ userEmail: session.user.email }).toArray();
-    const journals = await db.collection('journals').find({ userEmail: session.user.email }).toArray();
-    const todos = await db.collection('todos').find({ userEmail: session.user.email }).toArray();
-    const settings = await db.collection('settings').findOne({ userEmail: session.user.email });
+    const rawMaps = await db.collection('learning_maps').find({ userEmail: session.user.email }).toArray();
+    const rawJournals = await db.collection('journals').find({ userEmail: session.user.email }).toArray();
+    const rawTodos = await db.collection('todos').find({ userEmail: session.user.email }).toArray();
+    const rawSettings = await db.collection('settings').findOne({ userEmail: session.user.email });
+
+    const maps = rawMaps.map(({ _id, ...rest }) => rest);
+    const journals = rawJournals.map(({ _id, ...rest }) => rest);
+    const todos = rawTodos.map(({ _id, ...rest }) => rest);
+    const settings = rawSettings ? (({ _id, ...rest }) => rest)(rawSettings) : null;
 
     return NextResponse.json({
       success: true,
@@ -64,13 +69,15 @@ export async function POST(req: NextRequest) {
     if (!existing.includes('journals')) await db.createCollection('journals');
     if (!existing.includes('todos')) await db.createCollection('todos');
 
-    // 1. Upsert local maps to cloud
+    // 1. Upsert local maps to cloud (strip immutable _id)
     for (const map of clientMaps) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const { _id, ...cleanMap } = map as any;
       await mapsCol.updateOne(
         { id: map.id, userEmail: session.user.email },
         {
           $set: {
-            ...map,
+            ...cleanMap,
             userEmail: session.user.email,
             updatedAt: map.updatedAt || new Date().toISOString(),
           },
@@ -79,13 +86,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Upsert local journals to cloud
+    // 2. Upsert local journals to cloud (strip immutable _id)
     for (const journal of clientJournals) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const { _id, ...cleanJournal } = journal as any;
       await journalsCol.updateOne(
         { id: journal.id, userEmail: session.user.email },
         {
           $set: {
-            ...journal,
+            ...cleanJournal,
             userEmail: session.user.email,
           },
         },
@@ -93,13 +102,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Upsert local todos to cloud
+    // 3. Upsert local todos to cloud (strip immutable _id)
     for (const todo of clientTodos) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const { _id, ...cleanTodo } = todo as any;
       await todosCol.updateOne(
         { id: todo.id, userEmail: session.user.email },
         {
           $set: {
-            ...todo,
+            ...cleanTodo,
             userEmail: session.user.email,
           },
         },
@@ -107,13 +118,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Upsert settings if provided
+    // 4. Upsert settings if provided (strip immutable _id)
     if (clientSettings) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const { _id, ...cleanSettings } = clientSettings as any;
       await settingsCol.updateOne(
         { userEmail: session.user.email },
         {
           $set: {
-            ...clientSettings,
+            ...cleanSettings,
             userEmail: session.user.email,
             updatedAt: new Date().toISOString(),
           },
@@ -122,11 +135,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 5. Read full updated cloud state for user
-    const cloudMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
-    const cloudJournals = await journalsCol.find({ userEmail: session.user.email }).toArray();
-    const cloudTodos = await todosCol.find({ userEmail: session.user.email }).toArray();
-    const cloudSettings = await settingsCol.findOne({ userEmail: session.user.email });
+    // 5. Read full updated cloud state for user (strip _id)
+    const rawCloudMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
+    const rawCloudJournals = await journalsCol.find({ userEmail: session.user.email }).toArray();
+    const rawCloudTodos = await todosCol.find({ userEmail: session.user.email }).toArray();
+    const rawCloudSettings = await settingsCol.findOne({ userEmail: session.user.email });
+
+    const cloudMaps = rawCloudMaps.map(({ _id, ...rest }) => rest);
+    const cloudJournals = rawCloudJournals.map(({ _id, ...rest }) => rest);
+    const cloudTodos = rawCloudTodos.map(({ _id, ...rest }) => rest);
+    const cloudSettings = rawCloudSettings ? (({ _id, ...rest }) => rest)(rawCloudSettings) : null;
 
     return NextResponse.json({
       success: true,
