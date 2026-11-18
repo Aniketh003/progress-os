@@ -7,7 +7,7 @@ import { useProgressOS } from '@/context/ProgressOSContext';
 
 export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
   const { data: session, status } = useSession();
-  const { learningMaps, journalEntries, todos } = useProgressOS();
+  const { learningMaps, journalEntries, todos, settings } = useProgressOS();
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSynced, setLastSynced] = useState<string | null>(null);
 
@@ -22,6 +22,7 @@ export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
           maps: learningMaps,
           journals: journalEntries,
           todos,
+          settings,
         }),
       });
       if (res.ok) {

@@ -37,6 +37,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
             { upsert: true }
           );
+
+          // Ensure settings, journals, and todos collections exist
+          const existing = (await db.listCollections().toArray()).map((c) => c.name);
+          if (!existing.includes('settings')) await db.createCollection('settings');
+          if (!existing.includes('journals')) await db.createCollection('journals');
+          if (!existing.includes('todos')) await db.createCollection('todos');
+
+          // Initialize user settings document if not present
+          await db.collection('settings').updateOne(
+            { userEmail: user.email },
+            {
+              $set: {
+                userEmail: user.email,
+                userName: user.name || 'Learner',
+                updatedAt: new Date(),
+              },
+              $setOnInsert: {
+                dailyCommitmentMinutes: 180,
+                theme: 'dark',
+                createdAt: new Date(),
+              },
+            },
+            { upsert: true }
+          );
         }
       } catch (err) {
         console.error('ProgressOS: Error upserting user in MongoDB:', err);

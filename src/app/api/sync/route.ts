@@ -20,10 +20,18 @@ export async function POST(req: NextRequest) {
     const clientMaps: LearningMap[] = body.maps || [];
     const clientJournals: JournalEntry[] = body.journals || [];
     const clientTodos: StandaloneTodo[] = body.todos || [];
+    const clientSettings = body.settings || null;
 
     const mapsCol = db.collection('learning_maps');
     const journalsCol = db.collection('journals');
     const todosCol = db.collection('todos');
+    const settingsCol = db.collection('settings');
+
+    // Ensure collections exist in MongoDB
+    const existing = (await db.listCollections().toArray()).map((c) => c.name);
+    if (!existing.includes('settings')) await db.createCollection('settings');
+    if (!existing.includes('journals')) await db.createCollection('journals');
+    if (!existing.includes('todos')) await db.createCollection('todos');
 
     // 1. Upsert local maps to cloud
     for (const map of clientMaps) {
@@ -68,10 +76,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Read full updated cloud state for user
+    // 4. Upsert settings if provided
+    if (clientSettings) {
+      await settingsCol.updateOne(
+        { userEmail: session.user.email },
+        {
+          $set: {
+            ...clientSettings,
+            userEmail: session.user.email,
+            updatedAt: new Date().toISOString(),
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    // 5. Read full updated cloud state for user
     const cloudMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
     const cloudJournals = await journalsCol.find({ userEmail: session.user.email }).toArray();
     const cloudTodos = await todosCol.find({ userEmail: session.user.email }).toArray();
+    const cloudSettings = await settingsCol.findOne({ userEmail: session.user.email });
 
     return NextResponse.json({
       success: true,
@@ -79,6 +103,7 @@ export async function POST(req: NextRequest) {
       maps: cloudMaps,
       journals: cloudJournals,
       todos: cloudTodos,
+      settings: cloudSettings,
     });
   } catch (error) {
     console.error('ProgressOS: Error during sync:', error);

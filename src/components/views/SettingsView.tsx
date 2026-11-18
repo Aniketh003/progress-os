@@ -63,11 +63,12 @@ export function SettingsView() {
           maps: learningMaps,
           journals: journalEntries,
           todos,
+          settings,
         }),
       });
       const data = await res.json();
       if (res.ok) {
-        setCloudSyncMessage(`Cloud sync successful! Synced ${data.maps?.length || 0} roadmaps and ${data.journals?.length || 0} journal entries.`);
+        setCloudSyncMessage(`Cloud sync successful! Synced ${data.maps?.length || 0} roadmaps, ${data.journals?.length || 0} journals, and ${data.todos?.length || 0} tasks to MongoDB.`);
       } else {
         setCloudSyncMessage(`Sync response: ${data.error || 'Server unavailable'}`);
       }
