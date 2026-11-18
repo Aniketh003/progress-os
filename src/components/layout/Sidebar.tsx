@@ -25,6 +25,7 @@ import {
   Layers,
   Search,
   X,
+  HelpCircle,
 } from 'lucide-react';
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 import { UserAuthButton } from '@/components/auth/UserAuthButton';
@@ -36,6 +37,7 @@ interface SidebarProps {
   currentView: string;
   setCurrentView: (view: string) => void;
   onOpenImport: () => void;
+  onOpenImportGuide?: () => void;
   onOpenNewMap: () => void;
   onOpenEditMap: (map: LearningMap) => void;
   onOpenSearch: () => void;
@@ -47,6 +49,7 @@ export function Sidebar({
   currentView,
   setCurrentView,
   onOpenImport,
+  onOpenImportGuide,
   onOpenNewMap,
   onOpenEditMap,
   onOpenSearch,
@@ -244,6 +247,18 @@ export function Sidebar({
                 </span>
               )}
               <div className="flex items-center gap-1">
+                {onOpenImportGuide && (
+                  <button
+                    onClick={() => {
+                      onOpenImportGuide();
+                      if (onCloseMobile) onCloseMobile();
+                    }}
+                    title="Roadmap Schema & AI Prompt Guide"
+                    className="p-1 rounded text-muted-foreground hover:text-primary hover:bg-accent/60 transition-colors"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5" />
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     onOpenImport();
@@ -252,7 +267,7 @@ export function Sidebar({
                   title="Import Learning Map (JSON)"
                   className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors"
                 >
-                  <Upload className="w-3.5 h-3.5" />
+                  <Download className="w-3.5 h-3.5" />
                 </button>
                 <button
                   onClick={() => {
@@ -279,7 +294,7 @@ export function Sidebar({
                       }}
                       className="mt-1.5 text-xs text-primary font-medium hover:underline inline-flex items-center gap-1"
                     >
-                      <Upload className="w-3 h-3" /> Import JSON
+                      <Download className="w-3 h-3" /> Import JSON
                     </button>
                   </div>
                 )
@@ -366,7 +381,7 @@ export function Sidebar({
                             }}
                             className="w-full flex items-center gap-2 px-3 py-1.5 text-foreground hover:bg-accent text-left"
                           >
-                            <Download className="w-3.5 h-3.5" />
+                            <Upload className="w-3.5 h-3.5" />
                             <span>Export JSON</span>
                           </button>
                           <div className="my-1 border-t border-border/50" />

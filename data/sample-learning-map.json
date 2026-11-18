@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "1.0",
+  "id": "full-stack-starter-14-days",
+  "title": "Full-Stack Modern Web Starter (14 Days)",
+  "description": "A 14-day intensive roadmap covering modern Next.js 15, TypeScript, Tailwind CSS, API endpoints, and cloud database fundamentals.",
+  "category": "Technology",
+  "status": "not-started",
+  "startDate": "2026-11-20",
+  "targetDate": "2026-12-04",
+  "dailyCommitmentMinutes": 180,
+  "repositoryUrl": "",
+  "accentColor": "#6366f1",
+  "icon": "Compass",
+  "weeks": [
+    {
+      "id": "week-1",
+      "weekNumber": 1,
+      "title": "Week 1 - Architecture & Frontend Fundamentals",
+      "description": "Set up modern developer environment, master React Server Components, and build accessible UI components.",
+      "deliverable": "A responsive multi-page dashboard scaffold with theme toggle and mock data.",
+      "objective": "Build solid fundamentals in Next.js App Router and TypeScript.",
+      "topics": ["React 19", "Next.js 15", "TypeScript", "Tailwind CSS"],
+      "reviewChecklist": [
+        "Repository initialized with ESLint and Prettier",
+        "Mastered server vs client components",
+        "Completed daily 3-hour focus blocks"
+      ],
+      "days": [
+        {
+          "id": "day-1",
+          "dayNumber": 1,
+          "title": "Day 1 - Next.js 15 App Router & TypeScript Setup",
+          "description": "Initialize a clean project, configure strict TypeScript rules, and understand the App Router directory structure.",
+          "objectives": [
+            "Understand layout.tsx and page.tsx hierarchy",
+            "Set up strict tsconfig options and path aliases"
+          ],
+          "topics": ["Next.js", "TypeScript", "Tooling"],
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-w1-d1-1",
+              "title": "Initialize Next.js project with Tailwind and App Router",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-w1-d1-2",
+              "title": "Configure path aliases and theme provider",
+              "priority": "medium",
+              "status": "todo"
+            },
+            {
+              "id": "task-w1-d1-3",
+              "title": "Read Next.js Server Components mental model guide",
+              "priority": "low",
+              "status": "todo"
+            }
+          ]
+        },
+        {
+          "id": "day-2",
+          "dayNumber": 2,
+          "title": "Day 2 - Design System & Component Architecture",
+          "description": "Build atomic UI primitives using Tailwind CSS, Lucide icons, and accessible focus states.",
+          "objectives": [
+            "Create reusable Button, Card, Badge, and Input components",
+            "Implement dark/light mode toggle"
+          ],
+          "topics": ["Tailwind CSS", "UI/UX", "Accessibility"],
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-w1-d2-1",
+              "title": "Create reusable Button component with variant states",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-w1-d2-2",
+              "title": "Build responsive navigation sidebar and header",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "week-2",
+      "weekNumber": 2,
+      "title": "Week 2 - APIs, Databases & Deployment",
+      "description": "Connect cloud persistence, implement route handlers, and deploy to production.",
+      "deliverable": "A fully deployed web application with live cloud database integration.",
+      "objective": "Complete full-stack integration and production CI/CD.",
+      "topics": ["Route Handlers", "Database", "Authentication", "Deployment"],
+      "reviewChecklist": [
+        "API routes error handling implemented",
+        "Environment variables secured",
+        "Deployed to Vercel/Netlify"
+      ],
+      "days": [
+        {
+          "id": "day-3",
+          "dayNumber": 3,
+          "title": "Day 3 - Backend API Route Handlers",
+          "description": "Design REST endpoints, validate input with Zod, and handle error responses.",
+          "objectives": [
+            "Write typed GET and POST route handlers",
+            "Add request schema validation using Zod"
+          ],
+          "topics": ["Next.js API", "Zod", "Validation"],
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-w2-d3-1",
+              "title": "Build /api/items GET and POST route handlers",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-w2-d3-2",
+              "title": "Add error status codes (400, 401, 500) and logging",
+              "priority": "medium",
+              "status": "todo"
+            }
+          ]
+        },
+        {
+          "id": "day-4",
+          "dayNumber": 4,
+          "title": "Day 4 - Cloud Database & Deployment",
+          "description": "Connect to cloud MongoDB Atlas or Postgres, verify CRUD queries, and push to production.",
+          "objectives": [
+            "Configure connection pooling and environment variables",
+            "Deploy to Vercel and test production URLs"
+          ],
+          "topics": ["Database", "Vercel", "Production"],
+          "estimatedMinutes": 180,
+          "status": "pending",
+          "tasks": [
+            {
+              "id": "task-w2-d4-1",
+              "title": "Connect MongoDB Atlas client with connection pooling",
+              "priority": "high",
+              "status": "todo"
+            },
+            {
+              "id": "task-w2-d4-2",
+              "title": "Deploy to Vercel and verify live production sync",
+              "priority": "high",
+              "status": "todo"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

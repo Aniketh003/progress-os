@@ -364,7 +364,7 @@ export function SettingsView() {
             onClick={handleExportAll}
             className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-border hover:border-primary/50 bg-card hover:bg-accent/40 text-xs font-medium text-foreground transition-all shadow-xs"
           >
-            <Download className="w-4 h-4 text-primary" />
+            <Upload className="w-4 h-4 text-primary" />
             <span>Export Full Backup (JSON)</span>
           </button>
 
@@ -373,7 +373,7 @@ export function SettingsView() {
             onClick={() => fileInputRef.current?.click()}
             className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-border hover:border-primary/50 bg-card hover:bg-accent/40 text-xs font-medium text-foreground transition-all shadow-xs"
           >
-            <Upload className="w-4 h-4 text-primary" />
+            <Download className="w-4 h-4 text-primary" />
             <span>Restore Backup File</span>
           </button>
           <input

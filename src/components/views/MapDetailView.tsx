@@ -18,6 +18,7 @@ import {
   ArrowRight,
   ArrowLeft,
   Download,
+  Upload,
   Share2,
   Layers,
   Sparkles,
@@ -147,7 +148,7 @@ export function MapDetailView({
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:bg-accent text-xs font-medium text-foreground transition-colors"
               title="Export Learning Map as JSON"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Upload className="w-3.5 h-3.5" />
               <span>Export</span>
             </button>
 

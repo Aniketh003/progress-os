@@ -13,6 +13,7 @@ import { SettingsView } from '@/components/views/SettingsView';
 
 import { CommandPalette } from '@/components/modals/CommandPalette';
 import { ImportModal } from '@/components/modals/ImportModal';
+import { ImportGuideModal } from '@/components/modals/ImportGuideModal';
 import { MapModal } from '@/components/modals/MapModal';
 import { QuickTaskModal } from '@/components/modals/QuickTaskModal';
 import { DayDrawer } from '@/components/modals/DayDrawer';
@@ -36,6 +37,7 @@ export default function ProgressOSApp() {
   // Modal States
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isImportGuideOpen, setIsImportGuideOpen] = useState(false);
   const [isNewMapOpen, setIsNewMapOpen] = useState(false);
   const [mapToEdit, setMapToEdit] = useState<LearningMap | null>(null);
   const [isQuickTaskOpen, setIsQuickTaskOpen] = useState(false);
@@ -114,6 +116,7 @@ export default function ProgressOSApp() {
         currentView={currentView}
         setCurrentView={setCurrentView}
         onOpenImport={() => setIsImportOpen(true)}
+        onOpenImportGuide={() => setIsImportGuideOpen(true)}
         onOpenNewMap={() => setIsNewMapOpen(true)}
         onOpenEditMap={handleOpenEditMap}
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -193,10 +196,18 @@ export default function ProgressOSApp() {
       <ImportModal
         isOpen={isImportOpen}
         onClose={() => setIsImportOpen(false)}
+        onOpenGuide={() => setIsImportGuideOpen(true)}
         onSuccess={(mapId) => {
           setActiveMapId(mapId);
           setCurrentView('map');
         }}
+      />
+
+      {/* 2b. Import Guide & AI Prompt Template Modal */}
+      <ImportGuideModal
+        isOpen={isImportGuideOpen}
+        onClose={() => setIsImportGuideOpen(false)}
+        onOpenImport={() => setIsImportOpen(true)}
       />
 
       {/* 3. Create or Edit Learning Map Modal */}

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import {
-  Upload,
+  Download,
   AlertCircle,
   CheckCircle2,
   FileJson,
@@ -12,6 +12,8 @@ import {
   CheckSquare,
   Copy,
   RefreshCw,
+  Sparkles,
+  HelpCircle,
 } from 'lucide-react';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { LearningMapSchema } from '@/lib/schema';
@@ -22,9 +24,10 @@ interface ImportModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: (mapId: string) => void;
+  onOpenGuide?: () => void;
 }
 
-export function ImportModal({ isOpen, onClose, onSuccess }: ImportModalProps) {
+export function ImportModal({ isOpen, onClose, onSuccess, onOpenGuide }: ImportModalProps) {
   const { learningMaps, handleImportMap } = useProgressOS();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -136,19 +139,35 @@ export function ImportModal({ isOpen, onClose, onSuccess }: ImportModalProps) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/60">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-lg bg-primary/10 text-primary">
-              <Upload className="w-4 h-4" />
+              <Download className="w-4 h-4" />
             </div>
             <div>
               <h2 className="text-sm font-semibold text-foreground">Import Learning Map</h2>
               <p className="text-xs text-muted-foreground">Upload or paste a JSON roadmap file</p>
             </div>
           </div>
-          <button
-            onClick={handleClose}
-            className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            {onOpenGuide && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOpenGuide();
+                }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-colors"
+                title="View AI Prompt instructions and sample template"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>AI Prompt & Guide</span>
+              </button>
+            )}
+            <button
+              onClick={handleClose}
+              className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Content */}
@@ -169,6 +188,34 @@ export function ImportModal({ isOpen, onClose, onSuccess }: ImportModalProps) {
                 <p className="text-[11px] text-muted-foreground mt-1">
                   Must conform to ProgressOS Learning Map v1.0 schema
                 </p>
+                <div className="mt-3 flex items-center justify-center gap-3 text-xs">
+                  <a
+                    href="/data/sample-learning-map.json"
+                    download="sample-learning-map.json"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-primary hover:underline font-medium inline-flex items-center gap-1"
+                  >
+                    <Download className="w-3 h-3" />
+                    <span>Download Sample JSON</span>
+                  </a>
+                  {onOpenGuide && (
+                    <>
+                      <span className="text-muted-foreground/40">•</span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onClose();
+                          onOpenGuide();
+                        }}
+                        className="text-primary hover:underline font-medium inline-flex items-center gap-1"
+                      >
+                        <Sparkles className="w-3 h-3" />
+                        <span>Get AI Prompt</span>
+                      </button>
+                    </>
+                  )}
+                </div>
                 <input
                   ref={fileInputRef}
                   type="file"
