@@ -18,28 +18,43 @@ declare global {
 
 if (uri) {
   if (process.env.NODE_ENV === 'development') {
-    // In development mode, use a global variable so that the value
-    // is preserved across module reloads caused by HMR.
     if (!global._mongoClientPromise) {
       client = new MongoClient(uri, options);
-      global._mongoClientPromise = client.connect();
+      global._mongoClientPromise = client.connect().catch((err) => {
+        global._mongoClientPromise = undefined;
+        throw err;
+      });
     }
     clientPromise = global._mongoClientPromise;
   } else {
-    // In production mode, it's best to not use a global variable.
     client = new MongoClient(uri, options);
     clientPromise = client.connect();
   }
 } else {
-  // In environments where MONGODB_URI is not yet provided (e.g., initial build or guest mode),
-  // we do not fail at build time.
   console.warn('ProgressOS: MONGODB_URI is not defined. Cloud DB features will be inactive until configured.');
 }
 
 export async function getDatabase(): Promise<Db | null> {
-  if (!clientPromise) return null;
-  const connectedClient = await clientPromise;
-  return connectedClient.db(process.env.MONGODB_DB_NAME || 'progressos');
+  if (!uri) return null;
+
+  try {
+    if (!clientPromise) {
+      client = new MongoClient(uri, options);
+      clientPromise = client.connect();
+      if (process.env.NODE_ENV === 'development') {
+        global._mongoClientPromise = clientPromise;
+      }
+    }
+    const connectedClient = await clientPromise;
+    return connectedClient.db(process.env.MONGODB_DB_NAME || 'progressos');
+  } catch (error) {
+    // Reset cached promise so subsequent requests can re-attempt connection
+    clientPromise = null;
+    if (process.env.NODE_ENV === 'development') {
+      global._mongoClientPromise = undefined;
+    }
+    throw error;
+  }
 }
 
 export default clientPromise;
