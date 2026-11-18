@@ -319,6 +319,40 @@ export async function restoreAllData(backup: {
   });
 }
 
+export async function hydrateUserCloudData(cloudData: {
+  maps?: LearningMap[];
+  todos?: StandaloneTodo[];
+  journals?: JournalEntry[];
+  settings?: UserSettings | null;
+}) {
+  await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, db.settings, async () => {
+    if (cloudData.maps && cloudData.maps.length > 0) {
+      await db.learningMaps.clear();
+      await db.learningMaps.bulkPut(cloudData.maps);
+    }
+    if (cloudData.todos) {
+      await db.todos.clear();
+      if (cloudData.todos.length > 0) {
+        await db.todos.bulkPut(cloudData.todos);
+      }
+    }
+    if (cloudData.journals) {
+      await db.journalEntries.clear();
+      if (cloudData.journals.length > 0) {
+        await db.journalEntries.bulkPut(cloudData.journals);
+      }
+    }
+    if (cloudData.settings) {
+      const current = (await db.settings.get('current')) || DEFAULT_SETTINGS;
+      await db.settings.put({
+        ...current,
+        ...cloudData.settings,
+        id: 'current',
+      });
+    }
+  });
+}
+
 export async function clearAllData() {
   await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, db.settings, async () => {
     await db.learningMaps.clear();

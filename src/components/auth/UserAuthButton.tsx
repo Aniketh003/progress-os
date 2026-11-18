@@ -7,32 +7,13 @@ import { useProgressOS } from '@/context/ProgressOSContext';
 
 export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
   const { data: session, status } = useSession();
-  const { learningMaps, journalEntries, todos, settings } = useProgressOS();
-  const [isSyncing, setIsSyncing] = useState(false);
+  const { isCloudSyncing, syncToCloud } = useProgressOS();
   const [lastSynced, setLastSynced] = useState<string | null>(null);
 
   const handleSync = async () => {
     if (!session?.user) return;
-    setIsSyncing(true);
-    try {
-      const res = await fetch('/api/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          maps: learningMaps,
-          journals: journalEntries,
-          todos,
-          settings,
-        }),
-      });
-      if (res.ok) {
-        setLastSynced(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-      }
-    } catch (err) {
-      console.error('Failed to sync with cloud:', err);
-    } finally {
-      setIsSyncing(false);
-    }
+    await syncToCloud();
+    setLastSynced(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   };
 
   if (status === 'loading') {
@@ -90,11 +71,11 @@ export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
             </span>
             <button
               onClick={handleSync}
-              disabled={isSyncing}
+              disabled={isCloudSyncing}
               className="flex items-center gap-1 text-primary hover:underline font-medium disabled:opacity-50"
             >
-              <RefreshCw className={`w-2.5 h-2.5 ${isSyncing ? 'animate-spin' : ''}`} />
-              <span>{isSyncing ? 'Syncing...' : 'Sync'}</span>
+              <RefreshCw className={`w-2.5 h-2.5 ${isCloudSyncing ? 'animate-spin' : ''}`} />
+              <span>{isCloudSyncing ? 'Syncing...' : 'Sync'}</span>
             </button>
           </div>
         )}

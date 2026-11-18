@@ -3,6 +3,37 @@ import { auth } from '@/auth';
 import { getDatabase } from '@/lib/mongodb';
 import { LearningMap, JournalEntry, StandaloneTodo } from '@/types';
 
+// GET /api/sync - Retrieve all cloud data for the authenticated user
+export async function GET() {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const db = await getDatabase();
+    if (!db) {
+      return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
+    }
+
+    const maps = await db.collection('learning_maps').find({ userEmail: session.user.email }).toArray();
+    const journals = await db.collection('journals').find({ userEmail: session.user.email }).toArray();
+    const todos = await db.collection('todos').find({ userEmail: session.user.email }).toArray();
+    const settings = await db.collection('settings').findOne({ userEmail: session.user.email });
+
+    return NextResponse.json({
+      success: true,
+      maps,
+      journals,
+      todos,
+      settings,
+    });
+  } catch (error) {
+    console.error('ProgressOS: Error fetching cloud data:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
 // POST /api/sync - Bidirectional synchronization between local Dexie and MongoDB
 export async function POST(req: NextRequest) {
   try {
