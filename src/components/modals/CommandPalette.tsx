@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
-  onNavigateView: (view: string) => void;
+  onNavigateView: (view: string, mapId?: string) => void;
   onOpenDay: (map: LearningMap, day: Day) => void;
 }
 
@@ -166,10 +166,10 @@ export function CommandPalette({
       onNavigateView(item.view);
     } else if (item.type === 'map') {
       setActiveMapId(item.mapId);
-      onNavigateView('map');
+      onNavigateView('map', item.mapId);
     } else if (item.type === 'day' || item.type === 'dayTask') {
       setActiveMapId(item.map.id);
-      onNavigateView('map');
+      onNavigateView('map', item.map.id);
       onOpenDay(item.map, item.day);
     } else if (item.type === 'todo') {
       onNavigateView('my-day');

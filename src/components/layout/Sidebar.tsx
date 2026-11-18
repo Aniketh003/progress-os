@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   Calendar,
@@ -30,17 +31,18 @@ import {
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 import { UserAuthButton } from '@/components/auth/UserAuthButton';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { useUI } from '@/context/UIContext';
 import { getMapStats, cn } from '@/lib/utils';
 import { LearningMap } from '@/types';
 
 interface SidebarProps {
-  currentView: string;
-  setCurrentView: (view: string) => void;
-  onOpenImport: () => void;
+  currentView?: string;
+  setCurrentView?: (view: string) => void;
+  onOpenImport?: () => void;
   onOpenImportGuide?: () => void;
-  onOpenNewMap: () => void;
-  onOpenEditMap: (map: LearningMap) => void;
-  onOpenSearch: () => void;
+  onOpenNewMap?: () => void;
+  onOpenEditMap?: (map: LearningMap) => void;
+  onOpenSearch?: () => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
 }
@@ -53,9 +55,35 @@ export function Sidebar({
   onOpenNewMap,
   onOpenEditMap,
   onOpenSearch,
-  isMobileOpen = false,
+  isMobileOpen,
   onCloseMobile,
-}: SidebarProps) {
+}: SidebarProps = {}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const ui = useUI();
+
+  const isMobileDrawerOpen = isMobileOpen ?? ui.isMobileSidebarOpen;
+  const handleCloseMobile = onCloseMobile ?? ui.closeMobileSidebar;
+
+  const triggerImport = onOpenImport ?? ui.openImport;
+  const triggerImportGuide = onOpenImportGuide ?? ui.openImportGuide;
+  const triggerNewMap = onOpenNewMap ?? ui.openNewMap;
+  const triggerEditMap = onOpenEditMap ?? ui.openEditMap;
+  const triggerSearch = onOpenSearch ?? ui.openSearch;
+
+  const resolvedView = (() => {
+    if (currentView) return currentView;
+    if (pathname === '/') return 'overview';
+    if (pathname === '/my-day') return 'my-day';
+    if (pathname === '/journal') return 'journal';
+    if (pathname === '/activity') return 'activity';
+    if (pathname === '/settings') return 'settings';
+    if (pathname === '/tasks') return 'tasks';
+    if (pathname?.startsWith('/maps/')) return 'map';
+    return '';
+  })();
+
+  const activeMapSlug = pathname?.startsWith('/maps/') ? pathname.replace('/maps/', '') : null;
   const {
     learningMaps,
     activeMapId,
@@ -92,22 +120,28 @@ export function Sidebar({
   ];
 
   const handleSelectNav = (viewId: string) => {
-    setCurrentView(viewId);
-    if (onCloseMobile) onCloseMobile();
+    if (setCurrentView) setCurrentView(viewId);
+    handleCloseMobile();
+    if (viewId === 'overview') {
+      router.push('/');
+    } else {
+      router.push(`/${viewId}`);
+    }
   };
 
   const handleSelectMap = (mapId: string) => {
     setActiveMapId(mapId);
-    setCurrentView('map');
-    if (onCloseMobile) onCloseMobile();
+    if (setCurrentView) setCurrentView('map');
+    handleCloseMobile();
+    router.push(`/maps/${mapId}`);
   };
 
   return (
     <>
       {/* Mobile Backdrop */}
-      {isMobileOpen && (
+      {isMobileDrawerOpen && (
         <div
-          onClick={onCloseMobile}
+          onClick={handleCloseMobile}
           className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-200"
         />
       )}
@@ -119,12 +153,12 @@ export function Sidebar({
           'hidden md:flex md:relative',
           isCollapsed ? 'md:w-16' : 'md:w-64',
           // Mobile drawer behavior
-          isMobileOpen && 'flex fixed inset-y-0 left-0 w-72 shadow-2xl animate-in slide-in-from-left duration-200'
+          isMobileDrawerOpen && 'flex fixed inset-y-0 left-0 w-72 shadow-2xl animate-in slide-in-from-left duration-200'
         )}
       >
         {/* Brand & Collapse Button */}
         <div className="flex items-center justify-between px-3.5 py-4 border-b border-border/40">
-          {(!isCollapsed || isMobileOpen) && (
+          {(!isCollapsed || isMobileDrawerOpen) && (
             <div
               onClick={() => handleSelectNav('overview')}
               className="flex items-center gap-2.5 cursor-pointer group min-w-0"
@@ -177,12 +211,12 @@ export function Sidebar({
         </div>
 
         {/* Quick Search Button */}
-        {(!isCollapsed || isMobileOpen) && (
+        {(!isCollapsed || isMobileDrawerOpen) && (
           <div className="px-3 pt-3">
             <button
               onClick={() => {
-                onOpenSearch();
-                if (onCloseMobile) onCloseMobile();
+                triggerSearch();
+                handleCloseMobile();
               }}
               className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md border border-border/60 bg-muted/30 hover:bg-muted/60 text-muted-foreground hover:text-foreground text-xs transition-colors"
             >
@@ -201,7 +235,7 @@ export function Sidebar({
         <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 py-3 space-y-6">
           {/* Workspace section */}
           <div>
-            {(!isCollapsed || isMobileOpen) && (
+            {(!isCollapsed || isMobileDrawerOpen) && (
               <div className="px-2 mb-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70">
                 Workspace
               </div>
@@ -209,12 +243,12 @@ export function Sidebar({
             <nav className="space-y-0.5">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = currentView === item.id;
+                const isActive = resolvedView === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleSelectNav(item.id)}
-                    title={isCollapsed && !isMobileOpen ? item.label : undefined}
+                    title={isCollapsed && !isMobileDrawerOpen ? item.label : undefined}
                     className={cn(
                       'w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium transition-all group relative',
                       isActive
@@ -228,7 +262,7 @@ export function Sidebar({
                         isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
                       )}
                     />
-                    {(!isCollapsed || isMobileOpen) && <span>{item.label}</span>}
+                    {(!isCollapsed || isMobileDrawerOpen) && <span>{item.label}</span>}
                     {isActive && (
                       <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary rounded-r" />
                     )}
@@ -241,28 +275,26 @@ export function Sidebar({
           {/* Learning Maps Section */}
           <div>
             <div className="flex items-center justify-between px-2 mb-1.5">
-              {(!isCollapsed || isMobileOpen) && (
+              {(!isCollapsed || isMobileDrawerOpen) && (
                 <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70">
                   Learning Maps
                 </span>
               )}
               <div className="flex items-center gap-1">
-                {onOpenImportGuide && (
-                  <button
-                    onClick={() => {
-                      onOpenImportGuide();
-                      if (onCloseMobile) onCloseMobile();
-                    }}
-                    title="Roadmap Schema & AI Prompt Guide"
-                    className="p-1 rounded text-muted-foreground hover:text-primary hover:bg-accent/60 transition-colors"
-                  >
-                    <HelpCircle className="w-3.5 h-3.5" />
-                  </button>
-                )}
                 <button
                   onClick={() => {
-                    onOpenImport();
-                    if (onCloseMobile) onCloseMobile();
+                    triggerImportGuide();
+                    handleCloseMobile();
+                  }}
+                  title="Roadmap Schema & AI Prompt Guide"
+                  className="p-1 rounded text-muted-foreground hover:text-primary hover:bg-accent/60 transition-colors"
+                >
+                  <HelpCircle className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => {
+                    triggerImport();
+                    handleCloseMobile();
                   }}
                   title="Import Learning Map (JSON)"
                   className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors"
@@ -271,8 +303,8 @@ export function Sidebar({
                 </button>
                 <button
                   onClick={() => {
-                    onOpenNewMap();
-                    if (onCloseMobile) onCloseMobile();
+                    triggerNewMap();
+                    handleCloseMobile();
                   }}
                   title="Create Learning Map"
                   className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors"
@@ -284,13 +316,13 @@ export function Sidebar({
 
             <div className="space-y-0.5">
               {learningMaps.length === 0 ? (
-                (!isCollapsed || isMobileOpen) && (
+                (!isCollapsed || isMobileDrawerOpen) && (
                   <div className="px-2 py-3 text-center border border-dashed border-border/60 rounded-md bg-muted/20">
                     <p className="text-[11px] text-muted-foreground">No roadmaps loaded</p>
                     <button
                       onClick={() => {
-                        onOpenImport();
-                        if (onCloseMobile) onCloseMobile();
+                        triggerImport();
+                        handleCloseMobile();
                       }}
                       className="mt-1.5 text-xs text-primary font-medium hover:underline inline-flex items-center gap-1"
                     >
@@ -301,7 +333,7 @@ export function Sidebar({
               ) : (
                 learningMaps.map((map) => {
                   const stats = getMapStats(map);
-                  const isSelected = currentView === 'map' && activeMapId === map.id;
+                  const isSelected = resolvedView === 'map' && (activeMapSlug === map.id || activeMapId === map.id);
                   const isMenuOpen = activeMenuMapId === map.id;
 
                   return (
@@ -367,7 +399,7 @@ export function Sidebar({
                           <button
                             onClick={() => {
                               setActiveMenuMapId(null);
-                              onOpenEditMap(map);
+                              triggerEditMap(map);
                             }}
                             className="w-full flex items-center gap-2 px-3 py-1.5 text-foreground hover:bg-accent text-left"
                           >
@@ -410,24 +442,24 @@ export function Sidebar({
         {/* Footer / Theme & Settings */}
         <div className="p-2 border-t border-border/40 space-y-1">
           <div className="mb-1.5">
-            <UserAuthButton collapsed={isCollapsed && !isMobileOpen} />
+            <UserAuthButton collapsed={isCollapsed && !isMobileDrawerOpen} />
           </div>
 
           <button
             onClick={() => handleSelectNav('settings')}
-            title={isCollapsed && !isMobileOpen ? 'Settings' : undefined}
+            title={isCollapsed && !isMobileDrawerOpen ? 'Settings' : undefined}
             className={cn(
               'w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium transition-colors',
-              currentView === 'settings'
+              resolvedView === 'settings'
                 ? 'bg-primary/10 text-primary font-semibold'
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
             )}
           >
             <Settings className="w-4 h-4 shrink-0" />
-            {(!isCollapsed || isMobileOpen) && <span>Settings</span>}
+            {(!isCollapsed || isMobileDrawerOpen) && <span>Settings</span>}
           </button>
 
-          {(!isCollapsed || isMobileOpen) && (
+          {(!isCollapsed || isMobileDrawerOpen) && (
             <div className="flex items-center justify-between px-2.5 py-1.5 text-xs text-muted-foreground">
               <span>Theme</span>
               <div className="flex items-center gap-1 bg-muted/60 p-0.5 rounded-md border border-border/50">
