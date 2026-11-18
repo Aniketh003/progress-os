@@ -10,21 +10,27 @@ import {
   Layers,
   ArrowRight,
   Plus,
-  Clock,
-  Sparkles,
   TrendingUp,
   Trash2,
+  HelpCircle,
+  Download,
+  Edit2,
+  Upload,
+  MoreVertical,
+  Cpu,
+  Database,
+  Server,
+  BookOpen,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { useUI } from '@/context/UIContext';
 import {
   getMapStats,
   calculateLearningStreak,
   getTimeGreeting,
-  formatMinutes,
   cn,
 } from '@/lib/utils';
-import { LearningMap } from '@/types';
 import { FocusTimerCard } from '@/components/timer/FocusTimerCard';
 import { FocusTimerModal } from '@/components/timer/FocusTimerModal';
 
@@ -46,12 +52,32 @@ export function OverviewView({
     settings,
     handleToggleTodoStatus,
     handleDeleteTodo,
+    handleExportMap,
+    handleDeleteMap,
   } = useProgressOS();
 
+  const { openImport, openImportGuide, openNewMap, openEditMap } = useUI();
+
   const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
+  const [activeMenuMapId, setActiveMenuMapId] = useState<string | null>(null);
 
   const { greeting, quote } = getTimeGreeting();
   const todayStr = new Date().toISOString().split('T')[0];
+
+  const getMapIcon = (iconName?: string) => {
+    switch (iconName?.toLowerCase()) {
+      case 'cpu':
+        return <Cpu className="w-4 h-4" />;
+      case 'database':
+        return <Database className="w-4 h-4" />;
+      case 'server':
+        return <Server className="w-4 h-4" />;
+      case 'layers':
+        return <Layers className="w-4 h-4" />;
+      default:
+        return <Compass className="w-4 h-4" />;
+    }
+  };
 
   // Aggregated stats across all learning maps
   let globalTotalTasks = 0;
@@ -100,7 +126,7 @@ export function OverviewView({
   );
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-200">
+    <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
       {/* 1. Top Header: Greeting (Left) & Compact Metrics (Right) */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2">
         {/* Left: Greeting & Focus */}
@@ -202,7 +228,7 @@ export function OverviewView({
             </button>
           </div>
 
-          {/* Max 3 visible items (~144px) with smooth scrolling */}
+          {/* Max 3 visible items with smooth scrolling */}
           <div className="space-y-1.5 overflow-y-auto max-h-[144px] pr-1">
             {overdueTodos.length > 0 && (
               <div className="text-[10px] font-semibold text-destructive uppercase tracking-wider py-0.5">
@@ -317,13 +343,13 @@ export function OverviewView({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {inProgressMaps.length === 0 ? (
-            <div className="col-span-full p-8 text-center border border-dashed border-border/60 rounded-xl bg-muted/20">
-              <Compass className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+            <div className="col-span-full p-6 text-center border border-dashed border-border/60 rounded-xl bg-muted/20">
+              <Compass className="w-7 h-7 text-muted-foreground mx-auto mb-2" />
               <p className="text-xs text-foreground font-medium">
-                No learning roadmaps in progress
+                No learning roadmaps currently in progress
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                Select a roadmap from the sidebar and begin completing tasks or days to continue here.
+                Select a roadmap below under &ldquo;Learning Paths&rdquo; to start tracking your learning journey.
               </p>
             </div>
           ) : (
@@ -401,6 +427,220 @@ export function OverviewView({
             })
           )}
         </div>
+      </div>
+
+      {/* 4. Learning Paths Section with the three action icons with pretext */}
+      <div className="space-y-4 pt-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-border/40">
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-semibold tracking-tight text-foreground">
+                Learning Paths
+              </h2>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border/50">
+                {learningMaps.length} {learningMaps.length === 1 ? 'path' : 'paths'}
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Explore, customize, and manage all your structured learning roadmaps
+            </p>
+          </div>
+
+          {/* The three icons from the sidebar with descriptive pretext */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* 1. HelpCircle: AI Prompt Guide */}
+            <button
+              onClick={openImportGuide}
+              title="Roadmap Schema & AI Prompt Guide"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 bg-card hover:bg-muted/50 text-xs text-foreground font-medium transition-all shadow-xs"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
+              <span>AI Prompt Guide</span>
+            </button>
+
+            {/* 2. Download: Import Learning Map (JSON) */}
+            <button
+              onClick={openImport}
+              title="Import Learning Map (JSON)"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 bg-card hover:bg-muted/50 text-xs text-foreground font-medium transition-all shadow-xs"
+            >
+              <Download className="w-3.5 h-3.5 text-muted-foreground" />
+              <span>Import JSON</span>
+            </button>
+
+            {/* 3. Plus: Create Learning Map */}
+            <button
+              onClick={openNewMap}
+              title="Create New Learning Map"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs transition-all active:scale-95"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Create New Path</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Grid of all Learning Paths */}
+        {learningMaps.length === 0 ? (
+          <div className="p-8 text-center border border-dashed border-border/60 rounded-xl bg-muted/20">
+            <Layers className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+            <p className="text-xs text-foreground font-semibold">
+              No learning paths found
+            </p>
+            <p className="text-[11px] text-muted-foreground mt-1 max-w-sm mx-auto">
+              Import a pre-configured curriculum JSON or create a custom learning roadmap to get started.
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <button
+                onClick={openImport}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-medium shadow-xs"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Import JSON</span>
+              </button>
+              <button
+                onClick={openNewMap}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/80 hover:bg-muted/40 text-foreground text-xs font-medium"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Create New Path</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {learningMaps.map((map) => {
+              const stats = getMapStats(map);
+              const isMenuOpen = activeMenuMapId === map.id;
+
+              return (
+                <div
+                  key={map.id}
+                  onClick={() => onSelectMap(map.id)}
+                  className="group relative p-4 rounded-xl border border-border/70 hover:border-primary/50 bg-card/80 hover:bg-card transition-all cursor-pointer shadow-xs flex flex-col justify-between"
+                >
+                  <div className="space-y-3">
+                    {/* Header with Icon, Category, Title, and Context Menu */}
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span
+                          className="shrink-0 p-2 rounded-lg"
+                          style={{
+                            color: map.accentColor || '#e11d48',
+                            backgroundColor: `${map.accentColor || '#e11d48'}15`,
+                          }}
+                        >
+                          {getMapIcon(map.icon)}
+                        </span>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider truncate">
+                            {map.category || 'Roadmap'}
+                          </span>
+                          <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                            {map.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      {/* Dropdown Menu Trigger */}
+                      <div className="relative shrink-0">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveMenuMapId(isMenuOpen ? null : map.id);
+                          }}
+                          className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                          title="More options"
+                        >
+                          <MoreVertical className="w-4 h-4" />
+                        </button>
+
+                        {/* Menu Options */}
+                        {isMenuOpen && (
+                          <div
+                            className="absolute right-0 top-7 w-40 py-1 rounded-xl bg-popover border border-border/80 shadow-xl z-50 text-xs animate-in fade-in-50 zoom-in-95 select-none"
+                            onMouseLeave={() => setActiveMenuMapId(null)}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <button
+                              onClick={() => {
+                                setActiveMenuMapId(null);
+                                openEditMap(map);
+                              }}
+                              className="w-full flex items-center gap-2 px-3 py-2 text-foreground hover:bg-accent text-left font-medium"
+                            >
+                              <Edit2 className="w-3.5 h-3.5" />
+                              <span>Edit Details</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setActiveMenuMapId(null);
+                                handleExportMap(map);
+                              }}
+                              className="w-full flex items-center gap-2 px-3 py-2 text-foreground hover:bg-accent text-left font-medium"
+                            >
+                              <Upload className="w-3.5 h-3.5" />
+                              <span>Export JSON</span>
+                            </button>
+                            <div className="my-1 border-t border-border/50" />
+                            <button
+                              onClick={() => {
+                                setActiveMenuMapId(null);
+                                if (confirm(`Are you sure you want to delete "${map.title}"?`)) {
+                                  handleDeleteMap(map.id);
+                                }
+                              }}
+                              className="w-full flex items-center gap-2 px-3 py-2 text-destructive hover:bg-destructive/10 text-left font-medium"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>Delete Path</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      {map.description || 'No description provided.'}
+                    </p>
+                  </div>
+
+                  {/* Progress & Milestone Footer */}
+                  <div className="mt-4 pt-3 border-t border-border/40 space-y-2.5">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-muted-foreground truncate font-mono">
+                        {stats.currentMilestone}
+                      </span>
+                      <span className="font-semibold text-foreground font-mono">
+                        {stats.taskProgress}%
+                      </span>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="h-1.5 w-full bg-muted/60 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${stats.taskProgress}%`,
+                          backgroundColor: map.accentColor || '#e11d48',
+                        }}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-1">
+                      <span>
+                        {stats.completedTasks} / {stats.totalTasks} tasks · {stats.completedDays} / {stats.totalDays} days
+                      </span>
+                      <span className="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-foreground font-semibold">
+                        View Path <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
