@@ -7,7 +7,7 @@ import { useProgressOS } from '@/context/ProgressOSContext';
 
 export function UserAuthButton({
   collapsed = false,
-  variant = 'sidebar',
+  variant = 'navbar',
 }: {
   collapsed?: boolean;
   variant?: 'sidebar' | 'navbar';

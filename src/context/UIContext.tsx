@@ -4,12 +4,6 @@ import React, { createContext, useContext, useState, useEffect, useCallback, Rea
 import { LearningMap, Day, JournalEntry } from '@/types';
 
 interface UIContextType {
-  // Mobile sidebar drawer
-  isMobileSidebarOpen: boolean;
-  setIsMobileSidebarOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
-  toggleMobileSidebar: () => void;
-  closeMobileSidebar: () => void;
-
   // Search / Command Palette (Cmd+K)
   isSearchOpen: boolean;
   openSearch: () => void;
@@ -53,8 +47,6 @@ interface UIContextType {
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export function UIProvider({ children }: { children: ReactNode }) {
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-
   // Modal States
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isQuickTaskOpen, setIsQuickTaskOpen] = useState(false);
@@ -74,13 +66,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [journalToEdit, setJournalToEdit] = useState<JournalEntry | null>(null);
 
   // Action helpers
-  const toggleMobileSidebar = useCallback(() => {
-    setIsMobileSidebarOpen((prev) => !prev);
-  }, []);
-
-  const closeMobileSidebar = useCallback(() => {
-    setIsMobileSidebarOpen(false);
-  }, []);
 
   const openSearch = useCallback(() => setIsSearchOpen(true), []);
   const closeSearch = useCallback(() => setIsSearchOpen(false), []);
@@ -160,10 +145,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
   return (
     <UIContext.Provider
       value={{
-        isMobileSidebarOpen,
-        setIsMobileSidebarOpen,
-        toggleMobileSidebar,
-        closeMobileSidebar,
         isSearchOpen,
         openSearch,
         closeSearch,

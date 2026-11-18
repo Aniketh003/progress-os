@@ -31,8 +31,6 @@ import {
   getTimeGreeting,
   cn,
 } from '@/lib/utils';
-import { FocusTimerCard } from '@/components/timer/FocusTimerCard';
-import { FocusTimerModal } from '@/components/timer/FocusTimerModal';
 
 interface OverviewViewProps {
   onOpenQuickTask: () => void;
@@ -58,7 +56,6 @@ export function OverviewView({
 
   const { openImport, openImportGuide, openNewMap, openEditMap } = useUI();
 
-  const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
   const [activeMenuMapId, setActiveMenuMapId] = useState<string | null>(null);
 
   const { greeting, quote } = getTimeGreeting();
@@ -204,10 +201,8 @@ export function OverviewView({
         </div>
       </div>
 
-      {/* 2. Today's Focus & Focus Timer Side-by-Side */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Today's Focus (Max 3 items, scrollable) */}
-        <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
+      {/* 2. Today's Focus */}
+      <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary" />
@@ -316,17 +311,7 @@ export function OverviewView({
               })
             )}
           </div>
-        </div>
-
-        {/* Focus Timer Dashboard Card */}
-        <FocusTimerCard onOpenModal={() => setIsTimerModalOpen(true)} />
       </div>
-
-      {/* Focus Timer Fullscreen Modal */}
-      <FocusTimerModal
-        isOpen={isTimerModalOpen}
-        onClose={() => setIsTimerModalOpen(false)}
-      />
 
       {/* 3. Continue Learning Cards */}
       <div className="space-y-3">
