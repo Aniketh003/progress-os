@@ -16,7 +16,15 @@ export async function GET() {
       return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
     }
 
-    const rawMaps = await db.collection('learning_maps').find({ userEmail: session.user.email }).toArray();
+    const mapsCol = db.collection('learning_maps');
+    const SEVEN_DAYS_AGO = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    await mapsCol.deleteMany({
+      userEmail: session.user.email,
+      isDeleted: true,
+      deletedAt: { $lt: SEVEN_DAYS_AGO },
+    });
+
+    const rawMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
     const rawJournals = await db.collection('journals').find({ userEmail: session.user.email }).toArray();
     const rawTodos = await db.collection('todos').find({ userEmail: session.user.email }).toArray();
     const rawSettings = await db.collection('settings').findOne({ userEmail: session.user.email });
@@ -135,7 +143,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 5. Read full updated cloud state for user (strip _id)
+    // 5. Purge any maps deleted over 7 days ago
+    const SEVEN_DAYS_AGO = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    await mapsCol.deleteMany({
+      userEmail: session.user.email,
+      isDeleted: true,
+      deletedAt: { $lt: SEVEN_DAYS_AGO },
+    });
+
+    // 6. Read full updated cloud state for user (strip _id)
     const rawCloudMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
     const rawCloudJournals = await journalsCol.find({ userEmail: session.user.email }).toArray();
     const rawCloudTodos = await todosCol.find({ userEmail: session.user.email }).toArray();

@@ -20,6 +20,8 @@ import {
   RefreshCw,
   LogIn,
   LogOut,
+  RotateCcw,
+  Archive,
 } from 'lucide-react';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { formatMinutes, cn } from '@/lib/utils';
@@ -35,6 +37,9 @@ export function SettingsView() {
     handleClearAll,
     handleSignOut,
     learningMaps,
+    deletedMaps,
+    handleRestoreMap,
+    handlePermanentlyDeleteMap,
     journalEntries,
     todos,
   } = useProgressOS();
@@ -392,7 +397,88 @@ export function SettingsView() {
         )}
       </div>
 
-      {/* 4. Danger Zone */}
+      {/* 4. Trash & Roadmap Recovery (7-Day Auto Purge) */}
+      <div className="p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md space-y-4 shadow-xs">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <Archive className="w-4 h-4 text-primary" />
+              <span>Trash & Roadmap Recovery</span>
+            </h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Deleted roadmaps are preserved here for 7 days before automatic permanent deletion.
+            </p>
+          </div>
+          {deletedMaps.length > 0 && (
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-muted border border-border text-muted-foreground">
+              {deletedMaps.length} in trash
+            </span>
+          )}
+        </div>
+
+        {deletedMaps.length === 0 ? (
+          <div className="p-6 text-center border border-dashed border-border/60 rounded-xl bg-muted/10 text-xs text-muted-foreground">
+            Trash is empty. When you delete a roadmap, it can be recovered here within 7 days.
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {deletedMaps.map((map) => {
+              const deletedDate = map.deletedAt ? new Date(map.deletedAt).getTime() : Date.now();
+              const daysRemaining = Math.max(1, 7 - Math.floor((Date.now() - deletedDate) / (1000 * 60 * 60 * 24)));
+
+              return (
+                <div
+                  key={map.id}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-border/70 bg-card/70 hover:bg-card transition-colors"
+                >
+                  <div className="min-w-0 space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: map.accentColor || '#6366f1' }}
+                      />
+                      <h4 className="text-xs font-semibold text-foreground truncate">{map.title}</h4>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                        {map.category}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground">
+                      Deleted {map.deletedAt ? new Date(map.deletedAt).toLocaleDateString() : 'recently'} ·{' '}
+                      <span className="text-amber-500 font-medium">Auto-purges in {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'}</span>
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleRestoreMap(map.id)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:bg-primary/10 hover:text-primary hover:border-primary/40 text-xs font-medium text-foreground transition-colors"
+                      title="Restore roadmap back to your active list"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Recover</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Permanently delete "${map.title}"? This cannot be undone.`)) {
+                          handlePermanentlyDeleteMap(map.id);
+                        }
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 text-xs text-muted-foreground transition-colors"
+                      title="Delete permanently right now"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 5. Danger Zone */}
       <div className="p-6 rounded-2xl border border-destructive/30 bg-destructive/5 space-y-4">
         <div>
           <h2 className="text-sm font-semibold text-destructive flex items-center gap-2">

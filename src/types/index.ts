@@ -58,6 +58,8 @@ export interface LearningMap {
   weeks: Week[];
   createdAt: string;
   updatedAt: string;
+  isDeleted?: boolean;
+  deletedAt?: string | null;
 }
 
 export interface StandaloneTodo {

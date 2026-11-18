@@ -91,14 +91,29 @@ export async function DELETE(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const mapId = searchParams.get('id');
+    const isPermanent = searchParams.get('permanent') === 'true';
+
     if (!mapId) {
       return NextResponse.json({ error: 'Missing map ID' }, { status: 400 });
     }
 
-    await db.collection('learning_maps').deleteOne({
-      id: mapId,
-      userEmail: session.user.email,
-    });
+    if (isPermanent) {
+      await db.collection('learning_maps').deleteOne({
+        id: mapId,
+        userEmail: session.user.email,
+      });
+    } else {
+      await db.collection('learning_maps').updateOne(
+        { id: mapId, userEmail: session.user.email },
+        {
+          $set: {
+            isDeleted: true,
+            deletedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+        }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

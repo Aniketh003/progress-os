@@ -45,6 +45,9 @@ export async function initializeDatabase() {
       await db.settings.put(DEFAULT_SETTINGS);
     }
 
+    // Auto-purge any soft-deleted maps older than 7 days
+    await purgeExpiredDeletedMaps();
+
     // Ensure all default learning maps exist
     for (const seed of DEFAULT_SEED_MAPS) {
       const existing = await db.learningMaps.get(seed.id);
@@ -111,12 +114,52 @@ export async function saveLearningMap(map: LearningMap): Promise<string> {
   return map.id;
 }
 
-export async function deleteLearningMap(id: string): Promise<void> {
+export async function softDeleteLearningMap(id: string): Promise<void> {
+  const map = await db.learningMaps.get(id);
+  if (map) {
+    map.isDeleted = true;
+    map.deletedAt = new Date().toISOString();
+    map.updatedAt = new Date().toISOString();
+    await db.learningMaps.put(map);
+  }
+}
+
+export const deleteLearningMap = softDeleteLearningMap;
+
+export async function restoreLearningMap(id: string): Promise<void> {
+  const map = await db.learningMaps.get(id);
+  if (map) {
+    map.isDeleted = false;
+    map.deletedAt = null;
+    map.updatedAt = new Date().toISOString();
+    await db.learningMaps.put(map);
+  }
+}
+
+export async function permanentlyDeleteLearningMap(id: string): Promise<void> {
   await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, async () => {
     await db.learningMaps.delete(id);
     await db.todos.where({ learningMapId: id }).delete();
     await db.journalEntries.where({ learningMapId: id }).delete();
   });
+}
+
+export async function purgeExpiredDeletedMaps(): Promise<string[]> {
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+  const cutoff = Date.now() - SEVEN_DAYS_MS;
+  const allMaps = await db.learningMaps.toArray();
+  const expiredIds: string[] = [];
+
+  for (const map of allMaps) {
+    if (map.isDeleted && map.deletedAt) {
+      const deletedTime = new Date(map.deletedAt).getTime();
+      if (!isNaN(deletedTime) && deletedTime < cutoff) {
+        expiredIds.push(map.id);
+        await permanentlyDeleteLearningMap(map.id);
+      }
+    }
+  }
+  return expiredIds;
 }
 
 // Helper to update a single Day within a Learning Map

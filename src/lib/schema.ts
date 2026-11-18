@@ -55,6 +55,8 @@ export const LearningMapSchema = z.object({
   weeks: z.array(WeekSchema).default([]),
   createdAt: z.string().default(() => new Date().toISOString()),
   updatedAt: z.string().default(() => new Date().toISOString()),
+  isDeleted: z.boolean().optional().default(false),
+  deletedAt: z.string().nullable().optional().default(null),
 });
 
 export type LearningMapInput = z.infer<typeof LearningMapSchema>;

@@ -10,6 +10,9 @@ import {
   getLearningMaps,
   saveLearningMap,
   deleteLearningMap,
+  softDeleteLearningMap,
+  restoreLearningMap,
+  permanentlyDeleteLearningMap,
   updateDayInMap,
   updateTaskInDay,
   importLearningMap,
@@ -39,6 +42,7 @@ import {
 interface ProgressOSContextType {
   isInitialized: boolean;
   learningMaps: LearningMap[];
+  deletedMaps: LearningMap[];
   activeMapId: string | null;
   setActiveMapId: (id: string | null) => void;
   activeMap: LearningMap | undefined;
@@ -51,6 +55,8 @@ interface ProgressOSContextType {
   // Actions
   handleSaveMap: (map: LearningMap) => Promise<string>;
   handleDeleteMap: (id: string) => Promise<void>;
+  handleRestoreMap: (id: string) => Promise<void>;
+  handlePermanentlyDeleteMap: (id: string) => Promise<void>;
   handleUpdateDay: (mapId: string, dayId: string, updater: (day: Day) => Day) => Promise<void>;
   handleUpdateTask: (mapId: string, dayId: string, taskId: string, updates: Partial<DayTask>) => Promise<void>;
   handleToggleTaskStatus: (mapId: string, dayId: string, taskId: string, currentStatus: TaskStatus) => Promise<void>;
@@ -91,7 +97,9 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   const prevEmailRef = useRef<string | null | undefined>(undefined);
 
   // Reactive live queries from Dexie
-  const learningMaps = useLiveQuery(() => db.learningMaps.toArray(), []) || [];
+  const allLearningMaps = useLiveQuery(() => db.learningMaps.toArray(), []) || [];
+  const learningMaps = useMemo(() => allLearningMaps.filter((m) => !m.isDeleted), [allLearningMaps]);
+  const deletedMaps = useMemo(() => allLearningMaps.filter((m) => !!m.isDeleted), [allLearningMaps]);
   const todos = useLiveQuery(() => db.todos.orderBy('order').toArray(), []) || [];
   const journalEntries = useLiveQuery(() => db.journalEntries.orderBy('date').reverse().toArray(), []) || [];
   const settingsArray = useLiveQuery(() => db.settings.toArray(), []) || [];
@@ -237,10 +245,12 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     }
   }, [theme]);
 
-  // Set default active map if none selected
+  // Set default active map if none selected or if active map was deleted
   useEffect(() => {
-    if (!activeMapId && learningMaps.length > 0) {
+    if ((!activeMapId || !learningMaps.some((m) => m.id === activeMapId)) && learningMaps.length > 0) {
       setActiveMapId(learningMaps[0].id);
+    } else if (learningMaps.length === 0) {
+      setActiveMapId(null);
     }
   }, [learningMaps, activeMapId]);
 
@@ -274,9 +284,29 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   }, [syncToCloud]);
 
   const handleDeleteMap = useCallback(async (id: string) => {
-    await deleteLearningMap(id);
+    await softDeleteLearningMap(id);
     if (activeMapId === id) {
       setActiveMapId(null);
+    }
+    await syncToCloud();
+  }, [activeMapId, syncToCloud]);
+
+  const handleRestoreMap = useCallback(async (id: string) => {
+    await restoreLearningMap(id);
+    await syncToCloud();
+  }, [syncToCloud]);
+
+  const handlePermanentlyDeleteMap = useCallback(async (id: string) => {
+    await permanentlyDeleteLearningMap(id);
+    if (activeMapId === id) {
+      setActiveMapId(null);
+    }
+    try {
+      await fetch(`/api/maps?id=${encodeURIComponent(id)}&permanent=true`, {
+        method: 'DELETE',
+      });
+    } catch (e) {
+      console.warn('Failed to delete map from cloud:', e);
     }
     await syncToCloud();
   }, [activeMapId, syncToCloud]);
@@ -465,6 +495,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       value={{
         isInitialized,
         learningMaps,
+        deletedMaps,
         activeMapId,
         setActiveMapId,
         activeMap,
@@ -475,6 +506,8 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
         setTheme,
         handleSaveMap,
         handleDeleteMap,
+        handleRestoreMap,
+        handlePermanentlyDeleteMap,
         handleUpdateDay,
         handleUpdateTask,
         handleToggleTaskStatus,
