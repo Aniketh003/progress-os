@@ -77,53 +77,77 @@ export async function POST(req: NextRequest) {
     if (!existing.includes('journals')) await db.createCollection('journals');
     if (!existing.includes('todos')) await db.createCollection('todos');
 
-    // 1. Upsert local maps to cloud (strip immutable _id)
-    for (const map of clientMaps) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-      const { _id, ...cleanMap } = map as any;
-      await mapsCol.updateOne(
-        { id: map.id, userEmail: session.user.email },
-        {
-          $set: {
-            ...cleanMap,
-            userEmail: session.user.email,
-            updatedAt: map.updatedAt || new Date().toISOString(),
+    // 1. Sync local maps to cloud (upsert and delete permanently removed maps)
+    if (Array.isArray(body.maps)) {
+      const clientMapIds = clientMaps.map((m) => m.id).filter(Boolean);
+      await mapsCol.deleteMany({
+        userEmail: session.user.email,
+        id: { $nin: clientMapIds },
+      });
+
+      for (const map of clientMaps) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+        const { _id, ...cleanMap } = map as any;
+        await mapsCol.updateOne(
+          { id: map.id, userEmail: session.user.email },
+          {
+            $set: {
+              ...cleanMap,
+              userEmail: session.user.email,
+              updatedAt: map.updatedAt || new Date().toISOString(),
+            },
           },
-        },
-        { upsert: true }
-      );
+          { upsert: true }
+        );
+      }
     }
 
-    // 2. Upsert local journals to cloud (strip immutable _id)
-    for (const journal of clientJournals) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-      const { _id, ...cleanJournal } = journal as any;
-      await journalsCol.updateOne(
-        { id: journal.id, userEmail: session.user.email },
-        {
-          $set: {
-            ...cleanJournal,
-            userEmail: session.user.email,
+    // 2. Sync local journals to cloud (upsert and delete removed journals)
+    if (Array.isArray(body.journals)) {
+      const clientJournalIds = clientJournals.map((j) => j.id).filter(Boolean);
+      await journalsCol.deleteMany({
+        userEmail: session.user.email,
+        id: { $nin: clientJournalIds },
+      });
+
+      for (const journal of clientJournals) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+        const { _id, ...cleanJournal } = journal as any;
+        await journalsCol.updateOne(
+          { id: journal.id, userEmail: session.user.email },
+          {
+            $set: {
+              ...cleanJournal,
+              userEmail: session.user.email,
+            },
           },
-        },
-        { upsert: true }
-      );
+          { upsert: true }
+        );
+      }
     }
 
-    // 3. Upsert local todos to cloud (strip immutable _id)
-    for (const todo of clientTodos) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-      const { _id, ...cleanTodo } = todo as any;
-      await todosCol.updateOne(
-        { id: todo.id, userEmail: session.user.email },
-        {
-          $set: {
-            ...cleanTodo,
-            userEmail: session.user.email,
+    // 3. Sync local todos to cloud (upsert and delete removed todos)
+    if (Array.isArray(body.todos)) {
+      const clientTodoIds = clientTodos.map((t) => t.id).filter(Boolean);
+      await todosCol.deleteMany({
+        userEmail: session.user.email,
+        id: { $nin: clientTodoIds },
+      });
+
+      for (const todo of clientTodos) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+        const { _id, ...cleanTodo } = todo as any;
+        await todosCol.updateOne(
+          { id: todo.id, userEmail: session.user.email },
+          {
+            $set: {
+              ...cleanTodo,
+              userEmail: session.user.email,
+            },
           },
-        },
-        { upsert: true }
-      );
+          { upsert: true }
+        );
+      }
     }
 
     // 4. Upsert settings if provided (strip immutable _id)

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Compass,
   CheckCircle2,
@@ -13,6 +13,7 @@ import {
   Clock,
   Sparkles,
   TrendingUp,
+  Trash2,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
@@ -24,6 +25,8 @@ import {
   cn,
 } from '@/lib/utils';
 import { LearningMap } from '@/types';
+import { FocusTimerCard } from '@/components/timer/FocusTimerCard';
+import { FocusTimerModal } from '@/components/timer/FocusTimerModal';
 
 interface OverviewViewProps {
   onOpenQuickTask: () => void;
@@ -42,7 +45,10 @@ export function OverviewView({
     journalEntries,
     settings,
     handleToggleTodoStatus,
+    handleDeleteTodo,
   } = useProgressOS();
+
+  const [isTimerModalOpen, setIsTimerModalOpen] = useState(false);
 
   const { greeting, quote } = getTimeGreeting();
   const todayStr = new Date().toISOString().split('T')[0];
@@ -70,18 +76,23 @@ export function OverviewView({
       ? Math.round((globalCompletedTasks / globalTotalTasks) * 100)
       : 0;
 
-  // Streak calculation & compact 15-day slice
+  // Streak calculation for metrics
   const journalDates = journalEntries.map((j) => j.date);
-  const { streak, totalActiveDays, activityData } = calculateLearningStreak(
+  const { streak, totalActiveDays } = calculateLearningStreak(
     learningMaps,
     journalDates
   );
-  const compactActivityData = activityData.slice(-15);
 
   // Today's focus tasks
   const todayTodos = todos.filter((t) => t.dueDate === todayStr || !t.dueDate);
   const pendingToday = todayTodos.filter((t) => t.status !== 'done');
   const completedToday = todayTodos.filter((t) => t.status === 'done');
+
+  // Filter for started or progress-made learning roadmaps
+  const inProgressMaps = learningMaps.filter((map) => {
+    const stats = getMapStats(map);
+    return stats.completedTasks > 0 || stats.completedDays > 0;
+  });
 
   // Overdue tasks
   const overdueTodos = todos.filter(
@@ -90,7 +101,7 @@ export function OverviewView({
 
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-200">
-      {/* 1. Daily Focus Greeting & Compact Metrics Side-by-Side (Clean, borderless layout) */}
+      {/* 1. Top Header: Greeting (Left) & Compact Metrics (Right) */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2">
         {/* Left: Greeting & Focus */}
         <div className="space-y-1 max-w-xl">
@@ -167,14 +178,19 @@ export function OverviewView({
         </div>
       </div>
 
-      {/* 2. Today's Focus & 15-Day Consistency Heatmap (Moved Above Continue Learning) */}
+      {/* 2. Today's Focus & Focus Timer Side-by-Side */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Today's Focus */}
+        {/* Today's Focus (Max 3 items, scrollable) */}
         <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary" />
               <h2 className="text-sm font-semibold text-foreground">Today’s Focus</h2>
+              {todayTodos.length > 0 && (
+                <span className="text-[11px] font-mono text-muted-foreground">
+                  ({completedToday.length}/{todayTodos.length} done)
+                </span>
+              )}
             </div>
             <button
               onClick={onOpenQuickTask}
@@ -186,32 +202,43 @@ export function OverviewView({
             </button>
           </div>
 
-          <div className="flex-1 space-y-2 overflow-y-auto max-h-72">
+          {/* Max 3 visible items (~144px) with smooth scrolling */}
+          <div className="space-y-1.5 overflow-y-auto max-h-[144px] pr-1">
             {overdueTodos.length > 0 && (
-              <div className="text-[11px] font-semibold text-destructive uppercase tracking-wider mb-1">
+              <div className="text-[10px] font-semibold text-destructive uppercase tracking-wider py-0.5">
                 Overdue ({overdueTodos.length})
               </div>
             )}
             {overdueTodos.map((todo) => (
               <div
                 key={todo.id}
-                className="flex items-center justify-between p-2.5 rounded-lg border border-destructive/20 bg-destructive/5 text-xs"
+                onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
+                className="group flex items-center justify-between p-2.5 rounded-lg border border-destructive/20 bg-destructive/5 text-xs cursor-pointer select-none hover:border-destructive/40 transition-colors"
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <button
-                    onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
-                    className="shrink-0"
-                  >
-                    <Circle className="w-4 h-4 text-destructive hover:text-emerald-500" />
-                  </button>
+                  <div className="shrink-0">
+                    <Circle className="w-4 h-4 text-destructive group-hover:text-emerald-500 transition-colors" />
+                  </div>
                   <span className="text-foreground truncate font-medium">{todo.title}</span>
                 </div>
-                <span className="text-[10px] text-destructive shrink-0">Due {todo.dueDate}</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10px] text-destructive shrink-0">Due {todo.dueDate}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteTodo(todo.id);
+                    }}
+                    className="opacity-80 sm:opacity-0 sm:group-hover:opacity-100 p-1 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all"
+                    title="Delete task"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             ))}
 
             {todayTodos.length === 0 && overdueTodos.length === 0 ? (
-              <div className="py-8 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
+              <div className="py-6 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
                 No pending tasks for today. Click &quot;Add Task&quot; above to create one.
               </div>
             ) : (
@@ -220,34 +247,44 @@ export function OverviewView({
                 return (
                   <div
                     key={todo.id}
+                    onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
                     className={cn(
-                      'flex items-center justify-between p-2.5 rounded-lg border text-xs transition-colors',
+                      'group flex items-center justify-between p-2.5 rounded-lg border text-xs transition-colors cursor-pointer select-none hover:border-primary/50',
                       isDone
                         ? 'bg-muted/20 border-border/40 text-muted-foreground'
-                        : 'bg-card border-border/70 text-foreground'
+                        : 'bg-card border-border/70 text-foreground hover:bg-muted/10'
                     )}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                      <button
-                        onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
-                        className="shrink-0"
-                      >
+                      <div className="shrink-0">
                         {isDone ? (
                           <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/10" />
                         ) : (
-                          <Circle className="w-4 h-4 text-muted-foreground hover:text-emerald-500" />
+                          <Circle className="w-4 h-4 text-muted-foreground group-hover:text-emerald-500 transition-colors" />
                         )}
-                      </button>
-                      <span className={cn('truncate', isDone && 'line-through opacity-70')}>
+                      </div>
+                      <span className={cn('truncate font-medium', isDone && 'line-through opacity-70')}>
                         {todo.title}
                       </span>
                     </div>
 
-                    {todo.learningMapTitle && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground shrink-0 truncate max-w-[120px]">
-                        {todo.learningMapTitle}
-                      </span>
-                    )}
+                    <div className="flex items-center gap-2 shrink-0">
+                      {todo.learningMapTitle && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground truncate max-w-[120px]">
+                          {todo.learningMapTitle}
+                        </span>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteTodo(todo.id);
+                        }}
+                        className="opacity-80 sm:opacity-0 sm:group-hover:opacity-100 p-1 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all"
+                        title="Delete task"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 );
               })
@@ -255,61 +292,15 @@ export function OverviewView({
           </div>
         </div>
 
-        {/* 15-Day Activity & Consistency Heatmap (Compact & Without Commitment Goal Box) */}
-        <div className="p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Flame className="w-4 h-4 text-amber-500" />
-              <h2 className="text-sm font-semibold text-foreground">
-                15-Day Learning Consistency
-              </h2>
-            </div>
-            <span className="text-xs text-muted-foreground font-mono">
-              {streak} day streak
-            </span>
-          </div>
-
-          {/* 15-Day Compact Matrix */}
-          <div className="space-y-2 py-2">
-            <div className="grid grid-cols-15 gap-1.5 sm:gap-2">
-              {compactActivityData.map((d, idx) => {
-                let colorClass = 'bg-muted/50 border border-border/40';
-                if (d.count >= 4) {
-                  colorClass = 'bg-primary text-primary-foreground font-bold shadow-xs';
-                } else if (d.count >= 2) {
-                  colorClass = 'bg-primary/70';
-                } else if (d.count >= 1) {
-                  colorClass = 'bg-primary/40';
-                }
-
-                return (
-                  <div
-                    key={idx}
-                    title={`${d.date}: ${d.count} activities logged`}
-                    className={cn(
-                      'aspect-square rounded-md transition-all hover:scale-110 flex items-center justify-center text-[9px]',
-                      colorClass
-                    )}
-                  />
-                );
-              })}
-            </div>
-
-            <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-3 border-t border-border/30">
-              <span>15 days ago</span>
-              <div className="flex items-center gap-1.5 text-[10px]">
-                <span>Less</span>
-                <span className="w-2.5 h-2.5 rounded bg-muted/50" />
-                <span className="w-2.5 h-2.5 rounded bg-primary/40" />
-                <span className="w-2.5 h-2.5 rounded bg-primary/70" />
-                <span className="w-2.5 h-2.5 rounded bg-primary" />
-                <span>More</span>
-              </div>
-              <span>Today</span>
-            </div>
-          </div>
-        </div>
+        {/* Focus Timer Dashboard Card */}
+        <FocusTimerCard onOpenModal={() => setIsTimerModalOpen(true)} />
       </div>
+
+      {/* Focus Timer Fullscreen Modal */}
+      <FocusTimerModal
+        isOpen={isTimerModalOpen}
+        onClose={() => setIsTimerModalOpen(false)}
+      />
 
       {/* 3. Continue Learning Cards */}
       <div className="space-y-3">
@@ -325,18 +316,18 @@ export function OverviewView({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {learningMaps.length === 0 ? (
+          {inProgressMaps.length === 0 ? (
             <div className="col-span-full p-8 text-center border border-dashed border-border/60 rounded-xl bg-muted/20">
               <Compass className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-xs text-foreground font-medium">
-                No active learning maps available
+                No learning roadmaps in progress
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                Import a roadmap or create a custom one from the sidebar.
+                Select a roadmap from the sidebar and begin completing tasks or days to continue here.
               </p>
             </div>
           ) : (
-            learningMaps.map((map) => {
+            inProgressMaps.map((map) => {
               const stats = getMapStats(map);
               return (
                 <div

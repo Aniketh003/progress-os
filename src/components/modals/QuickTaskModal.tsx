@@ -36,7 +36,7 @@ export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
     if (isOpen) {
       setTitle('');
       setDescription('');
-      setSelectedMapId(activeMapId || (learningMaps[0]?.id ?? ''));
+      setSelectedMapId('');
       setSelectedDayId('');
       setPriority('medium');
       setStatus('todo');
@@ -44,7 +44,7 @@ export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
       setRepositoryUrl('');
       setIsSubmitting(false);
     }
-  }, [isOpen, activeMapId, learningMaps]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

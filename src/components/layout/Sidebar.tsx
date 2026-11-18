@@ -87,7 +87,7 @@ export function Sidebar({
   const navItems = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
     { id: 'my-day', label: 'My Day', icon: Calendar },
-    { id: 'activity', label: 'Activity', icon: Activity },
+    // { id: 'activity', label: 'Activity', icon: Activity }, // hidden for now per user request
     { id: 'journal', label: 'Journal', icon: BookOpen },
   ];
 

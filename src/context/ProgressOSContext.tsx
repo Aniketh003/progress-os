@@ -398,9 +398,16 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   }, [syncToCloud]);
 
   const handleDeleteTodo = useCallback(async (id: string) => {
+    const todo = await db.todos.get(id);
+    if (todo && todo.learningMapId && todo.dayId) {
+      await handleUpdateDay(todo.learningMapId, todo.dayId, (day) => {
+        day.tasks = day.tasks.filter((t) => t.id !== id && t.title !== todo.title);
+        return day;
+      });
+    }
     await deleteTodo(id);
     await syncToCloud();
-  }, [syncToCloud]);
+  }, [handleUpdateDay, syncToCloud]);
 
   const handleToggleTodoStatus = useCallback(async (id: string, currentStatus: TaskStatus) => {
     const nextStatus: TaskStatus = currentStatus === 'done' ? 'todo' : 'done';
