@@ -27,6 +27,7 @@ import {
   X,
 } from 'lucide-react';
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
+import { UserAuthButton } from '@/components/auth/UserAuthButton';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { getMapStats, cn } from '@/lib/utils';
 import { LearningMap } from '@/types';
@@ -393,6 +394,10 @@ export function Sidebar({
 
         {/* Footer / Theme & Settings */}
         <div className="p-2 border-t border-border/40 space-y-1">
+          <div className="mb-1.5">
+            <UserAuthButton collapsed={isCollapsed && !isMobileOpen} />
+          </div>
+
           <button
             onClick={() => handleSelectNav('settings')}
             title={isCollapsed && !isMobileOpen ? 'Settings' : undefined}

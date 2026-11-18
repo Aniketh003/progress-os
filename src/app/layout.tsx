@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ProgressOSProvider } from '@/context/ProgressOSContext';
+import { AuthProvider } from '@/components/auth/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'ProgressOS — Personal Learning Operating System',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased dark" suppressHydrationWarning>
       <body className="h-full overflow-hidden bg-background text-foreground font-sans antialiased">
-        <ProgressOSProvider>{children}</ProgressOSProvider>
+        <AuthProvider>
+          <ProgressOSProvider>{children}</ProgressOSProvider>
+        </AuthProvider>
       </body>
     </html>
   );
