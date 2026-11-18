@@ -7,7 +7,7 @@ import { useProgressOS } from '@/context/ProgressOSContext';
 
 export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
   const { data: session, status } = useSession();
-  const { isCloudSyncing, syncToCloud } = useProgressOS();
+  const { isCloudSyncing, syncToCloud, handleSignOut } = useProgressOS();
   const [lastSynced, setLastSynced] = useState<string | null>(null);
 
   const handleSync = async () => {
@@ -55,8 +55,8 @@ export function UserAuthButton({ collapsed = false }: { collapsed?: boolean }) {
           </div>
 
           <button
-            onClick={() => signOut()}
-            title="Sign out"
+            onClick={() => handleSignOut()}
+            title="Sign out and clear local session"
             className="p-1 rounded text-muted-foreground hover:text-destructive hover:bg-muted/80 transition-colors shrink-0"
           >
             <LogOut className="w-3.5 h-3.5" />

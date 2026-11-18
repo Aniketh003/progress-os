@@ -146,8 +146,10 @@ export async function updateDayInMap(
 
     if (allCompleted) {
       map.status = 'completed';
-    } else if (hasProgress && map.status === 'not-started') {
+    } else if (hasProgress) {
       map.status = 'active';
+    } else {
+      map.status = 'not-started';
     }
 
     map.updatedAt = new Date().toISOString();
@@ -178,11 +180,16 @@ export async function updateTaskInDay(
 
       // Check if all tasks in day are done
       const allDone = day.tasks.length > 0 && day.tasks.every((t) => t.status === 'done');
-      if (allDone && day.status !== 'completed') {
+      const anyDone = day.tasks.some((t) => t.status === 'done');
+
+      if (allDone) {
         day.status = 'completed';
         day.completedAt = new Date().toISOString();
-      } else if (!allDone && day.status === 'completed') {
+      } else if (anyDone) {
         day.status = 'in-progress';
+        day.completedAt = null;
+      } else {
+        day.status = 'pending';
         day.completedAt = null;
       }
     }
@@ -403,5 +410,7 @@ export async function clearAllData() {
     await db.learningMaps.clear();
     await db.todos.clear();
     await db.journalEntries.clear();
+    await db.settings.clear();
+    await db.settings.put(DEFAULT_SETTINGS);
   });
 }

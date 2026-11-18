@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import confetti from 'canvas-confetti';
 import {
   db,
@@ -74,6 +74,7 @@ interface ProgressOSContextType {
   handleExportAll: () => Promise<void>;
   handleRestoreAll: (backupJson: string) => Promise<{ success: boolean; error?: string }>;
   handleClearAll: () => Promise<void>;
+  handleSignOut: () => Promise<void>;
   triggerCompletionEffect: () => void;
   isCloudSyncing: boolean;
   syncToCloud: () => Promise<void>;
@@ -148,12 +149,37 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       if (authStatus === 'loading') return;
 
       const userEmail = session?.user?.email || null;
+      const storedEmail = typeof window !== 'undefined' ? localStorage.getItem('progressos_logged_user') : null;
+
+      // Detect logout (either in active session change or across page reloads via localStorage)
+      if (!userEmail && (storedEmail || prevEmailRef.current)) {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('progressos_logged_user');
+        }
+        prevEmailRef.current = null;
+        await clearAllData();
+        await initializeDatabase();
+        setActiveMapId(null);
+        console.log('ProgressOS: Purged private user data from local database on logout');
+        return;
+      }
+
       if (userEmail === prevEmailRef.current) return;
-      const previousEmail = prevEmailRef.current;
       prevEmailRef.current = userEmail;
 
       if (userEmail) {
-        // User logged in: fetch their cloud data from MongoDB
+        // Record currently logged-in user in localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('progressos_logged_user', userEmail);
+        }
+
+        // If previously a different user was logged in, clean local store first
+        if (storedEmail && storedEmail !== userEmail) {
+          await clearAllData();
+          await initializeDatabase();
+        }
+
+        // Fetch cloud data from MongoDB
         setIsCloudSyncing(true);
         try {
           const res = await fetch('/api/sync');
@@ -187,12 +213,6 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
         } finally {
           setIsCloudSyncing(false);
         }
-      } else if (previousEmail !== undefined && previousEmail !== null && userEmail === null) {
-        // User logged out: clear private IndexedDB state and reload clean default seed
-        await clearAllData();
-        await initializeDatabase();
-        setActiveMapId(null);
-        console.log('ProgressOS: Cleared private local data on logout');
       }
     }
 
@@ -281,20 +301,23 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   }, [triggerCompletionEffect, syncToCloud]);
 
   const handleToggleDayStatus = useCallback(async (mapId: string, dayId: string, currentStatus: DayStatus) => {
-    const nextStatus: DayStatus = currentStatus === 'completed' ? 'in-progress' : 'completed';
+    const nextStatus: DayStatus = currentStatus === 'completed' ? 'pending' : 'completed';
     if (nextStatus === 'completed') {
       triggerCompletionEffect();
     }
     await updateDayInMap(mapId, dayId, (day) => {
       day.status = nextStatus;
       day.completedAt = nextStatus === 'completed' ? new Date().toISOString() : null;
-      // Mark all tasks done if day completed
-      if (nextStatus === 'completed') {
-        day.tasks.forEach((t) => {
+      // Mark all tasks done if day completed, or reset all tasks to todo if unchecked
+      day.tasks.forEach((t) => {
+        if (nextStatus === 'completed') {
           t.status = 'done';
           t.completedAt = new Date().toISOString();
-        });
-      }
+        } else {
+          t.status = 'todo';
+          t.completedAt = null;
+        }
+      });
       return day;
     });
     await syncToCloud();
@@ -423,6 +446,20 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     setActiveMapId(null);
   }, []);
 
+  const handleSignOut = useCallback(async () => {
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('progressos_logged_user');
+      }
+      await clearAllData();
+      await initializeDatabase();
+      setActiveMapId(null);
+    } catch (e) {
+      console.warn('ProgressOS: Error clearing data on sign out:', e);
+    }
+    await signOut({ callbackUrl: '/' });
+  }, []);
+
   return (
     <ProgressOSContext.Provider
       value={{
@@ -455,6 +492,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
         handleExportAll,
         handleRestoreAll,
         handleClearAll,
+        handleSignOut,
         triggerCompletionEffect,
         isCloudSyncing,
         syncToCloud,

@@ -33,6 +33,7 @@ export function SettingsView() {
     handleExportAll,
     handleRestoreAll,
     handleClearAll,
+    handleSignOut,
     learningMaps,
     journalEntries,
     todos,
@@ -282,7 +283,7 @@ export function SettingsView() {
 
               <button
                 type="button"
-                onClick={() => signOut()}
+                onClick={() => handleSignOut()}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 text-xs font-medium text-muted-foreground transition-colors"
               >
                 <LogOut className="w-3.5 h-3.5" />
