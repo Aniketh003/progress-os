@@ -10,7 +10,6 @@ import {
   LayoutDashboard,
   Calendar,
   BookOpen,
-  Settings,
   Sun,
   Moon,
 } from 'lucide-react';
@@ -69,15 +68,15 @@ export function Header({
   ];
 
   return (
-    <header className="h-14 border-b border-border/40 bg-card/60 backdrop-blur-md px-3 sm:px-5 flex items-center justify-between z-30 select-none shrink-0 gap-2">
-      {/* 1. Left: ProgressOS Brand Logo (No breadcrumbs) & Back button */}
-      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+    <header className="h-14 border-b border-border/40 bg-card/60 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 select-none shrink-0 gap-2 sm:gap-4">
+      {/* 1. Left: ProgressOS Brand Logo & Back button (evenly anchors left) */}
+      <div className="flex items-center gap-2 sm:gap-3 flex-1 justify-start min-w-0">
         <div
           onClick={() => router.push('/')}
-          className="flex items-center gap-2 cursor-pointer group"
+          className="flex items-center gap-2.5 cursor-pointer group shrink-0"
           title="ProgressOS Overview"
         >
-          <ProgressOSLogo className="w-6 h-6 shrink-0 shadow-sm shadow-rose-600/30 group-hover:scale-105 transition-transform" />
+          <ProgressOSLogo className="w-7 h-7 shrink-0 shadow-sm shadow-rose-600/20 group-hover:scale-105 transition-transform" />
           <div className="flex items-center gap-1.5">
             <span className="font-bold text-sm tracking-tight text-foreground">
               ProgressOS
@@ -100,47 +99,49 @@ export function Header({
         )}
       </div>
 
-      {/* 2. Middle: Workspace Navigation (Only icons and text, no "Workspace" label) */}
-      <nav className="flex items-center gap-1 bg-muted/40 p-0.5 sm:p-1 rounded-xl border border-border/50">
-        {workspaceNavItems.map((item) => {
-          const Icon = item.icon;
-          const isActive =
-            item.href === '/'
-              ? pathname === '/' && !isMapRoute
-              : pathname === item.href;
+      {/* 2. Middle: Workspace Navigation (True Centered) */}
+      <nav className="flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-1 bg-muted/40 p-0.5 sm:p-1 rounded-xl border border-border/50 shadow-xs">
+          {workspaceNavItems.map((item) => {
+            const Icon = item.icon;
+            const isActive =
+              item.href === '/'
+                ? pathname === '/' && !isMapRoute
+                : pathname === item.href;
 
-          return (
-            <button
-              key={item.id}
-              onClick={() => router.push(item.href)}
-              className={cn(
-                'flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg text-xs font-medium transition-all select-none',
-                isActive
-                  ? 'bg-background text-foreground font-semibold shadow-xs border border-border/60'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-background/40 border border-transparent'
-              )}
-            >
-              <Icon
+            return (
+              <button
+                key={item.id}
+                onClick={() => router.push(item.href)}
                 className={cn(
-                  'w-3.5 h-3.5 shrink-0',
-                  isActive ? 'text-primary' : 'text-muted-foreground'
+                  'flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium transition-all select-none',
+                  isActive
+                    ? 'bg-background text-foreground font-semibold shadow-xs border border-border/60'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-background/40 border border-transparent'
                 )}
-              />
-              <span className="hidden xs:inline sm:inline">{item.label}</span>
-            </button>
-          );
-        })}
+              >
+                <Icon
+                  className={cn(
+                    'w-3.5 h-3.5 shrink-0',
+                    isActive ? 'text-primary' : 'text-muted-foreground'
+                  )}
+                />
+                <span className="hidden xs:inline sm:inline">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </nav>
 
-      {/* 3. Extreme Right: Quick Task, Search, Theme, Settings, and User Login */}
-      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      {/* 3. Right: Search, Quick Task, Theme, and Profile Popup (evenly anchors right) */}
+      <div className="flex items-center justify-end gap-1.5 sm:gap-2 flex-1 min-w-0">
         {/* Repo Link if inside an active roadmap */}
         {isMapRoute && currentMap?.repositoryUrl && (
           <a
             href={currentMap.repositoryUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:flex items-center gap-1.5 px-2 py-1 rounded-lg border border-border/60 hover:bg-accent/60 text-xs text-foreground font-medium transition-colors"
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-border/60 hover:bg-accent/60 text-xs text-foreground font-medium transition-colors"
             title="Open GitHub Repository"
           >
             <Github className="w-3.5 h-3.5" />
@@ -165,8 +166,8 @@ export function Header({
           title="New Task (C)"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span className="hidden md:inline">New Task</span>
-          <kbd className="hidden sm:inline text-[9px] bg-primary-foreground/20 px-1 rounded font-mono">
+          <span className="hidden sm:inline">New Task</span>
+          <kbd className="hidden md:inline text-[9px] bg-primary-foreground/20 px-1 rounded font-mono">
             C
           </kbd>
         </button>
@@ -175,7 +176,7 @@ export function Header({
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          className="p-1.5 rounded-lg border border-transparent hover:border-border/60 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"
+          className="p-1.5 rounded-lg border border-border/60 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"
         >
           {theme === 'dark' ? (
             <Sun className="w-4 h-4 text-amber-400" />
@@ -184,22 +185,7 @@ export function Header({
           )}
         </button>
 
-        {/* Settings Button */}
-        <button
-          onClick={() => router.push('/settings')}
-          title="Settings"
-          className={cn(
-            'flex items-center gap-1.5 px-2 py-1.5 rounded-lg border text-xs font-medium transition-all',
-            pathname === '/settings'
-              ? 'bg-primary/10 text-primary border-primary/20 font-semibold'
-              : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50'
-          )}
-        >
-          <Settings className="w-4 h-4 shrink-0" />
-          <span className="hidden lg:inline">Settings</span>
-        </button>
-
-        {/* Login / User Auth Button at the extreme right */}
+        {/* Profile Icon with Sync, Settings, Logout Popup */}
         <UserAuthButton variant="navbar" />
       </div>
     </header>

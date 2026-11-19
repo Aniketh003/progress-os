@@ -1,52 +1,46 @@
 import React from 'react';
 
-export function ProgressOSLogo({ className = 'w-7 h-7', ...props }: React.SVGProps<SVGSVGElement>) {
+export interface ProgressOSLogoProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  imgClassName?: string;
+  badge?: boolean;
+}
+
+export function ProgressOSLogo({
+  className = 'w-7 h-7',
+  imgClassName = '',
+  badge = true,
+  ...props
+}: ProgressOSLogoProps) {
+  if (!badge) {
+    return (
+      <div
+        className={`relative inline-flex items-center justify-center shrink-0 select-none ${className}`}
+        {...props}
+      >
+        <img
+          src="/logo.png"
+          alt="ProgressOS"
+          className={`w-full h-full object-contain pointer-events-none drop-shadow-md ${imgClassName}`}
+          draggable={false}
+        />
+      </div>
+    );
+  }
+
   return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
+    <div
+      className={`relative inline-flex items-center justify-center shrink-0 select-none rounded-lg bg-zinc-950 border border-zinc-800/80 shadow-md shadow-rose-950/20 p-1 overflow-hidden ${className}`}
       {...props}
     >
-      <defs>
-        <linearGradient id="progress-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#f43f5e" />
-          <stop offset="50%" stopColor="#e11d48" />
-          <stop offset="100%" stopColor="#be123c" />
-        </linearGradient>
-        <linearGradient id="glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
-        </linearGradient>
-      </defs>
-
-      {/* Rounded squircle container with subtle glass border */}
-      <rect width="32" height="32" rx="8" fill="url(#progress-grad)" />
-      <rect width="32" height="32" rx="8" stroke="url(#glow-grad)" strokeWidth="1" />
-
-      {/* Stepped progress milestone bars ascending into an arrow / 'P' stem */}
-      {/* Base vertical stem */}
-      <rect x="7" y="7" width="3.5" height="18" rx="1.75" fill="#ffffff" />
-
-      {/* Ascending milestone tiers */}
-      {/* Level 1 milestone */}
-      <rect x="12.5" y="19" width="4.5" height="6" rx="1.5" fill="#ffffff" fillOpacity="0.5" />
-
-      {/* Level 2 milestone */}
-      <rect x="19" y="14" width="4.5" height="11" rx="1.5" fill="#ffffff" fillOpacity="0.75" />
-
-      {/* Top loop connecting the 'P' and forward trajectory */}
-      <path
-        d="M8.75 7H17.5C19.9853 7 22 9.01472 22 11.5C22 13.9853 19.9853 16 17.5 16H8.75"
-        stroke="#ffffff"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      {/* Subtle crimson accent glow in badge corner */}
+      <div className="absolute inset-0 bg-gradient-to-br from-rose-600/15 via-transparent to-transparent pointer-events-none" />
+      <img
+        src="/logo.png"
+        alt="ProgressOS"
+        className={`w-full h-full object-contain relative z-10 pointer-events-none filter drop-shadow-[0_1px_4px_rgba(225,29,72,0.35)] ${imgClassName}`}
+        draggable={false}
       />
-
-      {/* Progress focal spark dot */}
-      <circle cx="16" cy="11.5" r="1.5" fill="#ffffff" />
-    </svg>
+    </div>
   );
 }

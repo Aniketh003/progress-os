@@ -8,6 +8,11 @@ import { AppShell } from '@/components/layout/AppShell';
 export const metadata: Metadata = {
   title: 'ProgressOS — Personal Learning Operating System',
   description: 'A polished, production-grade personal learning and progress-tracking operating system.',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({

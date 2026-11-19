@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (!isInitialized) {
     return (
       <div className="h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground space-y-4 select-none">
-        <ProgressOSLogo className="w-12 h-12 shadow-lg shadow-rose-600/30 animate-pulse" />
+        <ProgressOSLogo className="w-14 h-14 shadow-xl shadow-rose-600/30 animate-pulse" />
         <div className="flex flex-col items-center space-y-1">
           <span className="text-sm font-semibold tracking-tight text-foreground">ProgressOS</span>
           <p className="text-xs text-muted-foreground animate-pulse">

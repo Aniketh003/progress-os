@@ -431,36 +431,36 @@ export function OverviewView({
             </p>
           </div>
 
-          {/* The three icons from the sidebar with descriptive pretext */}
+          {/* The three icons with concise labels */}
           <div className="flex items-center gap-2 flex-wrap">
-            {/* 1. HelpCircle: AI Prompt Guide */}
+            {/* 1. HelpCircle: Guide */}
             <button
               onClick={openImportGuide}
               title="Roadmap Schema & AI Prompt Guide"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 bg-card hover:bg-muted/50 text-xs text-foreground font-medium transition-all shadow-xs"
             >
               <HelpCircle className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>AI Prompt Guide</span>
+              <span>Guide</span>
             </button>
 
-            {/* 2. Download: Import Learning Map (JSON) */}
+            {/* 2. Download: Import */}
             <button
               onClick={openImport}
               title="Import Learning Map (JSON)"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 bg-card hover:bg-muted/50 text-xs text-foreground font-medium transition-all shadow-xs"
             >
               <Download className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Import JSON</span>
+              <span>Import</span>
             </button>
 
-            {/* 3. Plus: Create Learning Map */}
+            {/* 3. Plus: Create */}
             <button
               onClick={openNewMap}
               title="Create New Learning Map"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs transition-all active:scale-95"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>Create New Path</span>
+              <span>Create</span>
             </button>
           </div>
         </div>
@@ -481,14 +481,14 @@ export function OverviewView({
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-medium shadow-xs"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Import JSON</span>
+                <span>Import</span>
               </button>
               <button
                 onClick={openNewMap}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/80 hover:bg-muted/40 text-foreground text-xs font-medium"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Create New Path</span>
+                <span>Create</span>
               </button>
             </div>
           </div>
