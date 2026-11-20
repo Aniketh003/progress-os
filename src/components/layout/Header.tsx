@@ -71,38 +71,52 @@ export function Header({
 
   return (
     <header className="relative h-14 border-b border-border/40 bg-card/60 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 select-none shrink-0 gap-2 sm:gap-4">
-      {/* 1. Left: ProgressOS Brand Logo & Back button (evenly anchors left) */}
+      {/* 1. Left: ProgressOS Brand Logo & Back button (compact & contextual on mobile) */}
       <div className="flex items-center gap-2 sm:gap-3 flex-1 justify-start min-w-0">
+        {!isHome && (
+          <button
+            onClick={handleBack}
+            className="flex items-center gap-1 p-1.5 sm:px-2 sm:py-1 rounded-lg border border-border/60 hover:border-border hover:bg-accent/60 text-xs font-medium text-muted-foreground hover:text-foreground transition-all group shrink-0"
+            title="Back to Overview"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="hidden sm:inline">Back</span>
+          </button>
+        )}
+
         <div
           onClick={() => router.push('/')}
-          className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 cursor-pointer group min-w-0 shrink-0"
           title="ProgressOS Overview"
         >
-          <ProgressOSLogo className="w-7 h-7 shrink-0 shadow-sm shadow-rose-600/20 group-hover:scale-105 transition-transform" />
-          <div className="flex items-center gap-1.5">
-            <span className="font-bold text-sm tracking-tight text-foreground">
-              ProgressOS
+          <ProgressOSLogo className="w-6 h-6 sm:w-7 sm:h-7 shrink-0 shadow-sm shadow-rose-600/20 group-hover:scale-105 transition-transform" />
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className="font-bold text-sm tracking-tight text-foreground truncate max-w-[120px] xs:max-w-[160px] sm:max-w-none">
+              {isHome
+                ? 'ProgressOS'
+                : currentMap
+                ? currentMap.title
+                : pathname === '/my-day'
+                ? 'My Day'
+                : pathname === '/journal'
+                ? 'Journal'
+                : pathname === '/tasks'
+                ? 'Tasks'
+                : pathname === '/settings'
+                ? 'Settings'
+                : pathname === '/activity'
+                ? 'Activity'
+                : 'ProgressOS'}
             </span>
-            <span className="hidden sm:inline text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20">
+            <span className="hidden sm:inline text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20 shrink-0">
               v1.0
             </span>
           </div>
         </div>
-
-        {!isHome && (
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-1 px-2 py-1 rounded-lg border border-border/60 hover:border-border hover:bg-accent/60 text-xs font-medium text-muted-foreground hover:text-foreground transition-all group shrink-0"
-            title="Back to Overview"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="hidden sm:inline">Back</span>
-          </button>
-        )}
       </div>
 
-      {/* 2. Middle: Workspace Navigation (True Centered) */}
-      <nav className="flex items-center justify-center shrink-0">
+      {/* 2. Middle: Workspace Navigation (Visible on tablet & desktop, cleanly hidden on mobile) */}
+      <nav className="hidden sm:flex items-center justify-center shrink-0">
         <div className="flex items-center gap-1 bg-muted/40 p-0.5 sm:p-1 rounded-xl border border-border/50 shadow-xs">
           {workspaceNavItems.map((item) => {
             const Icon = item.icon;
@@ -116,7 +130,7 @@ export function Header({
                 key={item.id}
                 onClick={() => router.push(item.href)}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium transition-all select-none',
+                  'flex items-center gap-1.5 px-2.5 md:px-3 py-1 rounded-lg text-xs font-medium transition-all select-none',
                   isActive
                     ? 'bg-background text-foreground font-semibold shadow-xs border border-border/60'
                     : 'text-muted-foreground hover:text-foreground hover:bg-background/40 border border-transparent'
@@ -128,15 +142,15 @@ export function Header({
                     isActive ? 'text-primary' : 'text-muted-foreground'
                   )}
                 />
-                <span className="hidden xs:inline sm:inline">{item.label}</span>
+                <span className="hidden md:inline">{item.label}</span>
               </button>
             );
           })}
         </div>
       </nav>
 
-      {/* 3. Right: Search, Quick Task, Theme, and Profile Popup (evenly anchors right) */}
-      <div className="flex items-center justify-end gap-1.5 sm:gap-2 flex-1 min-w-0">
+      {/* 3. Right: Search, Quick Task, Theme, and Profile (streamlined spacing on mobile) */}
+      <div className="flex items-center justify-end gap-1.5 sm:gap-2 flex-1 min-w-0 shrink-0">
         {/* Repo Link if inside an active roadmap */}
         {isMapRoute && currentMap?.repositoryUrl && (
           <a
@@ -155,20 +169,20 @@ export function Header({
         {/* Global Search Button */}
         <button
           onClick={handleSearch}
-          className="p-1.5 rounded-lg border border-border/60 hover:bg-accent/60 text-muted-foreground hover:text-foreground transition-colors"
+          className="p-1.5 rounded-lg border border-border/60 hover:bg-accent/60 text-muted-foreground hover:text-foreground transition-colors shrink-0"
           title="Search (⌘K)"
         >
           <Search className="w-4 h-4" />
         </button>
 
-        {/* Quick Add Task Button */}
+        {/* Quick Add Task Button (Desktop / Tablet) */}
         <button
           onClick={handleQuickTask}
-          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95"
+          className="hidden sm:flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium shadow-xs transition-all active:scale-95 shrink-0"
           title="New Task (C)"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">New Task</span>
+          <span>New Task</span>
           <kbd className="hidden md:inline text-[9px] bg-primary-foreground/20 px-1 rounded font-mono">
             C
           </kbd>
@@ -178,7 +192,7 @@ export function Header({
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          className="p-1.5 rounded-lg border border-border/60 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"
+          className="p-1.5 rounded-lg border border-border/60 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors shrink-0"
         >
           {theme === 'dark' ? (
             <Sun className="w-4 h-4 text-amber-400" />

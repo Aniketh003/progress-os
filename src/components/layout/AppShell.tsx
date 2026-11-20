@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Header } from '@/components/layout/Header';
+import { MobileNav } from '@/components/layout/MobileNav';
 import { CommandPalette } from '@/components/modals/CommandPalette';
 import { ImportModal } from '@/components/modals/ImportModal';
 import { ImportGuideModal } from '@/components/modals/ImportGuideModal';
@@ -29,6 +30,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     isNewMapOpen,
     mapToEdit,
     closeMapModal,
+    openQuickTask,
     isQuickTaskOpen,
     closeQuickTask,
     selectedDayDrawer,
@@ -59,9 +61,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Header />
 
       {/* Main Content Viewport */}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden relative pb-16 sm:pb-0">
         {children}
       </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <MobileNav onOpenQuickTask={openQuickTask} />
 
       {/* 3. Global Modals & Drawers */}
       <CommandPalette
