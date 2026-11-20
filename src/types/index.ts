@@ -77,6 +77,7 @@ export interface StandaloneTodo {
   order: number;
   createdAt: string;
   completedAt?: string | null;
+  isDaily?: boolean;
 }
 
 export interface JournalEntry {

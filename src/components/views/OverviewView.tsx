@@ -21,6 +21,7 @@ import {
   Database,
   Server,
   BookOpen,
+  CheckSquare,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
@@ -48,6 +49,7 @@ export function OverviewView({
     todos,
     journalEntries,
     settings,
+    handleAddTodo,
     handleToggleTodoStatus,
     handleDeleteTodo,
     handleExportMap,
@@ -57,6 +59,8 @@ export function OverviewView({
   const { openImport, openImportGuide, openNewMap, openEditMap } = useUI();
 
   const [activeMenuMapId, setActiveMenuMapId] = useState<string | null>(null);
+  const [newDailyTitle, setNewDailyTitle] = useState('');
+  const [isAddingDaily, setIsAddingDaily] = useState(false);
 
   const { greeting, quote } = getTimeGreeting();
   const todayStr = new Date().toISOString().split('T')[0];
@@ -106,21 +110,58 @@ export function OverviewView({
     journalDates
   );
 
-  // Today's focus tasks
-  const todayTodos = todos.filter((t) => t.dueDate === todayStr || !t.dueDate);
-  const pendingToday = todayTodos.filter((t) => t.status !== 'done');
-  const completedToday = todayTodos.filter((t) => t.status === 'done');
+  // Today's focus tasks (Roadmap & standalone tasks scheduled for today)
+  const todayFocusTodos = todos.filter(
+    (t) => !t.isDaily && (t.dueDate === todayStr || !t.dueDate)
+  );
+  const sortedFocusTodos = [...todayFocusTodos].sort((a, b) => {
+    if (a.status !== 'done' && b.status === 'done') return -1;
+    if (a.status === 'done' && b.status !== 'done') return 1;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+  const completedFocusToday = sortedFocusTodos.filter((t) => t.status === 'done');
+
+  // Overdue tasks for Today's Focus
+  const overdueFocusTodos = todos.filter(
+    (t) => !t.isDaily && t.dueDate && t.dueDate < todayStr && t.status !== 'done'
+  );
+
+  // Daily Todos (Checklist refreshed everyday, stored in DB for today's date)
+  const dailyTodos = todos.filter((t) => Boolean(t.isDaily) && t.dueDate === todayStr);
+  const sortedDailyTodos = [...dailyTodos].sort((a, b) => {
+    if (a.status !== 'done' && b.status === 'done') return -1;
+    if (a.status === 'done' && b.status !== 'done') return 1;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+  const completedDailyToday = sortedDailyTodos.filter((t) => t.status === 'done');
+
+  // Handle adding daily todo inline
+  const handleCreateDailyTodo = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const title = newDailyTitle.trim();
+    if (!title || isAddingDaily) return;
+    setIsAddingDaily(true);
+    try {
+      await handleAddTodo({
+        title,
+        status: 'todo',
+        priority: 'medium',
+        dueDate: todayStr,
+        isDaily: true,
+      });
+      setNewDailyTitle('');
+    } catch (err) {
+      console.error('Failed to create daily todo:', err);
+    } finally {
+      setIsAddingDaily(false);
+    }
+  };
 
   // Filter for started or progress-made learning roadmaps
   const inProgressMaps = learningMaps.filter((map) => {
     const stats = getMapStats(map);
     return stats.completedTasks > 0 || stats.completedDays > 0;
   });
-
-  // Overdue tasks
-  const overdueTodos = todos.filter(
-    (t) => t.dueDate && t.dueDate < todayStr && t.status !== 'done'
-  );
 
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
@@ -201,15 +242,17 @@ export function OverviewView({
         </div>
       </div>
 
-      {/* 2. Today's Focus */}
-      <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col space-y-3">
+      {/* 2. Today's Focus & Daily Todos Side-by-Side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+        {/* Left: Today's Focus */}
+        <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary" />
               <h2 className="text-sm font-semibold text-foreground">Today’s Focus</h2>
-              {todayTodos.length > 0 && (
+              {todayFocusTodos.length > 0 && (
                 <span className="text-[11px] font-mono text-muted-foreground">
-                  ({completedToday.length}/{todayTodos.length} done)
+                  ({completedFocusToday.length}/{todayFocusTodos.length} done)
                 </span>
               )}
             </div>
@@ -224,13 +267,13 @@ export function OverviewView({
           </div>
 
           {/* Max 3 visible items with smooth scrolling */}
-          <div className="space-y-1.5 overflow-y-auto max-h-[144px] pr-1">
-            {overdueTodos.length > 0 && (
+          <div className="space-y-1.5 overflow-y-auto max-h-[144px] min-h-[144px] pr-1 flex-1">
+            {overdueFocusTodos.length > 0 && (
               <div className="text-[10px] font-semibold text-destructive uppercase tracking-wider py-0.5">
-                Overdue ({overdueTodos.length})
+                Overdue ({overdueFocusTodos.length})
               </div>
             )}
-            {overdueTodos.map((todo) => (
+            {overdueFocusTodos.map((todo) => (
               <div
                 key={todo.id}
                 onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
@@ -258,12 +301,12 @@ export function OverviewView({
               </div>
             ))}
 
-            {todayTodos.length === 0 && overdueTodos.length === 0 ? (
-              <div className="py-6 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
+            {sortedFocusTodos.length === 0 && overdueFocusTodos.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center py-6 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
                 No pending tasks for today. Click &quot;Add Task&quot; above to create one.
               </div>
             ) : (
-              todayTodos.map((todo) => {
+              sortedFocusTodos.map((todo) => {
                 const isDone = todo.status === 'done';
                 return (
                   <div
@@ -311,6 +354,110 @@ export function OverviewView({
               })
             )}
           </div>
+
+          {/* Bottom helper row */}
+          <div className="pt-1 flex items-center justify-between text-[11px] text-muted-foreground">
+            <span className="truncate">Synced with roadmap goals</span>
+            {overdueFocusTodos.length > 0 ? (
+              <span className="text-destructive font-medium shrink-0">{overdueFocusTodos.length} overdue</span>
+            ) : (
+              <span className="text-emerald-500 font-medium shrink-0">
+                {sortedFocusTodos.length > 0 && completedFocusToday.length === sortedFocusTodos.length
+                  ? 'All tasks complete! 🎉'
+                  : 'Track your roadmap tasks'}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Right: Daily Todos */}
+        <div className="p-4 sm:p-5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-xs flex flex-col justify-between space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <CheckSquare className="w-4 h-4 text-primary" />
+              <h2 className="text-sm font-semibold text-foreground">Daily Todos</h2>
+              {sortedDailyTodos.length > 0 && (
+                <span className="text-[11px] font-mono text-muted-foreground">
+                  ({completedDailyToday.length}/{sortedDailyTodos.length} done)
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-mono font-medium">
+              Refreshes Daily
+            </span>
+          </div>
+
+          {/* Max 3 visible items with smooth scrolling */}
+          <div className="space-y-1.5 overflow-y-auto max-h-[144px] min-h-[144px] pr-1 flex-1">
+            {sortedDailyTodos.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center py-6 text-center text-xs text-muted-foreground border border-dashed border-border/40 rounded-lg">
+                No todos for today yet. Type below to add one!
+              </div>
+            ) : (
+              sortedDailyTodos.map((todo) => {
+                const isDone = todo.status === 'done';
+                return (
+                  <div
+                    key={todo.id}
+                    onClick={() => handleToggleTodoStatus(todo.id, todo.status)}
+                    className={cn(
+                      'group flex items-center justify-between p-2.5 rounded-lg border text-xs transition-colors cursor-pointer select-none hover:border-primary/50',
+                      isDone
+                        ? 'bg-muted/20 border-border/40 text-muted-foreground'
+                        : 'bg-card border-border/70 text-foreground hover:bg-muted/10'
+                    )}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                      <div className="shrink-0">
+                        {isDone ? (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-500/10" />
+                        ) : (
+                          <Circle className="w-4 h-4 text-muted-foreground group-hover:text-emerald-500 transition-colors" />
+                        )}
+                      </div>
+                      <span className={cn('truncate font-medium', isDone && 'line-through opacity-70')}>
+                        {todo.title}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteTodo(todo.id);
+                        }}
+                        className="opacity-80 sm:opacity-0 sm:group-hover:opacity-100 p-1 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all"
+                        title="Delete todo"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {/* Inline Input to add a new todo without extra pop up */}
+          <form onSubmit={handleCreateDailyTodo} className="relative flex items-center pt-1">
+            <input
+              type="text"
+              value={newDailyTitle}
+              onChange={(e) => setNewDailyTitle(e.target.value)}
+              placeholder="Add a daily todo... (Press Enter)"
+              disabled={isAddingDaily}
+              className="w-full text-xs px-3 py-2 rounded-lg bg-background/80 border border-border/70 placeholder:text-muted-foreground/60 text-foreground focus:outline-none focus:ring-1 focus:ring-primary/60 transition-all pr-8"
+            />
+            <button
+              type="submit"
+              disabled={!newDailyTitle.trim() || isAddingDaily}
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1 rounded-md text-muted-foreground hover:text-primary disabled:opacity-30 disabled:hover:text-muted-foreground transition-all"
+              title="Add todo"
+            >
+              <Plus className="w-3.5 h-3.5" />
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* 3. Continue Learning Cards */}
