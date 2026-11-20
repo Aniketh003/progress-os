@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { isSpecialPep } from '@/components/special/SpecialPepsExperience';
 import { cn } from '@/lib/utils';
 
 export function UserAuthButton({
@@ -213,6 +214,27 @@ export function UserAuthButton({
                   </span>
                 </div>
               </button>
+
+              {/* Special Pep: Shembdu Bouquet */}
+              {isSpecialPep(session?.user?.email) && (
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.dispatchEvent(new CustomEvent('reopen-shembdu-welcome'));
+                  }}
+                  className="w-full flex items-center gap-2.5 p-2 rounded-xl text-xs font-medium text-rose-400 hover:bg-rose-500/10 transition-colors text-left group"
+                >
+                  <div className="p-1.5 rounded-lg bg-rose-500/10 text-rose-500 border border-rose-500/20 group-hover:scale-110 transition-transform">
+                    <span className="text-xs">💐</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-rose-400">Shembdu Bouquet</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      View your special flowers & note
+                    </span>
+                  </div>
+                </button>
+              )}
 
               <div className="my-1 border-t border-border/40" />
 

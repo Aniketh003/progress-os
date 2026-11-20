@@ -17,9 +17,11 @@ import { Github } from '@/components/icons/GithubIcon';
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 import { UserAuthButton } from '@/components/auth/UserAuthButton';
 import { RouteProgressBar } from '@/components/layout/RouteProgressBar';
+import { useSession } from 'next-auth/react';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { useUI } from '@/context/UIContext';
 import { useProgressRouter } from '@/context/NavigationProgressContext';
+import { isSpecialPep } from '@/components/special/SpecialPepsExperience';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -39,6 +41,8 @@ export function Header({
   const pathname = usePathname();
   const ui = useUI();
   const { activeMap, learningMaps, theme, setTheme } = useProgressOS();
+  const { data: session } = useSession();
+  const isSpecial = isSpecialPep(session?.user?.email);
 
   const handleSearch = onOpenSearch ?? ui.openSearch;
   const handleQuickTask = onOpenQuickTask ?? ui.openQuickTask;
@@ -111,6 +115,19 @@ export function Header({
             <span className="hidden sm:inline text-[9px] font-mono font-medium px-1.5 py-0.2 rounded bg-primary/10 text-primary border border-primary/20 shrink-0">
               v1.0
             </span>
+            {isSpecial && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.dispatchEvent(new CustomEvent('reopen-shembdu-welcome'));
+                }}
+                className="p-0.5 rounded-full hover:bg-rose-500/15 text-rose-500 transition-all active:scale-90 flex items-center justify-center shrink-0"
+                title="Shembdu Bouquet 💐 (Click to view your flowers)"
+              >
+                <span className="text-xs animate-bounce inline-block select-none">💖</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

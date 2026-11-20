@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { MobileNav } from '@/components/layout/MobileNav';
+import { SpecialPepsExperience } from '@/components/special/SpecialPepsExperience';
 import { CommandPalette } from '@/components/modals/CommandPalette';
 import { ImportModal } from '@/components/modals/ImportModal';
 import { ImportGuideModal } from '@/components/modals/ImportGuideModal';
@@ -56,7 +56,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary relative">
+      {/* Special Experience for Selected People (Background floating hearts & Welcome Shembdu popup) */}
+      <SpecialPepsExperience />
+
       {/* Top Navbar */}
       <Header />
 
