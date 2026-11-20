@@ -9,9 +9,11 @@ import {
   Clock,
   Palette,
   FolderKanban,
+  Loader2,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { useToast } from '@/context/ToastContext';
 import { LearningMap, MapStatus } from '@/types';
 
 interface MapModalProps {
@@ -23,6 +25,7 @@ interface MapModalProps {
 
 export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProps) {
   const { handleSaveMap } = useProgressOS();
+  const { toast } = useToast();
 
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
@@ -68,7 +71,7 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
     try {
@@ -87,6 +90,7 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
           updatedAt: new Date().toISOString(),
         };
         await handleSaveMap(updated);
+        toast.success(`Roadmap "${updated.title}" updated successfully`, 'Roadmap Saved');
         onSuccess(updated.id);
       } else {
         // Generate new map with template weeks and days
@@ -159,11 +163,13 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
         };
 
         await handleSaveMap(newMap);
+        toast.success(`Roadmap "${newMap.title}" created successfully`, 'Roadmap Created');
         onSuccess(newMap.id);
       }
       onClose();
     } catch (err) {
-      console.error(err);
+      console.error('Failed to save roadmap:', err);
+      toast.error('Failed to save roadmap. Please try again.', 'Error');
     } finally {
       setIsSubmitting(false);
     }
@@ -368,17 +374,27 @@ export function MapModal({ isOpen, onClose, mapToEdit, onSuccess }: MapModalProp
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground hover:text-foreground"
+              disabled={isSubmitting}
+              className="px-3.5 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground hover:text-foreground disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !title.trim()}
-              className="px-4 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1.5 disabled:opacity-60 transition-all"
             >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>{mapToEdit ? 'Save Changes' : 'Create Roadmap'}</span>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>{mapToEdit ? 'Saving Changes...' : 'Creating Roadmap...'}</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>{mapToEdit ? 'Save Changes' : 'Create Roadmap'}</span>
+                </>
+              )}
             </button>
           </div>
         </form>

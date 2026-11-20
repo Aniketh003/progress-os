@@ -14,10 +14,12 @@ import {
   FileText,
   Sparkles,
   Tag,
+  Loader2,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
-import { LearningMap, Day, TaskStatus, TaskPriority } from '@/types';
+import { useToast } from '@/context/ToastContext';
+import { LearningMap, Day, TaskStatus, TaskPriority, DayTask } from '@/types';
 import { formatMinutes, cn } from '@/lib/utils';
 
 interface DayDrawerProps {
@@ -29,12 +31,17 @@ interface DayDrawerProps {
 
 export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps) {
   const { handleUpdateDay, handleToggleTaskStatus, handleToggleDayStatus } = useProgressOS();
+  const { toast } = useToast();
 
   const [notes, setNotes] = useState('');
   const [timeSpent, setTimeSpent] = useState(0);
   const [repoUrl, setRepoUrl] = useState('');
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskPriority, setNewTaskPriority] = useState<TaskPriority>('medium');
+  const [isAddingTask, setIsAddingTask] = useState(false);
+  const [isSavingRepo, setIsSavingRepo] = useState(false);
+  const [isSavingNotes, setIsSavingNotes] = useState(false);
+  const [isTogglingDay, setIsTogglingDay] = useState(false);
 
   useEffect(() => {
     if (day) {
@@ -42,6 +49,10 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
       setTimeSpent(day.timeSpentMinutes || 0);
       setRepoUrl(day.repositoryUrl || '');
       setNewTaskTitle('');
+      setIsAddingTask(false);
+      setIsSavingRepo(false);
+      setIsSavingNotes(false);
+      setIsTogglingDay(false);
     }
   }, [day]);
 
@@ -53,49 +64,121 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
 
   const handleSaveRepoUrl = async (newUrl: string) => {
     setRepoUrl(newUrl);
-    await handleUpdateDay(learningMap.id, day.id, (d) => {
-      d.repositoryUrl = newUrl.trim();
-      return d;
-    });
+    setIsSavingRepo(true);
+    try {
+      await handleUpdateDay(learningMap.id, day.id, (d) => {
+        d.repositoryUrl = newUrl.trim();
+        return d;
+      });
+      toast.success('Day repository link updated', 'Link Saved');
+    } catch (err) {
+      console.error('Failed to update repo link:', err);
+      toast.error('Failed to update repository link', 'Error');
+    } finally {
+      setIsSavingRepo(false);
+    }
   };
 
   const handleSaveNotes = async () => {
-    await handleUpdateDay(learningMap.id, day.id, (d) => {
-      d.notes = notes;
-      return d;
-    });
+    if (notes === (day.notes || '')) return;
+    setIsSavingNotes(true);
+    try {
+      await handleUpdateDay(learningMap.id, day.id, (d) => {
+        d.notes = notes;
+        return d;
+      });
+      toast.success(`Notes saved for Day ${day.dayNumber}`, 'Notes Saved');
+    } catch (err) {
+      console.error('Failed to save notes:', err);
+      toast.error('Failed to save notes', 'Error');
+    } finally {
+      setIsSavingNotes(false);
+    }
   };
 
   const handleSaveTimeSpent = async (mins: number) => {
     setTimeSpent(mins);
-    await handleUpdateDay(learningMap.id, day.id, (d) => {
-      d.timeSpentMinutes = mins;
-      return d;
-    });
+    try {
+      await handleUpdateDay(learningMap.id, day.id, (d) => {
+        d.timeSpentMinutes = mins;
+        return d;
+      });
+      toast.success(`Logged ${formatMinutes(mins)} for Day ${day.dayNumber}`, 'Time Logged');
+    } catch (err) {
+      console.error('Failed to save time:', err);
+      toast.error('Failed to save time spent', 'Error');
+    }
   };
 
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newTaskTitle.trim()) return;
+    if (!newTaskTitle.trim() || isAddingTask) return;
 
-    await handleUpdateDay(learningMap.id, day.id, (d) => {
-      d.tasks.push({
-        id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
-        title: newTaskTitle.trim(),
-        priority: newTaskPriority,
-        status: 'todo',
-        completedAt: null,
+    setIsAddingTask(true);
+    try {
+      await handleUpdateDay(learningMap.id, day.id, (d) => {
+        d.tasks.push({
+          id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+          title: newTaskTitle.trim(),
+          priority: newTaskPriority,
+          status: 'todo',
+          completedAt: null,
+        });
+        return d;
       });
-      return d;
-    });
-    setNewTaskTitle('');
+      toast.success(`Task "${newTaskTitle.trim()}" added to Day ${day.dayNumber}`, 'Task Added');
+      setNewTaskTitle('');
+    } catch (err) {
+      console.error('Failed to add task:', err);
+      toast.error('Failed to add task to day', 'Error');
+    } finally {
+      setIsAddingTask(false);
+    }
   };
 
-  const handleDeleteTask = async (taskId: string) => {
-    await handleUpdateDay(learningMap.id, day.id, (d) => {
-      d.tasks = d.tasks.filter((t) => t.id !== taskId);
-      return d;
-    });
+  const handleDeleteTask = async (taskId: string, title?: string) => {
+    try {
+      await handleUpdateDay(learningMap.id, day.id, (d) => {
+        d.tasks = d.tasks.filter((t) => t.id !== taskId);
+        return d;
+      });
+      toast.info(`Task "${title || 'item'}" removed from Day ${day.dayNumber}`, 'Task Deleted');
+    } catch (err) {
+      console.error('Failed to delete task:', err);
+      toast.error('Failed to delete task', 'Error');
+    }
+  };
+
+  const onToggleTask = async (task: DayTask) => {
+    const nextStatus = task.status === 'done' ? 'todo' : 'done';
+    try {
+      await handleToggleTaskStatus(learningMap.id, day.id, task.id, task.status);
+      if (nextStatus === 'done') {
+        toast.success(`Task completed: "${task.title}"`, 'Task Completed');
+      }
+    } catch (err) {
+      console.error('Failed to toggle task:', err);
+      toast.error('Failed to update task status', 'Error');
+    }
+  };
+
+  const onToggleDay = async () => {
+    if (isTogglingDay) return;
+    setIsTogglingDay(true);
+    try {
+      const nextStatus = day.status === 'completed' ? 'pending' : 'completed';
+      await handleToggleDayStatus(learningMap.id, day.id, day.status);
+      if (nextStatus === 'completed') {
+        toast.success(`Day ${day.dayNumber}: "${day.title}" marked complete! 🎉`, 'Day Completed');
+      } else {
+        toast.info(`Day ${day.dayNumber} marked as pending`, 'Day Incomplete');
+      }
+    } catch (err) {
+      console.error('Failed to toggle day:', err);
+      toast.error('Failed to update day status', 'Error');
+    } finally {
+      setIsTogglingDay(false);
+    }
   };
 
   return (
@@ -105,11 +188,14 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
         <div className="p-5 border-b border-border/60 flex items-start justify-between gap-4 bg-muted/10">
           <div className="flex items-start gap-3 min-w-0">
             <button
-              onClick={() => handleToggleDayStatus(learningMap.id, day.id, day.status)}
-              className="mt-0.5 shrink-0 transition-transform hover:scale-105 active:scale-95"
+              onClick={onToggleDay}
+              disabled={isTogglingDay}
+              className="mt-0.5 shrink-0 transition-transform hover:scale-105 active:scale-95 disabled:opacity-50"
               title={isCompleted ? 'Mark as In-Progress' : 'Mark Day Complete'}
             >
-              {isCompleted ? (
+              {isTogglingDay ? (
+                <Loader2 className="w-5 h-5 text-primary animate-spin" />
+              ) : isCompleted ? (
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 fill-emerald-500/10" />
               ) : (
                 <Circle className="w-5 h-5 text-muted-foreground hover:text-emerald-500" />
@@ -252,9 +338,7 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2">
                       <button
-                        onClick={() =>
-                          handleToggleTaskStatus(learningMap.id, day.id, task.id, task.status)
-                        }
+                        onClick={() => onToggleTask(task)}
                         className="transition-transform active:scale-90"
                       >
                         {isTaskDone ? (
@@ -282,7 +366,7 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                         {task.priority}
                       </span>
                       <button
-                        onClick={() => handleDeleteTask(task.id)}
+                        onClick={() => handleDeleteTask(task.id, task.title)}
                         className="opacity-0 group-hover:opacity-100 p-1 text-muted-foreground hover:text-destructive transition-opacity"
                         title="Delete task"
                       >
@@ -298,14 +382,16 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                 <input
                   type="text"
                   value={newTaskTitle}
+                  disabled={isAddingTask}
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   placeholder="Add a task to this day..."
-                  className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none focus:border-primary text-foreground"
+                  className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none focus:border-primary text-foreground disabled:opacity-50"
                 />
                 <select
                   value={newTaskPriority}
+                  disabled={isAddingTask}
                   onChange={(e) => setNewTaskPriority(e.target.value as TaskPriority)}
-                  className="text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none text-foreground"
+                  className="text-xs p-2 bg-muted/40 border border-border/80 rounded-md outline-none text-foreground disabled:opacity-50"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Med</option>
@@ -313,10 +399,20 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
                 </select>
                 <button
                   type="submit"
-                  disabled={!newTaskTitle.trim()}
-                  className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium disabled:opacity-50"
+                  disabled={!newTaskTitle.trim() || isAddingTask}
+                  className="px-3 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium disabled:opacity-50 flex items-center gap-1.5 transition-all"
                 >
-                  Add
+                  {isAddingTask ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Adding...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add</span>
+                    </>
+                  )}
                 </button>
               </form>
             </div>
@@ -376,17 +472,20 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
               <input
                 type="url"
                 value={repoUrl}
+                disabled={isSavingRepo}
                 onChange={(e) => setRepoUrl(e.target.value)}
                 onBlur={() => handleSaveRepoUrl(repoUrl)}
                 placeholder="https://github.com/user/project/tree/main/day-01"
-                className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-lg outline-none focus:border-primary text-foreground placeholder:text-muted-foreground/60"
+                className="flex-1 text-xs p-2 bg-muted/40 border border-border/80 rounded-lg outline-none focus:border-primary text-foreground placeholder:text-muted-foreground/60 disabled:opacity-50"
               />
               <button
                 type="button"
+                disabled={isSavingRepo}
                 onClick={() => handleSaveRepoUrl(repoUrl)}
-                className="px-3 py-2 rounded-lg bg-card border border-border/80 hover:bg-accent text-xs font-medium text-foreground transition-colors shrink-0"
+                className="px-3 py-2 rounded-lg bg-card border border-border/80 hover:bg-accent text-xs font-medium text-foreground transition-colors shrink-0 flex items-center gap-1.5 disabled:opacity-50"
               >
-                Save
+                {isSavingRepo && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                <span>{isSavingRepo ? 'Saving...' : 'Save'}</span>
               </button>
             </div>
             <p className="text-[10px] text-muted-foreground mt-1">
@@ -396,12 +495,20 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
 
           {/* Notes */}
           <div>
-            <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5" /> Personal Notes & Key Learnings
-            </h4>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5" /> Personal Notes & Key Learnings
+              </h4>
+              {isSavingNotes && (
+                <span className="text-[10px] text-primary flex items-center gap-1 font-mono">
+                  <Loader2 className="w-3 h-3 animate-spin" /> Saving...
+                </span>
+              )}
+            </div>
             <textarea
               rows={4}
               value={notes}
+              disabled={isSavingNotes}
               onChange={(e) => setNotes(e.target.value)}
               onBlur={handleSaveNotes}
               placeholder="Record your breakthroughs, bugs fixed, or reference links for this day..."
@@ -424,16 +531,27 @@ export function DayDrawer({ isOpen, onClose, learningMap, day }: DayDrawerProps)
           </div>
 
           <button
-            onClick={() => handleToggleDayStatus(learningMap.id, day.id, day.status)}
+            onClick={onToggleDay}
+            disabled={isTogglingDay}
             className={cn(
-              'px-4 py-2 rounded-lg text-xs font-medium shadow-xs transition-all flex items-center gap-1.5',
+              'px-4 py-2 rounded-lg text-xs font-medium shadow-xs transition-all flex items-center gap-1.5 disabled:opacity-50',
               isCompleted
                 ? 'bg-muted border border-border text-foreground hover:bg-muted/80'
                 : 'bg-emerald-600 hover:bg-emerald-500 text-white'
             )}
           >
-            <CheckCircle2 className="w-4 h-4" />
-            <span>{isCompleted ? 'Mark Incomplete' : 'Mark Day Complete'}</span>
+            {isTogglingDay ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <CheckCircle2 className="w-4 h-4" />
+            )}
+            <span>
+              {isTogglingDay
+                ? 'Updating...'
+                : isCompleted
+                ? 'Mark Incomplete'
+                : 'Mark Day Complete'}
+            </span>
           </button>
         </div>
       </div>

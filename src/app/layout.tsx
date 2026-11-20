@@ -7,6 +7,9 @@ import { AppShell } from '@/components/layout/AppShell';
 
 import { NavigationProgressProvider } from '@/context/NavigationProgressContext';
 
+import { ToastProvider } from '@/context/ToastContext';
+import { ToastContainer } from '@/components/ui/ToastContainer';
+
 export const metadata: Metadata = {
   title: 'ProgressOS — Personal Learning Operating System',
   description: 'A polished, production-grade personal learning and progress-tracking operating system.',
@@ -26,13 +29,16 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased dark" suppressHydrationWarning>
       <body className="h-full overflow-hidden bg-background text-foreground font-sans antialiased">
         <AuthProvider>
-          <ProgressOSProvider>
-            <UIProvider>
-              <NavigationProgressProvider>
-                <AppShell>{children}</AppShell>
-              </NavigationProgressProvider>
-            </UIProvider>
-          </ProgressOSProvider>
+          <ToastProvider>
+            <ProgressOSProvider>
+              <UIProvider>
+                <NavigationProgressProvider>
+                  <AppShell>{children}</AppShell>
+                  <ToastContainer />
+                </NavigationProgressProvider>
+              </UIProvider>
+            </ProgressOSProvider>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

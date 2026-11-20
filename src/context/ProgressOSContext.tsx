@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState, useMemo, useCall
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useSession, signOut } from 'next-auth/react';
 import confetti from 'canvas-confetti';
+import { useToast } from '@/context/ToastContext';
 import {
   db,
   initializeDatabase,
@@ -90,6 +91,7 @@ const ProgressOSContext = createContext<ProgressOSContextType | null>(null);
 
 export function ProgressOSProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status: authStatus } = useSession();
+  const { toast } = useToast();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isCloudSyncing, setIsCloudSyncing] = useState(false);
   const [activeMapId, setActiveMapId] = useState<string | null>(null);
@@ -289,12 +291,14 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       setActiveMapId(null);
     }
     await syncToCloud();
-  }, [activeMapId, syncToCloud]);
+    toast.info('Roadmap moved to trash', 'Roadmap Removed');
+  }, [activeMapId, syncToCloud, toast]);
 
   const handleRestoreMap = useCallback(async (id: string) => {
     await restoreLearningMap(id);
     await syncToCloud();
-  }, [syncToCloud]);
+    toast.success('Roadmap restored from trash', 'Roadmap Restored');
+  }, [syncToCloud, toast]);
 
   const handlePermanentlyDeleteMap = useCallback(async (id: string) => {
     await permanentlyDeleteLearningMap(id);
@@ -309,7 +313,8 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       console.warn('Failed to delete map from cloud:', e);
     }
     await syncToCloud();
-  }, [activeMapId, syncToCloud]);
+    toast.info('Roadmap permanently deleted', 'Roadmap Deleted');
+  }, [activeMapId, syncToCloud, toast]);
 
   const handleUpdateDay = useCallback(async (mapId: string, dayId: string, updater: (day: Day) => Day) => {
     await updateDayInMap(mapId, dayId, updater);
@@ -357,10 +362,13 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     const result = await importLearningMap(data, mode);
     if (result.success && result.id) {
       setActiveMapId(result.id);
+      toast.success('Roadmap imported successfully', 'Import Success');
+    } else {
+      toast.error(result.error || 'Failed to import roadmap JSON', 'Import Failed');
     }
     await syncToCloud();
     return result;
-  }, [syncToCloud]);
+  }, [syncToCloud, toast]);
 
   const handleExportMap = useCallback((map: LearningMap) => {
     const cleanMap = {
@@ -377,7 +385,8 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, []);
+    toast.info(`Exported "${map.title}" as JSON`, 'Export Downloaded');
+  }, [toast]);
 
   // Todo Actions
   const handleAddTodo = useCallback(async (todoData: Omit<StandaloneTodo, 'id' | 'createdAt' | 'order'>) => {
@@ -407,12 +416,14 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     }
     await deleteTodo(id);
     await syncToCloud();
-  }, [handleUpdateDay, syncToCloud]);
+    toast.info('Task deleted', 'Task Removed');
+  }, [handleUpdateDay, syncToCloud, toast]);
 
   const handleToggleTodoStatus = useCallback(async (id: string, currentStatus: TaskStatus) => {
     const nextStatus: TaskStatus = currentStatus === 'done' ? 'todo' : 'done';
     if (nextStatus === 'done') {
       triggerCompletionEffect();
+      toast.success('Task marked as completed! 🎉', 'Task Done');
     }
     const target = await db.todos.get(id);
     if (target) {
@@ -421,7 +432,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
       await db.todos.put(target);
       await syncToCloud();
     }
-  }, [triggerCompletionEffect, syncToCloud]);
+  }, [triggerCompletionEffect, syncToCloud, toast]);
 
   // Journal Actions
   const handleAddJournal = useCallback(async (entryData: Omit<JournalEntry, 'id' | 'createdAt' | 'updatedAt'>) => {
@@ -444,7 +455,8 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   const handleDeleteJournal = useCallback(async (id: string) => {
     await deleteJournalEntry(id);
     await syncToCloud();
-  }, [syncToCloud]);
+    toast.info('Journal entry deleted', 'Entry Deleted');
+  }, [syncToCloud, toast]);
 
   // Settings & DB Actions
   const handleUpdateSettings = useCallback(async (newSettings: Partial<UserSettings>) => {
@@ -466,17 +478,21 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, []);
+    toast.success('All data exported as backup JSON', 'Backup Created');
+  }, [toast]);
 
   const handleRestoreAll = useCallback(async (backupJson: string) => {
     try {
       const parsed = JSON.parse(backupJson);
       await restoreAllData(parsed);
+      toast.success('All data successfully restored from backup', 'Backup Restored');
       return { success: true };
     } catch (err: unknown) {
-      return { success: false, error: err instanceof Error ? err.message : 'Invalid backup JSON file' };
+      const errorMsg = err instanceof Error ? err.message : 'Invalid backup JSON file';
+      toast.error(errorMsg, 'Restore Failed');
+      return { success: false, error: errorMsg };
     }
-  }, []);
+  }, [toast]);
 
   const handleClearAll = useCallback(async () => {
     await clearAllData();

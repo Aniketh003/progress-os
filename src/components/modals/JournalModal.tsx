@@ -11,9 +11,11 @@ import {
   Sparkles,
   AlertTriangle,
   Hammer,
+  Loader2,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { useToast } from '@/context/ToastContext';
 import { JournalEntry } from '@/types';
 
 interface JournalModalProps {
@@ -24,6 +26,7 @@ interface JournalModalProps {
 
 export function JournalModal({ isOpen, onClose, entryToEdit }: JournalModalProps) {
   const { learningMaps, activeMapId, handleAddJournal, handleUpdateJournal } = useProgressOS();
+  const { toast } = useToast();
 
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedMapId, setSelectedMapId] = useState('');
@@ -67,7 +70,7 @@ export function JournalModal({ isOpen, onClose, entryToEdit }: JournalModalProps
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!whatILearned.trim()) return;
+    if (!whatILearned.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
     try {
@@ -94,6 +97,7 @@ export function JournalModal({ isOpen, onClose, entryToEdit }: JournalModalProps
           repositoryUrl: repositoryUrl.trim(),
           updatedAt: new Date().toISOString(),
         });
+        toast.success('Journal entry updated successfully', 'Journal Saved');
       } else {
         await handleAddJournal({
           date,
@@ -108,11 +112,13 @@ export function JournalModal({ isOpen, onClose, entryToEdit }: JournalModalProps
           timeSpentMinutes: Number(timeSpentMinutes),
           repositoryUrl: repositoryUrl.trim(),
         });
+        toast.success('Journal entry recorded successfully', 'Journal Logged');
       }
 
       onClose();
     } catch (err) {
-      console.error(err);
+      console.error('Failed to save journal entry:', err);
+      toast.error('Failed to save journal entry. Please try again.', 'Error');
     } finally {
       setIsSubmitting(false);
     }
@@ -298,17 +304,27 @@ export function JournalModal({ isOpen, onClose, entryToEdit }: JournalModalProps
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground"
+              disabled={isSubmitting}
+              className="px-3.5 py-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !whatILearned.trim()}
-              className="px-4 py-1.5 rounded-md bg-primary text-primary-foreground font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-md bg-primary text-primary-foreground font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1.5 disabled:opacity-60 transition-all"
             >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>{entryToEdit ? 'Save Changes' : 'Record Entry'}</span>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>{entryToEdit ? 'Saving Changes...' : 'Recording Entry...'}</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>{entryToEdit ? 'Save Changes' : 'Record Entry'}</span>
+                </>
+              )}
             </button>
           </div>
         </form>

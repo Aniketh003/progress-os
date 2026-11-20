@@ -9,9 +9,11 @@ import {
   AlertCircle,
   Flag,
   Compass,
+  Loader2,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
 import { useProgressOS } from '@/context/ProgressOSContext';
+import { useToast } from '@/context/ToastContext';
 import { TaskPriority, TaskStatus } from '@/types';
 
 interface QuickTaskModalProps {
@@ -21,6 +23,7 @@ interface QuickTaskModalProps {
 
 export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
   const { learningMaps, activeMapId, handleAddTodo, handleUpdateDay } = useProgressOS();
+  const { toast } = useToast();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -63,7 +66,7 @@ export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
     try {
@@ -100,9 +103,11 @@ export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
         completedAt: status === 'done' ? new Date().toISOString() : null,
       });
 
+      toast.success(`Task "${title.trim()}" created successfully`, 'Task Added');
       onClose();
     } catch (err) {
-      console.error(err);
+      console.error('Failed to create task:', err);
+      toast.error('Failed to create task. Please try again.', 'Error');
     } finally {
       setIsSubmitting(false);
     }
@@ -248,17 +253,27 @@ export function QuickTaskModal({ isOpen, onClose }: QuickTaskModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 rounded-md border border-border text-xs text-muted-foreground hover:text-foreground"
+              disabled={isSubmitting}
+              className="px-3 py-1.5 rounded-md border border-border text-xs text-muted-foreground hover:text-foreground disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !title.trim()}
-              className="px-3.5 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1"
+              className="px-3.5 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-medium shadow-xs hover:bg-primary/90 flex items-center gap-1.5 disabled:opacity-60 transition-all"
             >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Create Task</span>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Saving Task...</span>
+                </>
+              ) : (
+                <>
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Create Task</span>
+                </>
+              )}
             </button>
           </div>
         </form>
