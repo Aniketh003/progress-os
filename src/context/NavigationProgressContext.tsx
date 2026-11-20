@@ -102,9 +102,19 @@ export function NavigationProgressProvider({ children }: { children: ReactNode }
     [clearAllTimers]
   );
 
+  const isFirstMountRef = useRef(true);
+  const prevPathnameRef = useRef(pathname);
+
   // When pathname changes, complete the progress bar
   useEffect(() => {
-    completeNavigation();
+    if (isFirstMountRef.current) {
+      isFirstMountRef.current = false;
+      return;
+    }
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      completeNavigation();
+    }
   }, [pathname, completeNavigation]);
 
   // Global click listener to intercept internal link clicks
@@ -135,32 +145,26 @@ export function NavigationProgressProvider({ children }: { children: ReactNode }
         }
       }
 
-      startNavigation(href);
+      // De-synchronize to avoid updating state synchronously during event handling
+      queueMicrotask(() => {
+        startNavigation(href);
+      });
     };
 
     document.addEventListener('click', handleClick, { capture: true });
     return () => document.removeEventListener('click', handleClick, { capture: true });
   }, [startNavigation]);
 
-  // Intercept history.pushState and popstate
+  // Intercept browser back/forward buttons (popstate) asynchronously
   useEffect(() => {
     const handlePopState = () => {
-      startNavigation();
-    };
-
-    const originalPushState = window.history.pushState;
-    window.history.pushState = function (...args) {
-      const url = args[2];
-      if (url && typeof url === 'string') {
-        startNavigation(url);
-      }
-      return originalPushState.apply(this, args);
+      queueMicrotask(() => {
+        startNavigation();
+      });
     };
 
     window.addEventListener('popstate', handlePopState);
-
     return () => {
-      window.history.pushState = originalPushState;
       window.removeEventListener('popstate', handlePopState);
     };
   }, [startNavigation]);

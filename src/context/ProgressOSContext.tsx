@@ -251,7 +251,7 @@ export function ProgressOSProvider({ children }: { children: React.ReactNode }) 
   useEffect(() => {
     if ((!activeMapId || !learningMaps.some((m) => m.id === activeMapId)) && learningMaps.length > 0) {
       setActiveMapId(learningMaps[0].id);
-    } else if (learningMaps.length === 0) {
+    } else if (learningMaps.length === 0 && activeMapId !== null) {
       setActiveMapId(null);
     }
   }, [learningMaps, activeMapId]);
