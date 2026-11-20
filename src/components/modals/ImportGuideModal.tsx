@@ -15,6 +15,7 @@ import {
   Clock,
   ExternalLink,
 } from 'lucide-react';
+import { SAMPLE_LEARNING_MAP } from '@/lib/defaults';
 
 interface ImportGuideModalProps {
   isOpen: boolean;
@@ -122,8 +123,9 @@ SPECIFICATION RULES:
   };
 
   const handleDownloadSample = () => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(SAMPLE_LEARNING_MAP, null, 2));
     const a = document.createElement('a');
-    a.href = '/data/sample-learning-map.json';
+    a.href = dataStr;
     a.download = 'sample-learning-map.json';
     document.body.appendChild(a);
     a.click();
@@ -132,9 +134,7 @@ SPECIFICATION RULES:
 
   const handleCopySample = async () => {
     try {
-      const res = await fetch('/data/sample-learning-map.json');
-      const text = await res.text();
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(JSON.stringify(SAMPLE_LEARNING_MAP, null, 2));
       setCopiedSample(true);
       setTimeout(() => setCopiedSample(false), 2000);
     } catch {

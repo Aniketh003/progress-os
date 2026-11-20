@@ -104,3 +104,69 @@ export interface UserSettings {
   userName: string;
   email?: string;
 }
+
+// Workout Planner Types
+export interface WorkoutExerciseTrackingSet {
+  weight_kg: number | null;
+  reps: number | null;
+  completed: boolean;
+}
+
+export interface WorkoutExercise {
+  id: string;
+  name: string;
+  sets: number;
+  rep_range: string;
+  rest_seconds: number;
+  equipment?: string;
+  notes?: string;
+  tracking?: {
+    completed?: boolean;
+    sets?: WorkoutExerciseTrackingSet[];
+  };
+}
+
+export interface WorkoutSession {
+  id: string;
+  name: string;
+  day_order?: number;
+  muscle_groups: string[];
+  exercises: WorkoutExercise[];
+}
+
+export interface RestDayConfig {
+  id: string;
+  name: string;
+  activities: string[];
+}
+
+export interface WorkoutScheduleDay {
+  day: string; // "Monday", "Tuesday", etc.
+  workout_id: string; // "push", "pull", "legs", "upper", "lower", "rest"
+}
+
+export interface WorkoutTrainingGuidelines {
+  warm_up_minutes?: string;
+  compound_rest_seconds?: string;
+  isolation_rest_seconds?: string;
+  target_reps_in_reserve?: string;
+  progression?: string;
+  working_sets_only?: boolean;
+}
+
+export interface WorkoutPlan {
+  id: string;
+  name: string;
+  description?: string;
+  version?: number;
+  goal?: string;
+  startDate?: string; // YYYY-MM-DD, e.g. "2026-11-20"
+  schedule: WorkoutScheduleDay[];
+  training_guidelines?: WorkoutTrainingGuidelines;
+  workouts: WorkoutSession[];
+  rest_days?: RestDayConfig[];
+  progress_tracking?: any;
+  updatedAt?: string;
+  userEmail?: string;
+}
+

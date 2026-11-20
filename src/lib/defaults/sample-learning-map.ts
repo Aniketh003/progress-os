@@ -1,4 +1,6 @@
-{
+import { LearningMap } from '@/types';
+
+export const SAMPLE_LEARNING_MAP: LearningMap = {
   "schemaVersion": "1.0",
   "id": "full-stack-starter-14-days",
   "title": "Full-Stack Modern Web Starter (14 Days)",
@@ -19,7 +21,12 @@
       "description": "Set up modern developer environment, master React Server Components, and build accessible UI components.",
       "deliverable": "A responsive multi-page dashboard scaffold with theme toggle and mock data.",
       "objective": "Build solid fundamentals in Next.js App Router and TypeScript.",
-      "topics": ["React 19", "Next.js 15", "TypeScript", "Tailwind CSS"],
+      "topics": [
+        "React 19",
+        "Next.js 15",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
       "reviewChecklist": [
         "Repository initialized with ESLint and Prettier",
         "Mastered server vs client components",
@@ -35,7 +42,11 @@
             "Understand layout.tsx and page.tsx hierarchy",
             "Set up strict tsconfig options and path aliases"
           ],
-          "topics": ["Next.js", "TypeScript", "Tooling"],
+          "topics": [
+            "Next.js",
+            "TypeScript",
+            "Tooling"
+          ],
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -68,7 +79,11 @@
             "Create reusable Button, Card, Badge, and Input components",
             "Implement dark/light mode toggle"
           ],
-          "topics": ["Tailwind CSS", "UI/UX", "Accessibility"],
+          "topics": [
+            "Tailwind CSS",
+            "UI/UX",
+            "Accessibility"
+          ],
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -95,7 +110,12 @@
       "description": "Connect cloud persistence, implement route handlers, and deploy to production.",
       "deliverable": "A fully deployed web application with live cloud database integration.",
       "objective": "Complete full-stack integration and production CI/CD.",
-      "topics": ["Route Handlers", "Database", "Authentication", "Deployment"],
+      "topics": [
+        "Route Handlers",
+        "Database",
+        "Authentication",
+        "Deployment"
+      ],
       "reviewChecklist": [
         "API routes error handling implemented",
         "Environment variables secured",
@@ -111,7 +131,11 @@
             "Write typed GET and POST route handlers",
             "Add request schema validation using Zod"
           ],
-          "topics": ["Next.js API", "Zod", "Validation"],
+          "topics": [
+            "Next.js API",
+            "Zod",
+            "Validation"
+          ],
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -138,7 +162,11 @@
             "Configure connection pooling and environment variables",
             "Deploy to Vercel and test production URLs"
           ],
-          "topics": ["Database", "Vercel", "Production"],
+          "topics": [
+            "Database",
+            "Vercel",
+            "Production"
+          ],
           "estimatedMinutes": 180,
           "status": "pending",
           "tasks": [
@@ -158,5 +186,7 @@
         }
       ]
     }
-  ]
-}
+  ],
+  createdAt: "2026-11-20T00:00:00.000Z",
+  updatedAt: "2026-11-20T00:00:00.000Z"
+};

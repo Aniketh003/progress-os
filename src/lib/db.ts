@@ -1,12 +1,14 @@
 import Dexie, { type Table } from 'dexie';
-import { LearningMap, StandaloneTodo, JournalEntry, UserSettings, Day, DayTask } from '@/types';
-import { LearningMapSchema } from './schema';
+import { LearningMap, StandaloneTodo, JournalEntry, UserSettings, Day, DayTask, WorkoutPlan } from '@/types';
+import { LearningMapSchema, WorkoutPlanSchema } from './schema';
+import { DEFAULT_LEARNING_MAPS, DEFAULT_WORKOUT_PLAN } from './defaults';
 
 export class ProgressOSDatabase extends Dexie {
   learningMaps!: Table<LearningMap, string>;
   todos!: Table<StandaloneTodo, string>;
   journalEntries!: Table<JournalEntry, string>;
   settings!: Table<UserSettings, string>;
+  workoutPlans!: Table<WorkoutPlan, string>;
 
   constructor() {
     super('ProgressOS_DB');
@@ -15,6 +17,13 @@ export class ProgressOSDatabase extends Dexie {
       todos: '&id, status, priority, dueDate, learningMapId, order',
       journalEntries: '&id, date, learningMapId, createdAt',
       settings: '&id',
+    });
+    this.version(2).stores({
+      learningMaps: '&id, status, category, updatedAt',
+      todos: '&id, status, priority, dueDate, learningMapId, order',
+      journalEntries: '&id, date, learningMapId, createdAt',
+      settings: '&id',
+      workoutPlans: '&id',
     });
   }
 }
@@ -26,13 +35,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
   id: 'current',
   theme: 'dark',
   dailyCommitmentMinutes: 180,
-  userName: 'Aniketh',
+  userName: 'Guest',
 };
-
-export const DEFAULT_SEED_MAPS = [
-  { id: 'ai-engineering-90-days', path: '/data/ai-engineering-90-days.json' },
-  { id: 'mbbs-first-month-foundation-2026', path: '/data/mbbs-first-month-foundation-2026.json' },
-];
 
 // Seed checker & runner
 export async function initializeDatabase() {
@@ -48,26 +52,24 @@ export async function initializeDatabase() {
     // Auto-purge any soft-deleted maps older than 7 days
     await purgeExpiredDeletedMaps();
 
-    // Ensure all default learning maps exist
-    for (const seed of DEFAULT_SEED_MAPS) {
-      const existing = await db.learningMaps.get(seed.id);
+    // Ensure all default learning maps exist in Dexie DB
+    for (const defaultMap of DEFAULT_LEARNING_MAPS) {
+      const existing = await db.learningMaps.get(defaultMap.id);
       if (!existing) {
-        try {
-          const res = await fetch(seed.path);
-          if (res.ok) {
-            const seedData = await res.json();
-            const parsed = LearningMapSchema.safeParse(seedData);
-            if (parsed.success) {
-              await db.learningMaps.put(parsed.data as LearningMap);
-              console.log(`ProgressOS: Seed map ${seed.id} loaded successfully.`);
-            } else {
-              console.warn(`ProgressOS: Seed map ${seed.id} validation error`, parsed.error);
-            }
-          }
-        } catch (err) {
-          console.error(`ProgressOS: Failed to fetch seed map ${seed.id}`, err);
-        }
+        await db.learningMaps.put(defaultMap);
+        console.log(`ProgressOS: Seed map ${defaultMap.id} loaded into local DB.`);
       }
+    }
+
+    // Ensure default workout schedule exists in local Dexie database
+    try {
+      const existingWorkout = await db.workoutPlans.get(DEFAULT_WORKOUT_PLAN.id);
+      if (!existingWorkout) {
+        await db.workoutPlans.put(DEFAULT_WORKOUT_PLAN);
+        console.log('ProgressOS: Seeded default workout plan into local database.');
+      }
+    } catch (workoutErr) {
+      console.warn('ProgressOS: Could not seed default workout plan into database', workoutErr);
     }
 
     // Sanitize any legacy mock/relative repository URLs for default AI Engineering map
@@ -428,32 +430,22 @@ export async function hydrateUserCloudData(cloudData: {
   });
 
   // Ensure default seed maps are present if not in user's cloud data
-  for (const seed of DEFAULT_SEED_MAPS) {
-    const existing = await db.learningMaps.get(seed.id);
+  for (const defaultMap of DEFAULT_LEARNING_MAPS) {
+    const existing = await db.learningMaps.get(defaultMap.id);
     if (!existing) {
-      try {
-        const res = await fetch(seed.path);
-        if (res.ok) {
-          const seedData = await res.json();
-          const parsed = LearningMapSchema.safeParse(seedData);
-          if (parsed.success) {
-            await db.learningMaps.put(parsed.data as LearningMap);
-            console.log(`ProgressOS: Seeded missing default map ${seed.id} during hydration.`);
-          }
-        }
-      } catch (err) {
-        console.warn(`ProgressOS: Could not fetch default seed ${seed.id} during hydration`, err);
-      }
+      await db.learningMaps.put(defaultMap);
+      console.log(`ProgressOS: Seeded missing default map ${defaultMap.id} during hydration.`);
     }
   }
 }
 
 export async function clearAllData() {
-  await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, db.settings, async () => {
+  await db.transaction('rw', db.learningMaps, db.todos, db.journalEntries, db.settings, db.workoutPlans, async () => {
     await db.learningMaps.clear();
     await db.todos.clear();
     await db.journalEntries.clear();
     await db.settings.clear();
+    await db.workoutPlans.clear();
     await db.settings.put(DEFAULT_SETTINGS);
   });
 }

@@ -1,7 +1,9 @@
-{
+import { LearningMap } from '@/types';
+
+export const AI_ENGINEERING_DEFAULT_MAP: LearningMap = {
   "schemaVersion": "1.0",
   "id": "ai-engineering-90-days",
-  "title": "AI Engineering — 90 Days",
+  "title": "AI Engineering \u2014 90 Days",
   "description": "A practical 90-day journey to learn LLM fundamentals, build AI agents, understand MCP, RAG, orchestration, evaluation and deploy an autonomous coding agent.",
   "category": "Technology",
   "status": "active",
@@ -3929,4 +3931,4 @@
   ],
   "createdAt": "2026-11-17T19:32:55.763Z",
   "updatedAt": "2026-11-17T19:32:55.763Z"
-}
+};

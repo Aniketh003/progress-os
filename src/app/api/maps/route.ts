@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { getDatabase } from '@/lib/mongodb';
 import { LearningMap } from '@/types';
+import { getDefaultLearningMaps } from '@/lib/server-defaults';
 
-// GET /api/maps - Fetch maps owned by the current user
+// GET /api/maps - Fetch maps owned by the current user (pulled directly from DB)
 export async function GET() {
   try {
     const session = await auth();
@@ -16,11 +17,40 @@ export async function GET() {
       return NextResponse.json({ error: 'Database unavailable' }, { status: 503 });
     }
 
-    const rawMaps = await db
-      .collection('learning_maps')
-      .find({ userEmail: session.user.email })
+    const mapsCol = db.collection('learning_maps');
+    let rawMaps = await mapsCol
+      .find({ userEmail: session.user.email, isDeleted: { $ne: true } })
       .sort({ updatedAt: -1 })
       .toArray();
+
+    // If user has no maps in DB, seed default maps directly into DB and pull from it
+    if (rawMaps.length === 0) {
+      const defaultMaps = await getDefaultLearningMaps();
+      const now = new Date().toISOString();
+      for (const map of defaultMaps) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+        const { _id, ...cleanMap } = map as any;
+        await mapsCol.updateOne(
+          { id: map.id, userEmail: session.user.email },
+          {
+            $set: {
+              ...cleanMap,
+              userEmail: session.user.email,
+              updatedAt: now,
+            },
+            $setOnInsert: {
+              createdAt: map.createdAt || now,
+            },
+          },
+          { upsert: true }
+        );
+      }
+
+      rawMaps = await mapsCol
+        .find({ userEmail: session.user.email, isDeleted: { $ne: true } })
+        .sort({ updatedAt: -1 })
+        .toArray();
+    }
 
     const maps = rawMaps.map(({ _id, ...rest }) => rest);
 

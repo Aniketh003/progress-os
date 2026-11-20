@@ -7,6 +7,7 @@ import {
   Calendar,
   CheckSquare,
   BookOpen,
+  Dumbbell,
   ArrowRight,
   ExternalLink,
   X,
@@ -47,6 +48,7 @@ export function CommandPalette({
       return [
         { type: 'nav', id: 'overview', title: 'Go to Overview', icon: Compass, view: 'overview' },
         { type: 'nav', id: 'my-day', title: 'Go to My Day', icon: Calendar, view: 'my-day' },
+        { type: 'nav', id: 'workout', title: 'Go to Workout Planner', icon: Dumbbell, view: 'workout' },
         { type: 'nav', id: 'activity', title: 'Go to Activity Analytics', icon: Compass, view: 'activity' },
         { type: 'nav', id: 'journal', title: 'Go to Learning Journal', icon: BookOpen, view: 'journal' },
         { type: 'nav', id: 'settings', title: 'Go to Settings', icon: Compass, view: 'settings' },

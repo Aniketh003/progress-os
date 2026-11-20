@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { getDatabase } from '@/lib/mongodb';
 import { LearningMap, JournalEntry, StandaloneTodo } from '@/types';
+import { getDefaultLearningMaps } from '@/lib/server-defaults';
 
 // GET /api/sync - Retrieve all cloud data for the authenticated user
 export async function GET() {
@@ -24,7 +25,33 @@ export async function GET() {
       deletedAt: { $lt: SEVEN_DAYS_AGO },
     });
 
-    const rawMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
+    let rawMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
+
+    // If user has no maps in MongoDB, seed default maps directly into DB and pull from it
+    if (rawMaps.length === 0) {
+      const defaultMaps = await getDefaultLearningMaps();
+      const now = new Date().toISOString();
+      for (const map of defaultMaps) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+        const { _id, ...cleanMap } = map as any;
+        await mapsCol.updateOne(
+          { id: map.id, userEmail: session.user.email },
+          {
+            $set: {
+              ...cleanMap,
+              userEmail: session.user.email,
+              updatedAt: now,
+            },
+            $setOnInsert: {
+              createdAt: map.createdAt || now,
+            },
+          },
+          { upsert: true }
+        );
+      }
+
+      rawMaps = await mapsCol.find({ userEmail: session.user.email }).toArray();
+    }
     const rawJournals = await db.collection('journals').find({ userEmail: session.user.email }).toArray();
     const rawTodos = await db.collection('todos').find({ userEmail: session.user.email }).toArray();
     const rawSettings = await db.collection('settings').findOne({ userEmail: session.user.email });

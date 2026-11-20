@@ -48,7 +48,9 @@ export function SettingsView() {
   const [isCloudSyncing, setIsCloudSyncing] = useState(false);
   const [cloudSyncMessage, setCloudSyncMessage] = useState<string | null>(null);
 
-  const [userName, setUserName] = useState(settings.userName || 'Aniketh');
+  const [userName, setUserName] = useState(
+    session?.user?.name || (settings.userName && settings.userName !== 'Guest' ? settings.userName : '') || 'Guest'
+  );
   const [dailyMinutes, setDailyMinutes] = useState(settings.dailyCommitmentMinutes || 180);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [restoreMessage, setRestoreMessage] = useState<string | null>(null);

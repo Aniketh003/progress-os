@@ -6,28 +6,33 @@ import {
   LayoutDashboard,
   Calendar,
   BookOpen,
-  CheckSquare,
   Plus,
+  Dumbbell,
 } from 'lucide-react';
 import { useProgressRouter } from '@/context/NavigationProgressContext';
-import { useProgressOS } from '@/context/ProgressOSContext';
 import { cn } from '@/lib/utils';
 
 interface MobileNavProps {
   onOpenQuickTask: () => void;
 }
 
+interface NavItem {
+  id: string;
+  label: string;
+  href?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isActive?: boolean;
+  isAction?: boolean;
+  badge?: number | null;
+}
+
 export function MobileNav({ onOpenQuickTask }: MobileNavProps) {
   const router = useProgressRouter();
   const pathname = usePathname();
-  const { todos } = useProgressOS();
 
   const isMapRoute = pathname?.startsWith('/maps/');
 
-  // Count pending todos
-  const pendingTodosCount = todos.filter((t) => t.status !== 'done').length;
-
-  const navItems = [
+  const navItems: NavItem[] = [
     {
       id: 'overview',
       label: 'Overview',
@@ -56,12 +61,11 @@ export function MobileNav({ onOpenQuickTask }: MobileNavProps) {
       isActive: pathname === '/journal',
     },
     {
-      id: 'tasks',
-      label: 'Tasks',
-      href: '/tasks',
-      icon: CheckSquare,
-      badge: pendingTodosCount > 0 ? pendingTodosCount : null,
-      isActive: pathname === '/tasks',
+      id: 'gym',
+      label: 'Gym',
+      href: '/workout',
+      icon: Dumbbell,
+      isActive: pathname === '/workout',
     },
   ];
 

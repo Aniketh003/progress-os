@@ -18,6 +18,7 @@ import {
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { LearningMapSchema } from '@/lib/schema';
 import { LearningMap } from '@/types';
+import { SAMPLE_LEARNING_MAP } from '@/lib/defaults';
 import { cn } from '@/lib/utils';
 
 interface ImportModalProps {
@@ -189,15 +190,23 @@ export function ImportModal({ isOpen, onClose, onSuccess, onOpenGuide }: ImportM
                   Must conform to ProgressOS Learning Map v1.0 schema
                 </p>
                 <div className="mt-3 flex items-center justify-center gap-3 text-xs">
-                  <a
-                    href="/data/sample-learning-map.json"
-                    download="sample-learning-map.json"
-                    onClick={(e) => e.stopPropagation()}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(SAMPLE_LEARNING_MAP, null, 2));
+                      const a = document.createElement('a');
+                      a.href = dataStr;
+                      a.download = 'sample-learning-map.json';
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                    }}
                     className="text-primary hover:underline font-medium inline-flex items-center gap-1"
                   >
                     <Download className="w-3 h-3" />
                     <span>Download Sample JSON</span>
-                  </a>
+                  </button>
                   {onOpenGuide && (
                     <>
                       <span className="text-muted-foreground/40">•</span>

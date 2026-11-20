@@ -1,4 +1,6 @@
-{
+import { LearningMap } from '@/types';
+
+export const MBBS_DEFAULT_MAP: LearningMap = {
   "schemaVersion": "1.0",
   "id": "mbbs-first-month-foundation-2026",
   "title": "MBBS Clinical Year - First Month Foundation",
@@ -334,7 +336,7 @@
           "tasks": [
             {
               "id": "task-d7-1",
-              "title": "Revise Days 1–6 using active recall (45 min)",
+              "title": "Revise Days 1\u20136 using active recall (45 min)",
               "priority": "high",
               "status": "todo"
             },
@@ -346,7 +348,7 @@
             },
             {
               "id": "task-d7-3",
-              "title": "Solve 25–30 introductory MCQs from studied topics (45 min)",
+              "title": "Solve 25\u201330 introductory MCQs from studied topics (45 min)",
               "priority": "medium",
               "status": "todo"
             },
@@ -755,7 +757,7 @@
           "tasks": [
             {
               "id": "task-d15-1",
-              "title": "Revise Days 8–13 using recall questions and diagrams (45 min)",
+              "title": "Revise Days 8\u201313 using recall questions and diagrams (45 min)",
               "priority": "high",
               "status": "todo"
             },
@@ -767,7 +769,7 @@
             },
             {
               "id": "task-d15-3",
-              "title": "Solve 25–30 MCQs from this week's topics (45 min)",
+              "title": "Solve 25\u201330 MCQs from this week's topics (45 min)",
               "priority": "medium",
               "status": "todo"
             },
@@ -1535,4 +1537,4 @@
   ],
   "createdAt": "2026-11-18T00:00:00.000Z",
   "updatedAt": "2026-11-18T00:00:00.000Z"
-}
+};

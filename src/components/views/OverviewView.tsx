@@ -24,6 +24,7 @@ import {
   CheckSquare,
 } from 'lucide-react';
 import { Github } from '@/components/icons/GithubIcon';
+import { useSession } from 'next-auth/react';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { useUI } from '@/context/UIContext';
 import {
@@ -163,6 +164,11 @@ export function OverviewView({
     return stats.completedTasks > 0 || stats.completedDays > 0;
   });
 
+  const { data: session } = useSession();
+  const displayName = session?.user
+    ? (session.user.name || (settings.userName && settings.userName !== 'Guest' ? settings.userName : '') || session.user.name || 'User')
+    : 'Guest';
+
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-200">
       {/* 1. Top Header: Greeting (Left) & Compact Metrics (Right) */}
@@ -175,7 +181,7 @@ export function OverviewView({
             </span>
           </div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-            {greeting}, {settings.userName || 'Aniketh'}
+            {greeting}, {displayName}
           </h1>
           <p className="text-xs text-muted-foreground italic leading-relaxed">
             &ldquo;{quote}&rdquo;

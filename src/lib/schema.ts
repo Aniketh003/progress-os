@@ -60,3 +60,59 @@ export const LearningMapSchema = z.object({
 });
 
 export type LearningMapInput = z.infer<typeof LearningMapSchema>;
+
+export const WorkoutExerciseSchema = z.object({
+  id: z.string().default(() => `ex-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`),
+  name: z.string().min(1, 'Exercise name is required'),
+  sets: z.coerce.number().int().positive().default(3),
+  rep_range: z.string().default('8-12'),
+  rest_seconds: z.coerce.number().int().default(90),
+  equipment: z.string().optional(),
+  notes: z.string().optional(),
+  tracking: z.any().optional(),
+});
+
+export const WorkoutSessionSchema = z.object({
+  id: z.string().min(1, 'Workout session id is required'),
+  name: z.string().min(1, 'Workout session name is required'),
+  day_order: z.number().optional(),
+  muscle_groups: z.array(z.string()).default([]),
+  exercises: z.array(WorkoutExerciseSchema).default([]),
+});
+
+export const RestDayConfigSchema = z.object({
+  id: z.string().default('rest'),
+  name: z.string().default('Rest / Recovery'),
+  activities: z.array(z.string()).default([]),
+});
+
+export const WorkoutScheduleDaySchema = z.object({
+  day: z.string().min(1, 'Day name is required'),
+  workout_id: z.string().min(1, 'Workout id is required'),
+});
+
+export const WorkoutTrainingGuidelinesSchema = z.object({
+  warm_up_minutes: z.string().optional(),
+  compound_rest_seconds: z.string().optional(),
+  isolation_rest_seconds: z.string().optional(),
+  target_reps_in_reserve: z.string().optional(),
+  progression: z.string().optional(),
+  working_sets_only: z.boolean().optional(),
+}).optional();
+
+export const WorkoutPlanSchema = z.object({
+  id: z.string().default(() => `workout-${Date.now()}`),
+  name: z.string().min(1, 'Workout plan name is required'),
+  description: z.string().optional().default(''),
+  version: z.number().optional().default(1),
+  goal: z.string().optional().default('general_fitness'),
+  startDate: z.string().optional().default('2026-11-20'),
+  schedule: z.array(WorkoutScheduleDaySchema).min(1, 'Schedule must include at least one day'),
+  training_guidelines: WorkoutTrainingGuidelinesSchema,
+  workouts: z.array(WorkoutSessionSchema).default([]),
+  rest_days: z.array(RestDayConfigSchema).optional().default([]),
+  updatedAt: z.string().optional(),
+});
+
+export type WorkoutPlanInput = z.infer<typeof WorkoutPlanSchema>;
+

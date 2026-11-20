@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Calendar,
   BookOpen,
+  Dumbbell,
   Sun,
   Moon,
 } from 'lucide-react';
@@ -70,6 +71,7 @@ export function Header({
   const workspaceNavItems = [
     { id: 'overview', label: 'Overview', href: '/', icon: LayoutDashboard },
     { id: 'my-day', label: 'My Day', href: '/my-day', icon: Calendar },
+    { id: 'gym', label: 'Gym', href: '/workout', icon: Dumbbell },
     { id: 'journal', label: 'Journal', href: '/journal', icon: BookOpen },
   ];
 
@@ -102,6 +104,8 @@ export function Header({
                 ? currentMap.title
                 : pathname === '/my-day'
                 ? 'My Day'
+                : pathname === '/workout'
+                ? 'Workout Planner'
                 : pathname === '/journal'
                 ? 'Journal'
                 : pathname === '/tasks'
