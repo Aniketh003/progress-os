@@ -5,6 +5,8 @@ import { UIProvider } from '@/context/UIContext';
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import { AppShell } from '@/components/layout/AppShell';
 
+import { NavigationProgressProvider } from '@/context/NavigationProgressContext';
+
 export const metadata: Metadata = {
   title: 'ProgressOS — Personal Learning Operating System',
   description: 'A polished, production-grade personal learning and progress-tracking operating system.',
@@ -26,7 +28,9 @@ export default function RootLayout({
         <AuthProvider>
           <ProgressOSProvider>
             <UIProvider>
-              <AppShell>{children}</AppShell>
+              <NavigationProgressProvider>
+                <AppShell>{children}</AppShell>
+              </NavigationProgressProvider>
             </UIProvider>
           </ProgressOSProvider>
         </AuthProvider>

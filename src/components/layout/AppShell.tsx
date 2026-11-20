@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
 import { CommandPalette } from '@/components/modals/CommandPalette';
 import { ImportModal } from '@/components/modals/ImportModal';
@@ -13,9 +12,10 @@ import { JournalModal } from '@/components/modals/JournalModal';
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { useUI } from '@/context/UIContext';
+import { useProgressRouter } from '@/context/NavigationProgressContext';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const router = useProgressRouter();
   const { isInitialized, learningMaps, activeMapId, setActiveMapId } = useProgressOS();
   const {
     isSearchOpen,

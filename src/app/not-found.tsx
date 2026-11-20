@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useProgressRouter } from '@/context/NavigationProgressContext';
 import {
   Compass,
   ArrowLeft,
@@ -15,7 +15,7 @@ import {
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 
 export default function NotFound() {
-  const router = useRouter();
+  const router = useProgressRouter();
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center select-none animate-in fade-in zoom-in-95 duration-200">

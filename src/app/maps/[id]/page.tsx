@@ -1,15 +1,16 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Compass, ArrowLeft, Download, Plus, AlertCircle } from 'lucide-react';
 import { MapDetailView } from '@/components/views/MapDetailView';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { useUI } from '@/context/UIContext';
+import { useProgressRouter } from '@/context/NavigationProgressContext';
 
 export default function MapDetailPage() {
   const params = useParams();
-  const router = useRouter();
+  const router = useProgressRouter();
   const mapId = params?.id as string;
 
   const { learningMaps, setActiveMapId, isInitialized } = useProgressOS();

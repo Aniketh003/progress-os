@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   ArrowLeft,
   Search,
@@ -16,8 +16,10 @@ import {
 import { Github } from '@/components/icons/GithubIcon';
 import { ProgressOSLogo } from '@/components/icons/ProgressOSLogo';
 import { UserAuthButton } from '@/components/auth/UserAuthButton';
+import { RouteProgressBar } from '@/components/layout/RouteProgressBar';
 import { useProgressOS } from '@/context/ProgressOSContext';
 import { useUI } from '@/context/UIContext';
+import { useProgressRouter } from '@/context/NavigationProgressContext';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -33,7 +35,7 @@ export function Header({
   onOpenQuickTask,
   onOpenSearch,
 }: HeaderProps = {}) {
-  const router = useRouter();
+  const router = useProgressRouter();
   const pathname = usePathname();
   const ui = useUI();
   const { activeMap, learningMaps, theme, setTheme } = useProgressOS();
@@ -68,7 +70,7 @@ export function Header({
   ];
 
   return (
-    <header className="h-14 border-b border-border/40 bg-card/60 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 select-none shrink-0 gap-2 sm:gap-4">
+    <header className="relative h-14 border-b border-border/40 bg-card/60 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 select-none shrink-0 gap-2 sm:gap-4">
       {/* 1. Left: ProgressOS Brand Logo & Back button (evenly anchors left) */}
       <div className="flex items-center gap-2 sm:gap-3 flex-1 justify-start min-w-0">
         <div
@@ -188,6 +190,9 @@ export function Header({
         {/* Profile Icon with Sync, Settings, Logout Popup */}
         <UserAuthButton variant="navbar" />
       </div>
+
+      {/* Loading Progress Bar at navbar bottom border */}
+      <RouteProgressBar position="bottom" />
     </header>
   );
 }

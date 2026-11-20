@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useProgressRouter } from '@/context/NavigationProgressContext';
 import { OverviewView } from '@/components/views/OverviewView';
 import { useUI } from '@/context/UIContext';
 import { useProgressOS } from '@/context/ProgressOSContext';
 
 export default function OverviewPage() {
-  const router = useRouter();
+  const router = useProgressRouter();
   const { openQuickTask } = useUI();
   const { setActiveMapId } = useProgressOS();
 
